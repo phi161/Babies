@@ -1,0 +1,27 @@
+"Baby" entity properties
+
+* Name
+* Dad
+* Mom
+* Delivery (date)
+* Birthday (date)
+* Born (bool)
+* Sex
+* Nameday
+* Baptism
+* Godparent(s)
+* Gifts
+* Babyshower
+
+
+Features
+
+- Add/Edit/Delete
+- Reminders (delivery date, birthday, nameday etc)
+- Call Parents
+- Copy baby info to Contacts
+- iCloud
+
+
+Briefing view (all known data as a quick to read story)
+Brit milah (circumcision ceremony)
