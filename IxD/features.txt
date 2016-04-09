@@ -12,6 +12,16 @@
 * Godparent(s)
 * Gifts
 * Babyshower
+* Picture
+* Notes (free text)
+
+
+"Gift" entity
+
+* When
+* Description
+* Price
+
 
 
 Features
@@ -21,7 +31,10 @@ Features
 - Call Parents
 - Copy baby info to Contacts
 - iCloud
+- Analytics
 
 
 Briefing view (all known data as a quick to read story)
 Brit milah (circumcision ceremony)
+https://en.wikipedia.org/wiki/Religious_initiation_rites
+
