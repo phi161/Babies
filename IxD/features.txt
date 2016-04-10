@@ -8,10 +8,10 @@
 * Born (bool)
 * Sex
 * Nameday
-* Baptism
+* Special event (baptism, Brit milah etc, birthday party)
+* Babyshower
 * Godparent(s)
 * Gifts
-* Babyshower
 * Picture
 * Notes (free text)
 
