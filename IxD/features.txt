@@ -14,6 +14,7 @@
 * Gifts
 * Picture
 * Notes (free text)
+* Siblings
 
 
 "Gift" entity
@@ -32,6 +33,9 @@ Features
 - Copy baby info to Contacts
 - iCloud
 - Analytics
+- Sharing
+- Export to calendra
+- Export reminders
 
 
 Briefing view (all known data as a quick to read story)
