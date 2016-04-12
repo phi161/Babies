@@ -1,20 +1,24 @@
 "Baby" entity properties
 
-* Name
-* Dad
-* Mom
+* First Name
+* Last Name
 * Delivery (date)
 * Birthday (date)
-* Born (bool)
+* Born (bool) [consider using "nil" birthday instead]
 * Sex
-* Nameday
-* Special event (baptism, Brit milah etc, birthday party)
-* Babyshower
-* Godparent(s)
-* Gifts
 * Picture
-* Notes (free text)
+
+* Dad
+* Mom
+* Godparent(s)
 * Siblings
+
+* Special event (baptism, Brit milah etc, birthday party)
+* Nameday
+* Babyshower
+
+* Gifts
+* Notes (free text)
 
 
 "Gift" entity
@@ -23,6 +27,12 @@
 * Description
 * Price
 
+
+"Event" entity
+
+* When
+* Type
+* Notification?
 
 
 Features
@@ -35,7 +45,7 @@ Features
 - iCloud
 - Analytics
 - Sharing
-- Export to calendra
+- Export to calendar
 - Export reminders
 
 
