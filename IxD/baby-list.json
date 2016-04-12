@@ -1,0 +1,302 @@
+{
+  "mockup": {
+    "controls": {
+      "control": [
+        {
+          "ID": "0",
+          "measuredH": "573",
+          "measuredW": "282",
+          "properties": {
+            "model": "IPhone5"
+          },
+          "typeID": "iPhone",
+          "x": "128",
+          "y": "22",
+          "zOrder": "0"
+        },
+        {
+          "ID": "1",
+          "h": "46",
+          "measuredH": "27",
+          "measuredW": "64",
+          "properties": {
+            "color": "10066329",
+            "text": "Babies"
+          },
+          "typeID": "Button",
+          "w": "73",
+          "x": "155",
+          "y": "463",
+          "zOrder": "1"
+        },
+        {
+          "ID": "2",
+          "h": "46",
+          "measuredH": "27",
+          "measuredW": "69",
+          "properties": {
+            "text": "Parents"
+          },
+          "typeID": "Button",
+          "w": "82",
+          "x": "228",
+          "y": "463",
+          "zOrder": "2"
+        },
+        {
+          "ID": "3",
+          "h": "46",
+          "measuredH": "27",
+          "measuredW": "79",
+          "properties": {
+            "text": "Calendar"
+          },
+          "typeID": "Button",
+          "w": "71",
+          "x": "310",
+          "y": "463",
+          "zOrder": "3"
+        },
+        {
+          "ID": "4",
+          "h": "49",
+          "measuredH": "70",
+          "measuredW": "100",
+          "typeID": "Canvas",
+          "w": "228",
+          "x": "153",
+          "y": "121",
+          "zOrder": "4"
+        },
+        {
+          "ID": "5",
+          "measuredH": "24",
+          "measuredW": "53",
+          "properties": {
+            "bold": "true",
+            "size": "16",
+            "text": "Babies"
+          },
+          "typeID": "Label",
+          "x": "243",
+          "y": "133",
+          "zOrder": "5"
+        },
+        {
+          "ID": "6",
+          "measuredH": "32",
+          "measuredW": "32",
+          "properties": {
+            "borderStyle": "square",
+            "icon": {
+              "ID": "user-plus",
+              "size": "medium"
+            }
+          },
+          "typeID": "Icon",
+          "x": "341",
+          "y": "129",
+          "zOrder": "6"
+        },
+        {
+          "ID": "9",
+          "children": {
+            "controls": {
+              "control": [
+                {
+                  "ID": "0",
+                  "h": "67",
+                  "measuredH": "70",
+                  "measuredW": "100",
+                  "typeID": "Canvas",
+                  "w": "226",
+                  "x": "0",
+                  "y": "0",
+                  "zOrder": "0"
+                },
+                {
+                  "ID": "1",
+                  "measuredH": "32",
+                  "measuredW": "32",
+                  "properties": {
+                    "text": ""
+                  },
+                  "typeID": "RoundButton",
+                  "x": "14",
+                  "y": "17",
+                  "zOrder": "1"
+                }
+              ]
+            }
+          },
+          "h": "67",
+          "measuredH": "67",
+          "measuredW": "226",
+          "typeID": "__group__",
+          "w": "226",
+          "x": "155",
+          "y": "170",
+          "zOrder": "7"
+        },
+        {
+          "ID": "10",
+          "children": {
+            "controls": {
+              "control": [
+                {
+                  "ID": "0",
+                  "h": "67",
+                  "measuredH": "70",
+                  "measuredW": "100",
+                  "typeID": "Canvas",
+                  "w": "226",
+                  "x": "0",
+                  "y": "0",
+                  "zOrder": "0"
+                },
+                {
+                  "ID": "1",
+                  "measuredH": "32",
+                  "measuredW": "32",
+                  "properties": {
+                    "text": ""
+                  },
+                  "typeID": "RoundButton",
+                  "x": "14",
+                  "y": "17",
+                  "zOrder": "1"
+                }
+              ]
+            }
+          },
+          "h": "67",
+          "measuredH": "67",
+          "measuredW": "226",
+          "typeID": "__group__",
+          "w": "226",
+          "x": "155",
+          "y": "237",
+          "zOrder": "8"
+        },
+        {
+          "ID": "14",
+          "h": "67",
+          "measuredH": "70",
+          "measuredW": "100",
+          "typeID": "Canvas",
+          "w": "167",
+          "x": "214",
+          "y": "304",
+          "zOrder": "9"
+        },
+        {
+          "ID": "15",
+          "h": "32",
+          "measuredH": "32",
+          "measuredW": "32",
+          "properties": {
+            "text": ""
+          },
+          "typeID": "RoundButton",
+          "w": "33",
+          "x": "229",
+          "y": "321",
+          "zOrder": "10"
+        },
+        {
+          "ID": "16",
+          "h": "67",
+          "measuredH": "27",
+          "measuredW": "63",
+          "properties": {
+            "color": "13369344",
+            "text": "Delete"
+          },
+          "typeID": "Button",
+          "w": "63",
+          "x": "151",
+          "y": "305",
+          "zOrder": "11"
+        },
+        {
+          "ID": "17",
+          "h": "91",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "Support for \"slide to delete\" (with confirmation alert)"
+          },
+          "typeID": "StickyNote",
+          "w": "138",
+          "x": "325",
+          "y": "337",
+          "zOrder": "12"
+        },
+        {
+          "ID": "19",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "Sort by Surname/Name/Birthday"
+          },
+          "typeID": "StickyNote",
+          "x": "10",
+          "y": "133",
+          "zOrder": "13"
+        },
+        {
+          "ID": "20",
+          "measuredH": "32",
+          "measuredW": "32",
+          "properties": {
+            "borderStyle": "square",
+            "icon": {
+              "ID": "sort",
+              "size": "medium"
+            }
+          },
+          "typeID": "Icon",
+          "x": "162",
+          "y": "129",
+          "zOrder": "14"
+        },
+        {
+          "ID": "21",
+          "h": "85",
+          "measuredH": "84",
+          "measuredW": "58",
+          "properties": {
+            "color": "6710886",
+            "curvature": "0",
+            "direction": "bottom",
+            "leftArrow": "false",
+            "p0": {
+              "x": 0,
+              "y": 84
+            },
+            "p1": {
+              "x": 0.5,
+              "y": 0
+            },
+            "p2": {
+              "x": 58,
+              "y": 0
+            },
+            "shape": "bezier",
+            "text": ""
+          },
+          "typeID": "Arrow",
+          "w": "59",
+          "x": "100",
+          "y": "151",
+          "zOrder": "15"
+        }
+      ]
+    },
+    "measuredH": "595",
+    "measuredW": "463",
+    "mockupH": "573",
+    "mockupW": "453",
+    "version": "1.0"
+  }
+}
