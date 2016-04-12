@@ -1,0 +1,309 @@
+{
+  "mockup": {
+    "controls": {
+      "control": [
+        {
+          "ID": "0",
+          "measuredH": "573",
+          "measuredW": "282",
+          "properties": {
+            "model": "IPhone5"
+          },
+          "typeID": "iPhone",
+          "x": "128",
+          "y": "22",
+          "zOrder": "0"
+        },
+        {
+          "ID": "4",
+          "h": "49",
+          "measuredH": "70",
+          "measuredW": "100",
+          "typeID": "Canvas",
+          "w": "228",
+          "x": "153",
+          "y": "121",
+          "zOrder": "1"
+        },
+        {
+          "ID": "5",
+          "measuredH": "24",
+          "measuredW": "87",
+          "properties": {
+            "bold": "true",
+            "size": "16",
+            "text": "Baby Name"
+          },
+          "typeID": "Label",
+          "x": "226",
+          "y": "133",
+          "zOrder": "2"
+        },
+        {
+          "ID": "22",
+          "measuredH": "24",
+          "measuredW": "54",
+          "properties": {
+            "borderStyle": "none",
+            "direction": "left",
+            "newLayout": "true",
+            "text": "Back"
+          },
+          "typeID": "PointyButton",
+          "x": "158",
+          "y": "133",
+          "zOrder": "3"
+        },
+        {
+          "ID": "23",
+          "measuredH": "24",
+          "measuredW": "34",
+          "properties": {
+            "borderStyle": "none",
+            "direction": "center",
+            "newLayout": "true",
+            "text": "Edit"
+          },
+          "typeID": "PointyButton",
+          "x": "339",
+          "y": "133",
+          "zOrder": "4"
+        },
+        {
+          "ID": "24",
+          "measuredH": "79",
+          "measuredW": "77",
+          "properties": {
+            "text": ""
+          },
+          "typeID": "Image",
+          "x": "167",
+          "y": "183",
+          "zOrder": "5"
+        },
+        {
+          "ID": "25",
+          "measuredH": "21",
+          "measuredW": "36",
+          "properties": {
+            "bold": "true",
+            "text": "Name"
+          },
+          "typeID": "Label",
+          "x": "265",
+          "y": "183",
+          "zOrder": "6"
+        },
+        {
+          "ID": "26",
+          "measuredH": "21",
+          "measuredW": "56",
+          "properties": {
+            "bold": "true",
+            "text": "Surname"
+          },
+          "typeID": "Label",
+          "x": "265",
+          "y": "212",
+          "zOrder": "7"
+        },
+        {
+          "ID": "27",
+          "measuredH": "21",
+          "measuredW": "101",
+          "properties": {
+            "text": "Birthday/Delivery"
+          },
+          "typeID": "Label",
+          "x": "265",
+          "y": "241",
+          "zOrder": "8"
+        },
+        {
+          "ID": "28",
+          "measuredH": "21",
+          "measuredW": "118",
+          "properties": {
+            "bold": "true",
+            "text": "Relatives (Section)"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "278",
+          "zOrder": "9"
+        },
+        {
+          "ID": "29",
+          "measuredH": "21",
+          "measuredW": "47",
+          "properties": {
+            "text": "Parent 1"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "299",
+          "zOrder": "10"
+        },
+        {
+          "ID": "30",
+          "measuredH": "21",
+          "measuredW": "51",
+          "properties": {
+            "text": "Parent 2"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "320",
+          "zOrder": "11"
+        },
+        {
+          "ID": "31",
+          "measuredH": "21",
+          "measuredW": "49",
+          "properties": {
+            "text": "Sibling 1"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "341",
+          "zOrder": "12"
+        },
+        {
+          "ID": "32",
+          "measuredH": "21",
+          "measuredW": "93",
+          "properties": {
+            "bold": "true",
+            "text": "Gifts (Section)"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "370",
+          "zOrder": "13"
+        },
+        {
+          "ID": "33",
+          "measuredH": "21",
+          "measuredW": "27",
+          "properties": {
+            "text": "Gift1"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "391",
+          "zOrder": "14"
+        },
+        {
+          "ID": "34",
+          "measuredH": "21",
+          "measuredW": "44",
+          "properties": {
+            "text": "Event 1"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "440",
+          "zOrder": "15"
+        },
+        {
+          "ID": "36",
+          "measuredH": "21",
+          "measuredW": "37",
+          "properties": {
+            "bold": "true",
+            "text": "Notes"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "470",
+          "zOrder": "16"
+        },
+        {
+          "ID": "37",
+          "measuredH": "21",
+          "measuredW": "100",
+          "properties": {
+            "bold": "true",
+            "text": "Events(Section)"
+          },
+          "typeID": "Label",
+          "x": "167",
+          "y": "419",
+          "zOrder": "17"
+        },
+        {
+          "ID": "39",
+          "h": "123",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "Relatives are phone contacts or free text. Tapping a contact opens the iOS Contact view for call/iMsg etc"
+          },
+          "typeID": "StickyNote",
+          "w": "194",
+          "x": "301",
+          "y": "269",
+          "zOrder": "18"
+        },
+        {
+          "ID": "40",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "A gift has a date, a price and a description"
+          },
+          "typeID": "StickyNote",
+          "x": "32",
+          "y": "340",
+          "zOrder": "19"
+        },
+        {
+          "ID": "41",
+          "h": "90",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "An event has a type (nameday, baptism etc) and a date"
+          },
+          "typeID": "StickyNote",
+          "w": "190",
+          "x": "313",
+          "y": "405",
+          "zOrder": "20"
+        },
+        {
+          "ID": "42",
+          "measuredH": "10",
+          "measuredW": "100",
+          "typeID": "HRule",
+          "x": "159",
+          "y": "360",
+          "zOrder": "21"
+        },
+        {
+          "ID": "43",
+          "measuredH": "10",
+          "measuredW": "100",
+          "typeID": "HRule",
+          "x": "163",
+          "y": "410",
+          "zOrder": "22"
+        },
+        {
+          "ID": "44",
+          "measuredH": "10",
+          "measuredW": "100",
+          "typeID": "HRule",
+          "x": "163",
+          "y": "461",
+          "zOrder": "23"
+        }
+      ]
+    },
+    "measuredH": "595",
+    "measuredW": "503",
+    "mockupH": "573",
+    "mockupW": "471",
+    "version": "1.0"
+  }
+}

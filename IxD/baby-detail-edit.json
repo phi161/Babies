@@ -1,0 +1,272 @@
+{
+  "mockup": {
+    "controls": {
+      "control": [
+        {
+          "ID": "0",
+          "measuredH": "573",
+          "measuredW": "282",
+          "properties": {
+            "model": "IPhone5"
+          },
+          "typeID": "iPhone",
+          "x": "128",
+          "y": "22",
+          "zOrder": "0"
+        },
+        {
+          "ID": "1",
+          "h": "49",
+          "measuredH": "70",
+          "measuredW": "100",
+          "typeID": "Canvas",
+          "w": "228",
+          "x": "153",
+          "y": "121",
+          "zOrder": "1"
+        },
+        {
+          "ID": "3",
+          "measuredH": "24",
+          "measuredW": "52",
+          "properties": {
+            "borderStyle": "none",
+            "direction": "center",
+            "newLayout": "true",
+            "text": "Cancel"
+          },
+          "typeID": "PointyButton",
+          "x": "164",
+          "y": "133",
+          "zOrder": "2"
+        },
+        {
+          "ID": "4",
+          "measuredH": "24",
+          "measuredW": "40",
+          "properties": {
+            "borderStyle": "none",
+            "direction": "center",
+            "newLayout": "true",
+            "text": "Save"
+          },
+          "typeID": "PointyButton",
+          "x": "325",
+          "y": "133",
+          "zOrder": "3"
+        },
+        {
+          "ID": "5",
+          "h": "50",
+          "measuredH": "79",
+          "measuredW": "77",
+          "properties": {
+            "text": ""
+          },
+          "typeID": "Image",
+          "w": "77",
+          "x": "167",
+          "y": "183",
+          "zOrder": "4"
+        },
+        {
+          "ID": "6",
+          "measuredH": "21",
+          "measuredW": "36",
+          "properties": {
+            "bold": "true",
+            "text": "Name"
+          },
+          "typeID": "Label",
+          "x": "265",
+          "y": "183",
+          "zOrder": "5"
+        },
+        {
+          "ID": "7",
+          "measuredH": "21",
+          "measuredW": "56",
+          "properties": {
+            "bold": "true",
+            "text": "Surname"
+          },
+          "typeID": "Label",
+          "x": "265",
+          "y": "212",
+          "zOrder": "6"
+        },
+        {
+          "ID": "9",
+          "measuredH": "21",
+          "measuredW": "118",
+          "properties": {
+            "bold": "true",
+            "text": "Relatives (Section)"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "353",
+          "zOrder": "7"
+        },
+        {
+          "ID": "13",
+          "measuredH": "21",
+          "measuredW": "93",
+          "properties": {
+            "bold": "true",
+            "text": "Gifts (Section)"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "390",
+          "zOrder": "8"
+        },
+        {
+          "ID": "16",
+          "measuredH": "21",
+          "measuredW": "37",
+          "properties": {
+            "bold": "true",
+            "text": "Notes"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "471",
+          "zOrder": "9"
+        },
+        {
+          "ID": "17",
+          "measuredH": "21",
+          "measuredW": "100",
+          "properties": {
+            "bold": "true",
+            "text": "Events(Section)"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "434",
+          "zOrder": "10"
+        },
+        {
+          "ID": "24",
+          "h": "27",
+          "measuredH": "27",
+          "measuredW": "122",
+          "properties": {
+            "text": "?, Boy, Girl"
+          },
+          "typeID": "ButtonBar",
+          "w": "196",
+          "x": "169",
+          "y": "242",
+          "zOrder": "11"
+        },
+        {
+          "ID": "25",
+          "measuredH": "25",
+          "measuredW": "136",
+          "properties": {
+            "text": "19  / 03 / 2012"
+          },
+          "typeID": "DateChooser",
+          "w": "129",
+          "x": "232",
+          "y": "281",
+          "zOrder": "12"
+        },
+        {
+          "ID": "26",
+          "measuredH": "25",
+          "measuredW": "90",
+          "properties": {
+            "text": "  /  /    "
+          },
+          "typeID": "DateChooser",
+          "w": "131",
+          "x": "232",
+          "y": "313",
+          "zOrder": "13"
+        },
+        {
+          "ID": "27",
+          "measuredH": "21",
+          "measuredW": "53",
+          "properties": {
+            "bold": "true",
+            "text": "Birthday"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "283",
+          "zOrder": "14"
+        },
+        {
+          "ID": "28",
+          "measuredH": "21",
+          "measuredW": "50",
+          "properties": {
+            "bold": "true",
+            "text": "Delivery"
+          },
+          "typeID": "Label",
+          "x": "164",
+          "y": "315",
+          "zOrder": "15"
+        },
+        {
+          "ID": "29",
+          "h": "90",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "Date pickers should allow to select \"unknown\""
+          },
+          "typeID": "StickyNote",
+          "w": "147",
+          "x": "365",
+          "y": "263",
+          "zOrder": "17"
+        },
+        {
+          "ID": "30",
+          "h": "4",
+          "measuredH": "100",
+          "measuredW": "150",
+          "properties": {
+            "curvature": "0",
+            "direction": "top",
+            "leftArrow": "false",
+            "p0": {
+              "y": 0,
+              "x": 0,
+              "length": 0
+            },
+            "p1": {
+              "y": 0,
+              "x": 0.5,
+              "length": 0.5
+            },
+            "p2": {
+              "y": 3,
+              "x": 242,
+              "length": 242.0185943269649
+            },
+            "rightArrow": "false",
+            "shape": "bezier",
+            "text": ""
+          },
+          "typeID": "Arrow",
+          "w": "243",
+          "x": "146",
+          "y": "345",
+          "zOrder": "16"
+        }
+      ]
+    },
+    "measuredH": "595",
+    "measuredW": "512",
+    "mockupH": "573",
+    "mockupW": "384",
+    "version": "1.0"
+  }
+}
