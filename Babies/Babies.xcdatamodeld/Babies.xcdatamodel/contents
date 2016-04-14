@@ -2,10 +2,21 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="Baby" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="delivery" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="gifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gift" inverseName="baby" inverseEntity="Gift" syncable="YES"/>
+    </entity>
+    <entity name="Gift" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="baby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Baby" inverseName="gifts" inverseEntity="Baby" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Baby" positionX="-7893" positionY="-6930" width="128" height="88"/>
+        <element name="Baby" positionX="-11160" positionY="-8514" width="128" height="148"/>
+        <element name="Gift" positionX="-10937" positionY="-8469" width="128" height="103"/>
     </elements>
 </model>
