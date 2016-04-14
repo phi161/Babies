@@ -59,7 +59,13 @@
                             <constraint firstItem="q2x-we-TD3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="UeD-aZ-Q9R"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="g6O-Wk-J3l"/>
+                    <navigationItem key="navigationItem" id="g6O-Wk-J3l">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GgX-qg-Aj1">
+                            <connections>
+                                <action selector="newButtonTapped:" destination="BYZ-38-t0r" id="eZq-b1-Ypc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="q2x-we-TD3" id="AY4-0g-SsI"/>
                     </connections>

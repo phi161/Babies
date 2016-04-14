@@ -38,6 +38,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return cell
     }
-
+    
+    // MARK: - Actions
+    
+    @IBAction func newButtonTapped(sender: AnyObject) {
+        let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
+        newBaby.birthday = NSDate()
+        newBaby.givenName = "Given"
+        newBaby.familyName = "Family"
+        
+        do {
+            try moc?.save()
+        } catch {
+            print("Error: \(error)")
+        }
+    }
 }
 

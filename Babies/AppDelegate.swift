@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-        let viewController = self.window!.rootViewController as? ViewController
+        let navigationController = self.window!.rootViewController as? UINavigationController
+        let viewController = navigationController?.viewControllers[0] as? ViewController
         viewController?.moc = self.managedObjectContext
         
         return true
