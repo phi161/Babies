@@ -13,6 +13,14 @@
 		7281D4671CB69A5A00713321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D4651CB69A5A00713321 /* Main.storyboard */; };
 		7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7281D4681CB69A5A00713321 /* Assets.xcassets */; };
 		7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */; };
+		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
+		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
+		CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */; };
+		CF48459F1CC0272F000BED2A /* Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845971CC0272F000BED2A /* Gift.swift */; };
+		CF4845A01CC0272F000BED2A /* Adult+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845981CC0272F000BED2A /* Adult+CoreDataProperties.swift */; };
+		CF4845A11CC0272F000BED2A /* Adult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845991CC0272F000BED2A /* Adult.swift */; };
+		CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */; };
+		CF4845A31CC0272F000BED2A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459B1CC0272F000BED2A /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		7281D4681CB69A5A00713321 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7281D46B1CB69A5A00713321 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7281D46D1CB69A5A00713321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
+		CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gift+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CF4845971CC0272F000BED2A /* Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gift.swift; sourceTree = "<group>"; };
+		CF4845981CC0272F000BED2A /* Adult+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Adult+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CF4845991CC0272F000BED2A /* Adult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Adult.swift; sourceTree = "<group>"; };
+		CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CF48459B1CC0272F000BED2A /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,7 @@
 		7281D4601CB69A5A00713321 /* Babies */ = {
 			isa = PBXGroup;
 			children = (
+				CF4845931CC02711000BED2A /* Model Classes */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* ViewController.swift */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
@@ -65,6 +82,21 @@
 				7281D46D1CB69A5A00713321 /* Info.plist */,
 			);
 			path = Babies;
+			sourceTree = "<group>";
+		};
+		CF4845931CC02711000BED2A /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CF4845991CC0272F000BED2A /* Adult.swift */,
+				CF4845981CC0272F000BED2A /* Adult+CoreDataProperties.swift */,
+				CF4845951CC0272F000BED2A /* Baby.swift */,
+				CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */,
+				CF48459B1CC0272F000BED2A /* Event.swift */,
+				CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */,
+				CF4845971CC0272F000BED2A /* Gift.swift */,
+				CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */,
+			);
+			name = "Model Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +170,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */,
+				CF4845A31CC0272F000BED2A /* Event.swift in Sources */,
+				CF48459F1CC0272F000BED2A /* Gift.swift in Sources */,
 				7281D4641CB69A5A00713321 /* ViewController.swift in Sources */,
+				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
+				CF4845A11CC0272F000BED2A /* Adult.swift in Sources */,
+				CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */,
 				7281D4621CB69A5A00713321 /* AppDelegate.swift in Sources */,
+				CF48459D1CC0272F000BED2A /* Baby.swift in Sources */,
+				CF4845A01CC0272F000BED2A /* Adult+CoreDataProperties.swift in Sources */,
 				72766E761CBBC0C10044F7BC /* Babies.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
