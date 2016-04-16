@@ -13,5 +13,8 @@ import CoreData
 class Baby: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
+    func stringRepresentation() -> String {
+        return "family name: \(self.familyName), given name: \(self.givenName)\n\(self.birthday)"
+    }
 
 }

@@ -49,6 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             try moc?.save()
+            print("Saved \(newBaby.stringRepresentation())")
         } catch {
             print("Error: \(error)")
         }
