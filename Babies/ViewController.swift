@@ -14,11 +14,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var tableView: UITableView!
     
     var moc: NSManagedObjectContext?
+    var babies = [Baby]()
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let fetchRequest = NSFetchRequest(entityName: "Baby")
+        do {
+            try babies = self.moc?.executeFetchRequest(fetchRequest) as! [Baby]
+        } catch {
+            print("Error: \(error)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,13 +36,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return babies.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BabyListCell", forIndexPath: indexPath)
-        cell.textLabel?.text = "row \(indexPath.row)"
-        cell.detailTextLabel?.text = "row \(indexPath.row)"
+        
+        cell.textLabel?.text = babies[indexPath.row].stringRepresentation()
+        cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(babies[indexPath.row].birthday!, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
         
         return cell
     }
