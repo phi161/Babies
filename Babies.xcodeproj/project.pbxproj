@@ -21,6 +21,7 @@
 		CF4845A11CC0272F000BED2A /* Adult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845991CC0272F000BED2A /* Adult.swift */; };
 		CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */; };
 		CF4845A31CC0272F000BED2A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459B1CC0272F000BED2A /* Event.swift */; };
+		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		CF4845991CC0272F000BED2A /* Adult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Adult.swift; sourceTree = "<group>"; };
 		CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF48459B1CC0272F000BED2A /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				CF4845931CC02711000BED2A /* Model Classes */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* ViewController.swift */,
+				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D4651CB69A5A00713321 /* Main.storyboard */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
@@ -172,6 +175,7 @@
 			files = (
 				CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */,
 				CF4845A31CC0272F000BED2A /* Event.swift in Sources */,
+				CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */,
 				CF48459F1CC0272F000BED2A /* Gift.swift in Sources */,
 				7281D4641CB69A5A00713321 /* ViewController.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
