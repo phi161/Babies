@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class EditBabyViewController: UIViewController {
+    
+    var moc: NSManagedObjectContext?
 
+    @IBOutlet var familyNameTextField: UITextField!
+    
     // MARK: - Setup
     
     override func viewDidLoad() {
@@ -35,6 +40,17 @@ class EditBabyViewController: UIViewController {
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
+        newBaby.birthday = NSDate()
+        newBaby.givenName = "Given"
+        newBaby.familyName = self.familyNameTextField.text
+        
+        do {
+            try moc?.save()
+            print("Saved \(newBaby.stringRepresentation())")
+        } catch {
+            print("Error: \(error)")
+        }
     }
-    
 }

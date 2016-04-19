@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -86,7 +87,36 @@
                     <view key="view" contentMode="scaleToFill" id="Qkh-DM-Xa4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="family name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CAa-cV-G3r">
+                                <rect key="frame" x="40" y="84" width="520" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="given name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IYs-ur-x6V">
+                                <rect key="frame" x="40" y="134" width="520" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="8gC-no-OIb">
+                                <rect key="frame" x="40" y="194" width="520" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="482792442.15233803">
+                                    <!--2016-04-19 21:00:42 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8gC-no-OIb" firstAttribute="leading" secondItem="Qkh-DM-Xa4" secondAttribute="leadingMargin" constant="20" id="0st-ql-oKW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CAa-cV-G3r" secondAttribute="trailing" constant="20" id="3zM-6D-fua"/>
+                            <constraint firstItem="CAa-cV-G3r" firstAttribute="leading" secondItem="Qkh-DM-Xa4" secondAttribute="leadingMargin" constant="20" id="5aN-1d-yye"/>
+                            <constraint firstItem="CAa-cV-G3r" firstAttribute="top" secondItem="vy8-Q2-T1F" secondAttribute="bottom" constant="20" id="LgP-1L-9BJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IYs-ur-x6V" secondAttribute="trailing" constant="20" id="MHe-xR-XfW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8gC-no-OIb" secondAttribute="trailing" constant="20" id="RJU-Ex-8Ri"/>
+                            <constraint firstItem="8gC-no-OIb" firstAttribute="top" secondItem="IYs-ur-x6V" secondAttribute="bottom" constant="30" id="WLV-hm-uZm"/>
+                            <constraint firstItem="IYs-ur-x6V" firstAttribute="top" secondItem="CAa-cV-G3r" secondAttribute="bottom" constant="20" id="fAn-c0-7oY"/>
+                            <constraint firstItem="IYs-ur-x6V" firstAttribute="leading" secondItem="Qkh-DM-Xa4" secondAttribute="leadingMargin" constant="20" id="o7w-0W-ItI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gDT-eW-EGF">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cVy-2N-aGS">
@@ -100,6 +130,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="familyNameTextField" destination="CAa-cV-G3r" id="Nkm-4e-sPG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EE-eY-2r3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

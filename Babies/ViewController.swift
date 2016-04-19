@@ -50,6 +50,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // MARK: - Actions
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationController = segue.destinationViewController as? UINavigationController
+        let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
+        
+        editBabyViewController.moc = self.moc
+    }
+    
     @IBAction func newButtonTapped(sender: AnyObject) {
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
         newBaby.birthday = NSDate()
