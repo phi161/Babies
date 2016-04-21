@@ -12,31 +12,57 @@ import CoreData
 class EditBabyViewController: UIViewController {
     
     var moc: NSManagedObjectContext?
+    var baby: Baby?
 
+    @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
+    @IBOutlet var givenNameTextField: UITextField!
+    @IBOutlet var sexSegmentedControl: UISegmentedControl!
+    @IBOutlet var deliveryDateButton: UIButton!
+    @IBOutlet var birthdayButton: UIButton!
     
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.redColor()
         
         self.title = NSLocalizedString("NEW_BABY_TITLE", comment: "The title of the new baby view controller")
+        
+        // Thumbnail Image
+        self.thumbnailImageView.userInteractionEnabled = true
+        self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - Actions
+    
+    @IBAction func dateButtonTapped(sender: UIButton) {
+        if sender == self.deliveryDateButton {
+            print("\(#function) sender: \(sender.titleLabel?.text)")
+        }
+
+        if sender == self.birthdayButton {
+            print("\(#function) sender: \(sender.titleLabel?.text)")
+        }
     }
     
     
-    // MARK: - Actions
+    @IBAction func sexChanged(sender: AnyObject) {
+        print(#function)
+    }
+    
+    
+    func thumbnailTapped(tap:UITapGestureRecognizer) {
+        print(#function)
+    }
+    
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)

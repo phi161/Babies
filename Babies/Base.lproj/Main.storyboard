@@ -118,14 +118,23 @@
                                                 <segment title="Boy"/>
                                                 <segment title="Girl"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="sexChanged:" destination="Vc7-JT-GAg" eventType="valueChanged" id="4yY-ZS-mNh"/>
+                                            </connections>
                                         </segmentedControl>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KmL-Zh-MZO">
                                             <rect key="frame" x="254" y="208" width="92" height="30"/>
                                             <state key="normal" title="Delivery Date"/>
+                                            <connections>
+                                                <action selector="dateButtonTapped:" destination="Vc7-JT-GAg" eventType="touchUpInside" id="nTX-gb-UP6"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKY-ZK-ZIo">
                                             <rect key="frame" x="271" y="258" width="58" height="30"/>
                                             <state key="normal" title="Birthday"/>
+                                            <connections>
+                                                <action selector="dateButtonTapped:" destination="Vc7-JT-GAg" eventType="touchUpInside" id="JQE-Mk-uU6"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
@@ -171,7 +180,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="birthdayButton" destination="eKY-ZK-ZIo" id="7S3-cD-cF6"/>
+                        <outlet property="deliveryDateButton" destination="KmL-Zh-MZO" id="gQh-So-7S1"/>
                         <outlet property="familyNameTextField" destination="CAa-cV-G3r" id="Nkm-4e-sPG"/>
+                        <outlet property="givenNameTextField" destination="IYs-ur-x6V" id="R0t-iE-wkF"/>
+                        <outlet property="sexSegmentedControl" destination="jdI-4G-NgE" id="KnE-5o-qHX"/>
+                        <outlet property="thumbnailImageView" destination="TQU-uK-XQx" id="wSE-UP-9hB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EE-eY-2r3" userLabel="First Responder" sceneMemberID="firstResponder"/>
