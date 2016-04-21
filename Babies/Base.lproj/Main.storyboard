@@ -91,7 +91,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="fSZ-rv-rvM">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="208"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="family name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CAa-cV-G3r">
@@ -122,20 +122,6 @@
                                                 <action selector="sexChanged:" destination="Vc7-JT-GAg" eventType="valueChanged" id="4yY-ZS-mNh"/>
                                             </connections>
                                         </segmentedControl>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KmL-Zh-MZO">
-                                            <rect key="frame" x="254" y="208" width="92" height="30"/>
-                                            <state key="normal" title="Delivery Date"/>
-                                            <connections>
-                                                <action selector="dateButtonTapped:" destination="Vc7-JT-GAg" eventType="touchUpInside" id="nTX-gb-UP6"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKY-ZK-ZIo">
-                                            <rect key="frame" x="271" y="258" width="58" height="30"/>
-                                            <state key="normal" title="Birthday"/>
-                                            <connections>
-                                                <action selector="dateButtonTapped:" destination="Vc7-JT-GAg" eventType="touchUpInside" id="JQE-Mk-uU6"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -143,18 +129,14 @@
                                         <constraint firstItem="IYs-ur-x6V" firstAttribute="bottom" secondItem="TQU-uK-XQx" secondAttribute="bottom" id="Bzq-k6-jBd"/>
                                         <constraint firstAttribute="trailing" secondItem="jdI-4G-NgE" secondAttribute="trailing" constant="40" id="D0K-YR-0wB"/>
                                         <constraint firstItem="jdI-4G-NgE" firstAttribute="top" secondItem="TQU-uK-XQx" secondAttribute="bottom" constant="40" id="HH9-TJ-ycn"/>
-                                        <constraint firstItem="eKY-ZK-ZIo" firstAttribute="centerX" secondItem="fSZ-rv-rvM" secondAttribute="centerX" id="Yr3-h1-ByZ"/>
                                         <constraint firstItem="CAa-cV-G3r" firstAttribute="leading" secondItem="TQU-uK-XQx" secondAttribute="trailing" constant="20" id="a2f-6H-2yl"/>
-                                        <constraint firstItem="KmL-Zh-MZO" firstAttribute="centerX" secondItem="fSZ-rv-rvM" secondAttribute="centerX" id="bS3-Sk-lPu"/>
                                         <constraint firstItem="CAa-cV-G3r" firstAttribute="top" secondItem="TQU-uK-XQx" secondAttribute="top" id="eJG-hA-EIl"/>
                                         <constraint firstItem="TQU-uK-XQx" firstAttribute="leading" secondItem="fSZ-rv-rvM" secondAttribute="leading" constant="20" id="fDY-kG-Fcp"/>
-                                        <constraint firstItem="KmL-Zh-MZO" firstAttribute="top" secondItem="jdI-4G-NgE" secondAttribute="bottom" constant="20" id="hca-Ya-Pux"/>
                                         <constraint firstItem="jdI-4G-NgE" firstAttribute="leading" secondItem="fSZ-rv-rvM" secondAttribute="leading" constant="40" id="jd7-er-w0h"/>
                                         <constraint firstAttribute="trailing" secondItem="CAa-cV-G3r" secondAttribute="trailing" constant="20" id="mmm-us-DXI"/>
                                         <constraint firstItem="IYs-ur-x6V" firstAttribute="leading" secondItem="TQU-uK-XQx" secondAttribute="trailing" constant="20" id="ou7-eW-6AJ"/>
                                         <constraint firstAttribute="trailing" secondItem="IYs-ur-x6V" secondAttribute="trailing" constant="20" id="q2R-WP-ndp"/>
                                         <constraint firstItem="jdI-4G-NgE" firstAttribute="centerX" secondItem="fSZ-rv-rvM" secondAttribute="centerX" id="tRB-Hv-GNb"/>
-                                        <constraint firstItem="eKY-ZK-ZIo" firstAttribute="top" secondItem="KmL-Zh-MZO" secondAttribute="bottom" constant="20" id="xgR-5h-D30"/>
                                     </constraints>
                                 </view>
                             </tableView>
@@ -180,8 +162,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="birthdayButton" destination="eKY-ZK-ZIo" id="7S3-cD-cF6"/>
-                        <outlet property="deliveryDateButton" destination="KmL-Zh-MZO" id="gQh-So-7S1"/>
                         <outlet property="familyNameTextField" destination="CAa-cV-G3r" id="Nkm-4e-sPG"/>
                         <outlet property="givenNameTextField" destination="IYs-ur-x6V" id="R0t-iE-wkF"/>
                         <outlet property="sexSegmentedControl" destination="jdI-4G-NgE" id="KnE-5o-qHX"/>

@@ -18,12 +18,11 @@ class EditBabyViewController: UIViewController {
     @IBOutlet var familyNameTextField: UITextField!
     @IBOutlet var givenNameTextField: UITextField!
     @IBOutlet var sexSegmentedControl: UISegmentedControl!
-    @IBOutlet var deliveryDateButton: UIButton!
-    @IBOutlet var birthdayButton: UIButton!
-    
+
     // MARK: - Setup
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.redColor()
@@ -37,18 +36,7 @@ class EditBabyViewController: UIViewController {
 
     
     // MARK: - Actions
-    
-    @IBAction func dateButtonTapped(sender: UIButton) {
-        if sender == self.deliveryDateButton {
-            print("\(#function) sender: \(sender.titleLabel?.text)")
-        }
 
-        if sender == self.birthdayButton {
-            print("\(#function) sender: \(sender.titleLabel?.text)")
-        }
-    }
-    
-    
     @IBAction func sexChanged(sender: AnyObject) {
         print(#function)
     }
