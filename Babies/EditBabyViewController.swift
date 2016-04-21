@@ -9,7 +9,14 @@
 import UIKit
 import CoreData
 
-class EditBabyViewController: UIViewController {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    let sectionHeaderTitles = [
+        "Dates",
+        "Parents",
+        "Gifts",
+        "Events",
+    ]
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
@@ -18,11 +25,11 @@ class EditBabyViewController: UIViewController {
     @IBOutlet var familyNameTextField: UITextField!
     @IBOutlet var givenNameTextField: UITextField!
     @IBOutlet var sexSegmentedControl: UISegmentedControl!
+    @IBOutlet var tableView: UITableView!
 
     // MARK: - Setup
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.redColor()
@@ -34,6 +41,32 @@ class EditBabyViewController: UIViewController {
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
     }
 
+    
+    // MARK: - UITableView
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.sectionHeaderTitles.count
+    }
+    
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sectionHeaderTitles[section]
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+        
+        cell.textLabel?.text = ("[\(indexPath.section) - \(indexPath.row)]")
+        
+        return cell
+    }
+    
     
     // MARK: - Actions
 
