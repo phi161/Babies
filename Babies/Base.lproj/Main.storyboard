@@ -139,11 +139,64 @@
                                         <constraint firstItem="CAa-cV-G3r" firstAttribute="top" secondItem="TQU-uK-XQx" secondAttribute="top" id="sea-lK-21M"/>
                                     </constraints>
                                 </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="fSZ-rv-rvM">
-                                    <rect key="frame" x="0.0" y="168" width="600" height="60"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
-                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateCell" id="eeW-K7-8pi">
+                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eeW-K7-8pi" id="fEH-J1-mj1">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V46-jR-mNH">
+                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgb-wV-mRQ">
+                                                    <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="V46-jR-mNH" secondAttribute="leading" id="2Ng-3G-Xbf"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Cgb-wV-mRQ" secondAttribute="trailing" id="7DZ-P6-Wo9"/>
+                                                <constraint firstItem="V46-jR-mNH" firstAttribute="top" secondItem="fEH-J1-mj1" secondAttribute="topMargin" constant="3" id="FdV-p8-hBv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Cgb-wV-mRQ" secondAttribute="bottom" constant="3" id="bgi-rG-1PS"/>
+                                                <constraint firstItem="Cgb-wV-mRQ" firstAttribute="centerX" secondItem="fEH-J1-mj1" secondAttribute="centerX" id="cuk-Hh-MgW"/>
+                                                <constraint firstItem="Cgb-wV-mRQ" firstAttribute="top" secondItem="fEH-J1-mj1" secondAttribute="topMargin" constant="3" id="geT-eB-ucw"/>
+                                                <constraint firstItem="V46-jR-mNH" firstAttribute="centerX" secondItem="fEH-J1-mj1" secondAttribute="centerX" id="jOj-dt-VlK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="V46-jR-mNH" secondAttribute="bottom" constant="3" id="obl-SF-q61"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="233" id="igK-Sr-TwP">
+                                        <rect key="frame" x="0.0" y="240" width="600" height="233"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="igK-Sr-TwP" id="9kl-2y-mIN">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="232"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qj8-Q4-D1W">
+                                                    <rect key="frame" x="8" y="8" width="584" height="216"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="483131903.32383698">
+                                                        <!--2016-04-23 19:18:23 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.99607849120000003" blue="0.11372549830000001" alpha="1" colorSpace="deviceRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qj8-Q4-D1W" secondAttribute="bottom" id="1oo-X5-Ikq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qj8-Q4-D1W" secondAttribute="trailing" id="B7P-nV-jhw"/>
+                                                <constraint firstAttribute="topMargin" secondItem="qj8-Q4-D1W" secondAttribute="top" id="Dma-UB-35L"/>
+                                                <constraint firstItem="qj8-Q4-D1W" firstAttribute="leading" secondItem="9kl-2y-mIN" secondAttribute="leadingMargin" id="QDB-cX-2n5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Vc7-JT-GAg" id="n64-Oc-gbC"/>
                                     <outlet property="delegate" destination="Vc7-JT-GAg" id="IvQ-o3-1Zm"/>

@@ -58,11 +58,24 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         return self.sectionHeaderTitles[section]
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 44
+        }
+        
+        return 240
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: .Default, reuseIdentifier: nil)
         
-        cell.textLabel?.text = ("[\(indexPath.section) - \(indexPath.row)]")
+        var identifer: String = "DatePickerCell"
+        if indexPath.row == 0 {
+            identifer = "DateCell"
+        }
+
+        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+        
+//        cell.textLabel?.text = ("[\(indexPath.section) - \(indexPath.row)]")
         
         return cell
     }
