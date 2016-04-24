@@ -173,7 +173,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="233" id="igK-Sr-TwP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="233" id="igK-Sr-TwP" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="240" width="600" height="233"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="igK-Sr-TwP" id="9kl-2y-mIN">
@@ -195,6 +195,9 @@
                                                 <constraint firstItem="qj8-Q4-D1W" firstAttribute="leading" secondItem="9kl-2y-mIN" secondAttribute="leadingMargin" id="QDB-cX-2n5"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="datePicker" destination="qj8-Q4-D1W" id="3XP-Iw-MPM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
