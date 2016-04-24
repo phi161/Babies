@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerDelegate {
     
     let sectionHeaderTitles = [
         "Dates",
@@ -50,7 +50,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == 0 {
+            return 2
+        }
+        
+        return 1
     }
     
     
@@ -75,8 +79,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
         
-//        cell.textLabel?.text = ("[\(indexPath.section) - \(indexPath.row)]")
-        
+        if let test = cell as? DatePickerCell {
+            test.delegate = self
+        }
+
         return cell
     }
     
@@ -112,5 +118,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } catch {
             print("Error: \(error)")
         }
+    }
+    
+    // MARK: - DatePickerDelegate
+    
+    func didPickDate(date: NSDate) {
+        print(NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .MediumStyle))
     }
 }

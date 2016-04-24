@@ -185,6 +185,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="483131903.32383698">
                                                         <!--2016-04-23 19:18:23 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="igK-Sr-TwP" eventType="valueChanged" id="YXS-t0-5Dy"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.99607849120000003" blue="0.11372549830000001" alpha="1" colorSpace="deviceRGB"/>
