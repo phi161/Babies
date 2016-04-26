@@ -67,7 +67,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             return 44
         }
         
-        return 240
+        return 300
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

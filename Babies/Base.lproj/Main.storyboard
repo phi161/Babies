@@ -85,11 +85,11 @@
                         <viewControllerLayoutGuide type="bottom" id="hPL-DR-Ifu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qkh-DM-Xa4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZJR-SZ-0kX">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="936"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="vc6-Ea-ogn">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="168"/>
@@ -173,7 +173,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="233" id="igK-Sr-TwP" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell1" rowHeight="233" id="igK-Sr-TwP" customClass="DatePickerCell1">
                                         <rect key="frame" x="0.0" y="240" width="600" height="233"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="igK-Sr-TwP" id="9kl-2y-mIN">
@@ -200,6 +200,43 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="datePicker" destination="qj8-Q4-D1W" id="3XP-Iw-MPM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="300" id="gav-L4-ze4" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="473" width="600" height="300"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gav-L4-ze4" id="3Ju-qA-rG3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF8-W8-ERL">
+                                                    <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="12h-lC-kiq">
+                                                    <rect key="frame" x="8" y="49" width="584" height="242"/>
+                                                    <color key="backgroundColor" red="0.39762341740000001" green="1" blue="0.93391696530000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="483396164.40252399">
+                                                        <!--2016-04-26 20:42:44 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.98594826459999996" green="0.0" blue="0.02878310718" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="12h-lC-kiq" firstAttribute="leading" secondItem="3Ju-qA-rG3" secondAttribute="leadingMargin" id="29w-Dl-0BN"/>
+                                                <constraint firstAttribute="topMargin" secondItem="mF8-W8-ERL" secondAttribute="top" id="C2Q-is-O2k"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="12h-lC-kiq" secondAttribute="bottom" id="N5l-bG-dtB"/>
+                                                <constraint firstItem="12h-lC-kiq" firstAttribute="top" secondItem="mF8-W8-ERL" secondAttribute="bottom" constant="20" id="X6o-ye-RYm"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="mF8-W8-ERL" secondAttribute="leading" id="XUU-DN-FfI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="mF8-W8-ERL" secondAttribute="trailing" id="a2g-vp-afi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="12h-lC-kiq" secondAttribute="trailing" id="qzE-5D-FBk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="datePicker" destination="12h-lC-kiq" id="f7I-TY-hx4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -229,6 +266,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="1000"/>
                     <connections>
                         <outlet property="familyNameTextField" destination="CAa-cV-G3r" id="Nkm-4e-sPG"/>
                         <outlet property="givenNameTextField" destination="IYs-ur-x6V" id="R0t-iE-wkF"/>
