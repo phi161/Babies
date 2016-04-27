@@ -22,7 +22,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
-    var showsPicker: Bool = false;
+    var visiblePickerIndexPath: NSIndexPath?
 
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
@@ -66,18 +66,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 44
-        }
-        
-        if indexPath.section == 0 {
-            if indexPath.row == 1 {
-                if showsPicker {
-                    return 260
-                } else {
-                    return 44
-                }
-            }
+
+        if indexPath == self.visiblePickerIndexPath {
+            return 260
         }
         
         return 44
@@ -97,8 +88,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.showsPicker = !self.showsPicker
         
+        if tableView.cellForRowAtIndexPath(indexPath) is DatePickerCell {
+            if self.visiblePickerIndexPath == indexPath {
+                self.visiblePickerIndexPath = nil
+            } else {
+                self.visiblePickerIndexPath = indexPath
+            }
+        }
+
         tableView.beginUpdates()
         tableView.endUpdates()
     }
