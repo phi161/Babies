@@ -9,19 +9,11 @@
 import UIKit
 import CoreData
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    let sectionHeaderTitles = [
-        "Dates",
-        /*
-        "Parents",
-        "Gifts",
-        "Events",
-         */
-    ]
+class EditBabyViewController: UIViewController, UITableViewDelegate {
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
+    var dataSource = EditBabyDataSource()
     var visiblePickerIndexPath: NSIndexPath?
 
     @IBOutlet var thumbnailImageView: UIImageView!
@@ -39,6 +31,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.title = NSLocalizedString("NEW_BABY_TITLE", comment: "The title of the new baby view controller")
         
+        self.tableView.dataSource = dataSource
+        
         // Thumbnail Image
         self.thumbnailImageView.userInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
@@ -46,50 +40,23 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     // MARK: - UITableView
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.sectionHeaderTitles.count
-    }
-    
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        }
-        
-        return 1
-    }
-    
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sectionHeaderTitles[section]
-    }
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
-        if indexPath == self.visiblePickerIndexPath {
+        
+        if indexPath == visiblePickerIndexPath {
             return 260
         }
         
         return 44
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let identifer: String = "DatePickerCell"
 
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-
-        return cell
-    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if tableView.cellForRowAtIndexPath(indexPath) is DatePickerCell {
-            if self.visiblePickerIndexPath == indexPath {
-                self.visiblePickerIndexPath = nil
+            if visiblePickerIndexPath == indexPath {
+                visiblePickerIndexPath = nil
             } else {
-                self.visiblePickerIndexPath = indexPath
+                visiblePickerIndexPath = indexPath
             }
         }
 

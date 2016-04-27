@@ -191,7 +191,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="Vc7-JT-GAg" id="n64-Oc-gbC"/>
                                     <outlet property="delegate" destination="Vc7-JT-GAg" id="IvQ-o3-1Zm"/>
                                 </connections>
                             </tableView>
