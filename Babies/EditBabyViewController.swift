@@ -20,6 +20,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
+    var showsPicker: Bool = false;
 
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
@@ -67,7 +68,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             return 44
         }
         
-        return 300
+        if indexPath.section == 0 {
+            if indexPath.row == 1 {
+                if showsPicker {
+                    return 260
+                } else {
+                    return 44
+                }
+            }
+        }
+        
+        return 44
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -86,6 +97,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.showsPicker = !self.showsPicker
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
     
     // MARK: - Actions
 

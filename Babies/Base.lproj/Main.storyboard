@@ -202,22 +202,25 @@
                                             <outlet property="datePicker" destination="qj8-Q4-D1W" id="3XP-Iw-MPM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="300" id="gav-L4-ze4" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="473" width="600" height="300"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="260" id="gav-L4-ze4" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="473" width="600" height="260"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gav-L4-ze4" id="3Ju-qA-rG3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="259"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF8-W8-ERL">
-                                                    <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="44"/>
                                                     <color key="backgroundColor" red="1" green="0.48203513349999999" blue="0.1921824161" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="kUQ-Z8-ske"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="12h-lC-kiq">
-                                                    <rect key="frame" x="8" y="49" width="584" height="242"/>
+                                                    <rect key="frame" x="8" y="44" width="584" height="216"/>
                                                     <color key="backgroundColor" red="0.39762341740000001" green="1" blue="0.93391696530000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="483396164.40252399">
                                                         <!--2016-04-26 20:42:44 +0000-->
@@ -230,13 +233,18 @@
                                             <color key="backgroundColor" red="0.98594826459999996" green="0.0" blue="0.02878310718" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="12h-lC-kiq" firstAttribute="leading" secondItem="3Ju-qA-rG3" secondAttribute="leadingMargin" id="29w-Dl-0BN"/>
-                                                <constraint firstAttribute="topMargin" secondItem="mF8-W8-ERL" secondAttribute="top" id="C2Q-is-O2k"/>
+                                                <constraint firstAttribute="top" secondItem="mF8-W8-ERL" secondAttribute="top" id="C2Q-is-O2k"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="12h-lC-kiq" secondAttribute="bottom" id="N5l-bG-dtB"/>
-                                                <constraint firstItem="12h-lC-kiq" firstAttribute="top" secondItem="mF8-W8-ERL" secondAttribute="bottom" constant="20" id="X6o-ye-RYm"/>
+                                                <constraint firstItem="12h-lC-kiq" firstAttribute="top" secondItem="mF8-W8-ERL" secondAttribute="bottom" id="X6o-ye-RYm"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="mF8-W8-ERL" secondAttribute="leading" id="XUU-DN-FfI"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="mF8-W8-ERL" secondAttribute="trailing" id="a2g-vp-afi"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="12h-lC-kiq" secondAttribute="trailing" id="qzE-5D-FBk"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="N5l-bG-dtB"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="mF8-W8-ERL" id="0eX-5k-8MZ"/>
