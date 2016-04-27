@@ -8,16 +8,10 @@
 
 import UIKit
 
-protocol DatePickerDelegate: class {
-    func didPickDate(date: NSDate)
-}
-
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var dateLabel: UILabel!
-
-    weak var delegate: DatePickerDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +26,5 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     @IBAction func datePickerChanged(sender: UIDatePicker) {
         self.dateLabel.text = NSDateFormatter.localizedStringFromDate(sender.date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
-
-        self.delegate?.didPickDate(sender.date)
     }
 }
