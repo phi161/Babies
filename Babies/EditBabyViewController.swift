@@ -13,9 +13,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     let sectionHeaderTitles = [
         "Dates",
+        /*
         "Parents",
         "Gifts",
         "Events",
+         */
     ]
     
     var moc: NSManagedObjectContext?
@@ -83,10 +85,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var identifer: String = "DatePickerCell"
-        if indexPath.row == 0 {
-            identifer = "DateCell"
-        }
+        let identifer: String = "DatePickerCell"
 
         let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
         
