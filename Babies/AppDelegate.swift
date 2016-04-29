@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let coreDataStack = CoreDataStack(storeURL: storeURL, modelURL: modelURL)
 
         let navigationController = self.window!.rootViewController as? UINavigationController
-        let viewController = navigationController?.viewControllers[0] as? ViewController
+        let viewController = navigationController?.viewControllers[0] as? BabiesViewController
         viewController?.moc = coreDataStack.managedObjectContext
         
         return true
