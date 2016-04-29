@@ -14,19 +14,23 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var tableView: UITableView!
     
     var moc: NSManagedObjectContext?
-    var babies = [Baby]()
+    var babies: [Baby] {
+        let fetchRequest = NSFetchRequest(entityName: "Baby")
+        var result:[Baby]
+        do {
+            try result = self.moc?.executeFetchRequest(fetchRequest) as! [Baby]
+        } catch {
+            result = []
+            print("Error: \(error)")
+        }
+        
+        return result
+    }
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let fetchRequest = NSFetchRequest(entityName: "Baby")
-        do {
-            try babies = self.moc?.executeFetchRequest(fetchRequest) as! [Baby]
-        } catch {
-            print("Error: \(error)")
-        }
     }
 
     override func didReceiveMemoryWarning() {
