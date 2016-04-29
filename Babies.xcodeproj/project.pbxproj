@@ -25,6 +25,7 @@
 		CF4845A31CC0272F000BED2A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459B1CC0272F000BED2A /* Event.swift */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
 		CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */; };
+		CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		CF48459B1CC0272F000BED2A /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
 		CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				7281D46D1CB69A5A00713321 /* Info.plist */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* BabiesViewController.swift */,
+				CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */,
 				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
 				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
 				CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */,
@@ -191,6 +194,7 @@
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
 				CF446FC51CD1633F001BB364 /* EditBabyDataSource.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
+				CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */,
 				CF4845A11CC0272F000BED2A /* Adult.swift in Sources */,
 				CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */,
 				7281D4621CB69A5A00713321 /* AppDelegate.swift in Sources */,

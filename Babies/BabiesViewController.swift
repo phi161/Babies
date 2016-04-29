@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
-
+    
     @IBOutlet var tableView: UITableView!
     
     var moc: NSManagedObjectContext?
@@ -32,11 +32,11 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,11 +62,19 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - Actions
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as? UINavigationController
-        let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
         
-        editBabyViewController.moc = self.moc
-        editBabyViewController.delegate = self
+        if segue.identifier == "SegueAddNewBaby" {
+            let navigationController = segue.destinationViewController as? UINavigationController
+            let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
+            
+            editBabyViewController.moc = self.moc
+            editBabyViewController.delegate = self
+        } else if segue.identifier == "SegueShowBabyDetail" {
+            let babyDetailViewController = segue.destinationViewController as? BabyDetailViewController
+            
+            let selectedIndexPath = self.tableView.indexPathForSelectedRow
+            babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
+        }
     }
-
+    
 }

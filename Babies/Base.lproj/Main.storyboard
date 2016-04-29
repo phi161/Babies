@@ -45,6 +45,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="QIz-3k-2zN" kind="show" identifier="SegueShowBabyDetail" id="uYf-bg-wu1"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -74,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1222" y="337"/>
+            <point key="canvasLocation" x="1008" y="997"/>
         </scene>
         <!--Edit Baby View Controller-->
         <scene sceneID="q3o-fy-q7h">
@@ -227,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EE-eY-2r3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2733" y="337"/>
+            <point key="canvasLocation" x="2553" y="-79"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MNr-L0-k9r">
@@ -247,6 +250,40 @@
             </objects>
             <point key="canvasLocation" x="283" y="997"/>
         </scene>
+        <!--Baby Detail View Controller-->
+        <scene sceneID="pWC-Kj-cYH">
+            <objects>
+                <viewController id="QIz-3k-2zN" customClass="BabyDetailViewController" customModule="Babies" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KQ2-zk-h0H"/>
+                        <viewControllerLayoutGuide type="bottom" id="sdp-4a-g4Q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OBJ-tC-n4K">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asl-QO-T4G">
+                                <rect key="frame" x="20" y="104" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98594826459999996" green="0.0" blue="0.02878310718" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="asl-QO-T4G" secondAttribute="trailing" id="Kk8-kX-JKL"/>
+                            <constraint firstItem="asl-QO-T4G" firstAttribute="top" secondItem="KQ2-zk-h0H" secondAttribute="bottom" constant="40" id="aRB-hB-7sz"/>
+                            <constraint firstItem="asl-QO-T4G" firstAttribute="leading" secondItem="OBJ-tC-n4K" secondAttribute="leadingMargin" id="jxX-Qc-pRu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="asl-QO-T4G" id="pr6-Sx-WJz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HWx-6o-Wfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1821" y="1185"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="JzV-dW-EAM">
             <objects>
@@ -263,7 +300,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obL-8c-xva" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1989" y="337"/>
+            <point key="canvasLocation" x="1805" y="-79"/>
         </scene>
     </scenes>
 </document>
