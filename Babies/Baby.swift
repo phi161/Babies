@@ -11,10 +11,34 @@ import CoreData
 
 
 class Baby: NSManagedObject {
+    
+    func birthdayString() -> String {
+        if let d = self.birthday {
+            return NSDateFormatter.localizedStringFromDate(d, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        } else {
+            return "n/a"
+        }
+    }
+    
+    func sexString() -> String {
+        
+        if let s = self.sex?.integerValue {
+            switch s {
+            case 0:
+                return "n/a"
+            case 1:
+                return "boy"
+            default:
+                return "girl"
+            }
+        } else {
+            return "n/a"
+        }
+    }
 
     func stringRepresentation() -> String {
 
-        return "family name: \(self.familyName ?? "empty"), given name: \(self.givenName ?? "empty")\n\(self.birthday)"
+        return "\(self.familyName ?? "n/a"), \(self.givenName ?? "n/a")"
     }
 
 }

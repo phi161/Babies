@@ -90,8 +90,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
 
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
         newBaby.birthday = NSDate()
-        newBaby.givenName = "Given"
+        newBaby.givenName = self.givenNameTextField.text
         newBaby.familyName = self.familyNameTextField.text
+        newBaby.sex = self.sexSegmentedControl.selectedSegmentIndex
         
         do {
             try moc?.save()
