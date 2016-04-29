@@ -9,12 +9,17 @@
 import UIKit
 import CoreData
 
+protocol EditBabyViewControllerDelegate: class {
+    func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?)
+}
+
 class EditBabyViewController: UIViewController, UITableViewDelegate {
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
     var dataSource = EditBabyDataSource()
     var visiblePickerIndexPath: NSIndexPath?
+    weak var delegate: EditBabyViewControllerDelegate?
 
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
@@ -77,13 +82,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
     
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate?.editBabyViewController(self, didAddBaby: nil)
     }
     
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
+
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
         newBaby.birthday = NSDate()
         newBaby.givenName = "Given"
@@ -95,5 +99,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
         } catch {
             print("Error: \(error)")
         }
+        
+        self.delegate?.editBabyViewController(self, didAddBaby: newBaby)
     }
 }

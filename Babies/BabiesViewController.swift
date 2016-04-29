@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
 
     @IBOutlet var tableView: UITableView!
     
@@ -48,6 +48,13 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    // MARK: - EditBabyViewControllerDelegate
+    
+    func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Actions
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -55,20 +62,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
         
         editBabyViewController.moc = self.moc
+        editBabyViewController.delegate = self
     }
-    
-    @IBAction func newButtonTapped(sender: AnyObject) {
-        let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
-        newBaby.birthday = NSDate()
-        newBaby.givenName = "Given"
-        newBaby.familyName = "Family"
-        
-        do {
-            try moc?.save()
-            print("Saved \(newBaby.stringRepresentation())")
-        } catch {
-            print("Error: \(error)")
-        }
-    }
-}
 
+}
