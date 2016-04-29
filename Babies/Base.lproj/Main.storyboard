@@ -82,7 +82,7 @@
         <!--Edit Baby View Controller-->
         <scene sceneID="q3o-fy-q7h">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Vc7-JT-GAg" customClass="EditBabyViewController" customModule="Babies" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditBabyViewControllerId" automaticallyAdjustsScrollViewInsets="NO" id="Vc7-JT-GAg" customClass="EditBabyViewController" customModule="Babies" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vy8-Q2-T1F"/>
                         <viewControllerLayoutGuide type="bottom" id="hPL-DR-Ifu"/>
