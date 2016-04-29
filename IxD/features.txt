@@ -48,7 +48,7 @@ Features
 - Export to calendar
 - Export reminders
 
-
+Before birth, the baby image changes to predefined ones based on current week
 Briefing view (all known data as a quick to read story)
 Brit milah (circumcision ceremony)
 https://en.wikipedia.org/wiki/Religious_initiation_rites
