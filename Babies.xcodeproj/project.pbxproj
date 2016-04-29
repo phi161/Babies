@@ -24,6 +24,7 @@
 		CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */; };
 		CF4845A31CC0272F000BED2A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF48459B1CC0272F000BED2A /* Event.swift */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
+		CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CF48459A1CC0272F000BED2A /* Event+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF48459B1CC0272F000BED2A /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
+		CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,17 +80,18 @@
 		7281D4601CB69A5A00713321 /* Babies */ = {
 			isa = PBXGroup;
 			children = (
-				CF4845931CC02711000BED2A /* Model Classes */,
-				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
-				7281D4631CB69A5A00713321 /* ViewController.swift */,
-				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
-				CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */,
-				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
-				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
-				7281D4651CB69A5A00713321 /* Main.storyboard */,
-				7281D4681CB69A5A00713321 /* Assets.xcassets */,
-				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
 				7281D46D1CB69A5A00713321 /* Info.plist */,
+				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
+				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
+				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
+				CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */,
+				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
+				7281D4631CB69A5A00713321 /* ViewController.swift */,
+				7281D4681CB69A5A00713321 /* Assets.xcassets */,
+				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
+				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
+				7281D4651CB69A5A00713321 /* Main.storyboard */,
+				CF4845931CC02711000BED2A /* Model Classes */,
 			);
 			path = Babies;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */,
 				CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */,
 				CF4845A31CC0272F000BED2A /* Event.swift in Sources */,
 				CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */,
