@@ -41,6 +41,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
         // Thumbnail Image
         self.thumbnailImageView.userInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
+        
+        // Populate GUI for this baby
+        self.familyNameTextField.text = self.baby?.familyName
+        self.givenNameTextField.text = self.baby?.givenName
     }
 
     

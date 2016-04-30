@@ -73,6 +73,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let babyDetailViewController = segue.destinationViewController as? BabyDetailViewController
             
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
+            babyDetailViewController?.moc = self.moc
             babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
         }
     }

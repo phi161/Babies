@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate {
 
     @IBOutlet var label: UILabel!
     
     var baby:Baby? = nil
+    var moc: NSManagedObjectContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,8 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
             navigationController.modalTransitionStyle = .CrossDissolve
             self.presentViewController(navigationController, animated: true, completion: nil)
             editBabyViewController.delegate = self
+            editBabyViewController.moc = self.moc
+            editBabyViewController.baby = self.baby
         }
     }
     
