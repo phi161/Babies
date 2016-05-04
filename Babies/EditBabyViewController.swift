@@ -61,16 +61,23 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if tableView.cellForRowAtIndexPath(indexPath) is DatePickerCell {
-            if visiblePickerIndexPath == indexPath {
-                visiblePickerIndexPath = nil
-            } else {
-                visiblePickerIndexPath = indexPath
+        if indexPath.section == 0 {
+            if tableView.cellForRowAtIndexPath(indexPath) is DatePickerCell {
+                if visiblePickerIndexPath == indexPath {
+                    visiblePickerIndexPath = nil
+                } else {
+                    visiblePickerIndexPath = indexPath
+                }
+            }
+            
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        } else if indexPath.section == 1 {
+            if indexPath.row == self.dataSource.numberOfItems(forSection: 1)-1 {
+                UIAlertView(title: "add", message: "this will open contacts", delegate: nil, cancelButtonTitle: "sure").show()
             }
         }
-
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        
     }
     
     // MARK: - Actions

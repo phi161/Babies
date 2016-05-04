@@ -59,4 +59,18 @@ class EditBabyDataSource: NSObject, UITableViewDataSource {
         return cell
     }
     
+    // MARK: - Helpers
+    
+    func numberOfItems(forSection section:Int) -> Int {
+        if section == 1 {
+            if let adultsCount = self.baby?.adults?.count {
+                return adultsCount+1
+            } else {
+                return 1
+            }
+        }
+        
+        return 0
+    }
+    
 }
