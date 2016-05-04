@@ -10,10 +10,12 @@ import UIKit
 
 class EditBabyDataSource: NSObject, UITableViewDataSource {
 
+    var baby: Baby?
+    
     let sectionHeaderTitles = [
         "Dates",
-        /*
-         "Parents",
+        "Parents",
+         /*
          "Gifts",
          "Events",
          */
@@ -26,6 +28,12 @@ class EditBabyDataSource: NSObject, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 2
+        } else if section == 1 {
+            if let adultsCount = self.baby?.adults?.count {
+                return adultsCount+1
+            } else {
+                return 1
+            }
         }
         
         return 1
@@ -37,7 +45,14 @@ class EditBabyDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let identifer: String = "DatePickerCell"
+        var identifer: String
+
+        switch indexPath.section {
+        case 0:
+            identifer = "DatePickerCell"
+        default:
+            identifer = "AddItemCellIdentifier"
+        }
         
         let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
         
