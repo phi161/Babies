@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol DatePickerCellDelegate: class {
+    func datePickerCellDidClear(datePickerCell: DatePickerCell)
+}
+
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var clearButton: UIButton!
     @IBOutlet var clearButtonTrailingConstraint: NSLayoutConstraint!
+    
+    weak var delegate: DatePickerCellDelegate?
     
     private var isExpanded = false
     
@@ -69,7 +75,7 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     }
     
     @IBAction func clearButtonTapped(sender: AnyObject) {
-        //
+        delegate?.datePickerCellDidClear(self)
     }
     
 }

@@ -13,7 +13,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate {
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
@@ -101,7 +101,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             
         case CellType.Date:
             identifer = "DatePickerCellIdentifier"
-            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+            if let dateCell: DatePickerCell = tableView.dequeueReusableCellWithIdentifier(identifer) as? DatePickerCell {
+                dateCell.delegate = self
+                return dateCell
+            } else {
+                identifer = ""
+                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+            }
+            
         case CellType.Adult:
             identifer = "AdultCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
@@ -151,9 +158,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(self.visiblePickerIndexPath!) as! DatePickerCell
             dateCell.setExpanded(false, animated: true)
+            visiblePickerIndexPath = nil
             tableView.beginUpdates()
             tableView.endUpdates()
-            visiblePickerIndexPath = nil
         }
     }
     
@@ -166,6 +173,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 visiblePickerIndexPath = nil
                 dateCell.setExpanded(false, animated: true)
             } else {
+                // Collapse the other cell
+                if  visiblePickerIndexPath != nil {
+                    let expandedCell: DatePickerCell = tableView.cellForRowAtIndexPath(visiblePickerIndexPath!) as! DatePickerCell
+                    expandedCell.setExpanded(false, animated: true)
+                }
                 visiblePickerIndexPath = indexPath
                 dateCell.setExpanded(true, animated: true)
             }
@@ -262,4 +274,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.delegate?.editBabyViewController(self, didAddBaby: newBaby)
     }
+    
+    // MARK: - DatePickerCellDelegate
+    
+    func datePickerCellDidClear(datePickerCell: DatePickerCell) {
+        if visiblePickerIndexPath != nil {
+            datePickerCell.setExpanded(false, animated: true)
+            visiblePickerIndexPath = nil
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+    
 }
