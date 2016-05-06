@@ -20,5 +20,6 @@ extension Baby {
     @NSManaged var gifts: NSSet?
     @NSManaged var adults: NSSet?
     @NSManaged var events: NSManagedObject?
-
+    
+    @NSManaged func addAdultsObject(value:Adult)
 }

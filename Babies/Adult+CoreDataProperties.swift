@@ -17,4 +17,5 @@ extension Adult {
     @NSManaged var type: NSNumber?
     @NSManaged var babies: NSSet?
 
+    @NSManaged func addBabiesObject(value:Baby)
 }
