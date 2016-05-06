@@ -107,6 +107,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             identifer = "DatePickerCellIdentifier"
             if let dateCell: DatePickerCell = tableView.dequeueReusableCellWithIdentifier(identifer) as? DatePickerCell {
                 dateCell.delegate = self
+                if indexPath.row == DateRow.Delivery.rawValue {
+                    dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery)
+                } else {
+                    dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday)
+                }
                 return dateCell
             } else {
                 identifer = ""

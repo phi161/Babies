@@ -16,6 +16,7 @@ protocol DatePickerCellDelegate: class {
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var clearButton: UIButton!
     @IBOutlet var clearButtonTrailingConstraint: NSLayoutConstraint!
@@ -26,6 +27,8 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.clearButton.setTitle(NSLocalizedString("CLEAR_BUTTON", comment: "The title of the clear button"), forState: .Normal)
         
         self.clearButtonTrailingConstraint.constant = -64
         self.dateLabel.textColor = UIColor.blueColor()
@@ -68,6 +71,16 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
             } else {
                 // do nothing
             }
+        }
+    }
+    
+    func configure(withTitle title: String, date: NSDate?) {
+        self.titleLabel.text = title
+        
+        if date != nil {
+            self.dateLabel.text = NSDateFormatter.localizedStringFromDate(date!, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        } else {
+            self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         }
     }
 
