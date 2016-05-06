@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZXs-xo-OK5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZXs-xo-OK5">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -68,7 +68,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="GgX-qg-Aj1">
                             <connections>
                                 <action selector="newButtonTapped:" destination="BYZ-38-t0r" id="eZq-b1-Ypc"/>
-                                <segue destination="S3K-fg-tmN" kind="presentation" id="Icw-mn-kJN"/>
+                                <segue destination="S3K-fg-tmN" kind="presentation" identifier="SegueAddNewBaby" id="Icw-mn-kJN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -144,7 +144,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="260" id="gav-L4-ze4" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DatePickerCellIdentifier" rowHeight="260" id="gav-L4-ze4" customClass="DatePickerCell" customModule="Babies" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="196" width="600" height="260"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gav-L4-ze4" id="3Ju-qA-rG3">
@@ -213,8 +213,26 @@
                                             <outlet property="datePicker" destination="12h-lC-kiq" id="f7I-TY-hx4"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdultCellIdentifier" rowHeight="80" id="HMT-88-zVK">
+                                        <rect key="frame" x="0.0" y="456" width="600" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HMT-88-zVK" id="9qC-wf-FUA">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.62745098040000002" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCellIdentifier" rowHeight="120" id="QoV-vc-MSN">
+                                        <rect key="frame" x="0.0" y="536" width="600" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QoV-vc-MSN" id="Dyh-ln-3iD">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemCellIdentifier" textLabel="uXg-4l-62y" detailTextLabel="XKh-e0-lxe" rowHeight="50" style="IBUITableViewCellStyleSubtitle" id="7Yl-za-8EX">
-                                        <rect key="frame" x="0.0" y="456" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="656" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Yl-za-8EX" id="CMc-y6-Cb4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
@@ -236,9 +254,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
+                                    <outlet property="dataSource" destination="Vc7-JT-GAg" id="pM0-c0-Ici"/>
                                     <outlet property="delegate" destination="Vc7-JT-GAg" id="IvQ-o3-1Zm"/>
                                 </connections>
                             </tableView>

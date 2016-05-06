@@ -13,13 +13,25 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var moc: NSManagedObjectContext?
     var baby: Baby?
-    var dataSource = EditBabyDataSource()
     var visiblePickerIndexPath: NSIndexPath?
     weak var delegate: EditBabyViewControllerDelegate?
+    
+    enum Section: Int {
+        case Dates, Adults, Gifts
+    }
+
+    let sectionHeaderTitles = [
+        "Dates",
+        "Adults",
+        "Gifts",
+        /*
+         "Events",
+         */
+    ]
 
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
@@ -35,9 +47,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
         self.view.backgroundColor = UIColor.redColor()
         
         self.title = NSLocalizedString("NEW_BABY_TITLE", comment: "The title of the new baby view controller")
-        
-        self.tableView.dataSource = dataSource
-        
+
         // Thumbnail Image
         self.thumbnailImageView.userInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
@@ -48,17 +58,114 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
     }
 
     
-    // MARK: - UITableView
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        if indexPath == visiblePickerIndexPath {
-            return 260
+    // MARK: - UITableViewDataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.sectionHeaderTitles.count
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == Section.Dates.rawValue {
+            return 2
+        } else if section == Section.Adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count {
+                return adultsCount+1
+            } else {
+                return 1
+            }
+        } else if section == Section.Gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count {
+                return giftsCount+1
+            } else {
+                return 1
+            }
         }
         
-        return 44
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sectionHeaderTitles[section]
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var identifer: String = "AddItemCellIdentifier"
+        var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+        
+        if indexPath.section == Section.Dates.rawValue {
+            identifer = "DatePickerCellIdentifier"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+        } else if indexPath.section == Section.Adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count {
+                if indexPath.row < adultsCount {
+                    identifer = "AdultCellIdentifier"
+                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                    cell.textLabel?.text = "\(self.baby?.adults?.allObjects[indexPath.row].givenName), \(self.baby?.adults?.allObjects[indexPath.row].familyName)"
+                } else {
+                    identifer = "AddItemCellIdentifier"
+                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                    cell.textLabel?.text = "Add adult"
+                }
+            } else {
+                identifer = "AddItemCellIdentifier"
+                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                cell.textLabel?.text = "Add adult"
+                
+            }
+        } else if indexPath.section == Section.Gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count {
+                if indexPath.row < giftsCount {
+                    identifer = "GiftCellIdentifier"
+                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                    
+                } else {
+                    identifer = "AddItemCellIdentifier"
+                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                    cell.textLabel?.text = "Add gift"
+                }
+            } else {
+                identifer = "AddItemCellIdentifier"
+                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+                cell.textLabel?.text = "Add gift"
+            }
+        }
+
+        return cell
     }
 
+    
+    // MARK: - UITableViewDelegate
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == Section.Dates.rawValue {
+            return 260
+        } else if indexPath.section == Section.Adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count {
+                if indexPath.row < adultsCount {
+                    return 80
+                } else {
+                    return 50
+                }
+            } else {
+                return 50
+            }
+        } else if indexPath.section == Section.Gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count {
+                if indexPath.row < giftsCount {
+                    return 120
+                } else {
+                    return 50
+                }
+            } else {
+                return 50
+            }
+        }
+        
+        return 300
+    }
+
+/*
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.section == 0 {
@@ -79,6 +186,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
         }
         
     }
+*/
     
     // MARK: - Actions
 
@@ -98,12 +206,26 @@ class EditBabyViewController: UIViewController, UITableViewDelegate {
     
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
-
+        
+        let newParent: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
+        newParent.givenName = "dad"
+        newParent.familyName = "mum"
+        
+        let newParent1: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
+        newParent.givenName = "dad1"
+        newParent.familyName = "mum1"
+        
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
         newBaby.birthday = NSDate()
         newBaby.givenName = self.givenNameTextField.text
         newBaby.familyName = self.familyNameTextField.text
         newBaby.sex = self.sexSegmentedControl.selectedSegmentIndex
+
+        newBaby.addAdultsObject(newParent)
+        newParent.addBabiesObject(newBaby)
+        
+        newBaby.addAdultsObject(newParent1)
+        newParent1.addBabiesObject(newBaby)
         
         do {
             try moc?.save()
