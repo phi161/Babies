@@ -14,7 +14,6 @@
 		7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7281D4681CB69A5A00713321 /* Assets.xcassets */; };
 		7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
-		CF446FC51CD1633F001BB364 /* EditBabyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
 		CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */; };
@@ -38,7 +37,6 @@
 		7281D46B1CB69A5A00713321 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7281D46D1CB69A5A00713321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
-		CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyDataSource.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
 		CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gift+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 				CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */,
 				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
 				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
-				CF446FC41CD1633F001BB364 /* EditBabyDataSource.swift */,
 				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
@@ -192,7 +189,6 @@
 				CF48459F1CC0272F000BED2A /* Gift.swift in Sources */,
 				7281D4641CB69A5A00713321 /* BabiesViewController.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
-				CF446FC51CD1633F001BB364 /* EditBabyDataSource.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
 				CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */,
 				CF4845A11CC0272F000BED2A /* Adult.swift in Sources */,
