@@ -10,6 +10,7 @@ import UIKit
 
 protocol DatePickerCellDelegate: class {
     func datePickerCellDidClear(datePickerCell: DatePickerCell)
+    func datePickerCell(datePickerCell: DatePickerCell, didSelectDate date:NSDate)
 }
 
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
@@ -72,9 +73,11 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
 
     @IBAction func datePickerChanged(sender: UIDatePicker) {
         self.dateLabel.text = NSDateFormatter.localizedStringFromDate(sender.date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        delegate?.datePickerCell(self, didSelectDate: sender.date)
     }
     
     @IBAction func clearButtonTapped(sender: AnyObject) {
+        self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         delegate?.datePickerCellDidClear(self)
     }
     

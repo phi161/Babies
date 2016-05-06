@@ -24,6 +24,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case Dates, Adults, Gifts
     }
     
+    enum DateRow: Int {
+        case Delivery, Birthday
+    }
+    
     enum CellType: Int {
         case Unknown, Date, Adult, Gift, AddItem
     }
@@ -254,7 +258,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         newParent1.familyName = "mum1"
         
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
-        newBaby.birthday = NSDate()
         newBaby.givenName = self.givenNameTextField.text
         newBaby.familyName = self.familyNameTextField.text
         newBaby.sex = self.sexSegmentedControl.selectedSegmentIndex
@@ -277,7 +280,22 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - DatePickerCellDelegate
     
+    func datePickerCell(datePickerCell: DatePickerCell, didSelectDate date: NSDate) {
+        if self.visiblePickerIndexPath?.row == DateRow.Delivery.rawValue {
+            self.baby?.delivery = date
+        } else if self.visiblePickerIndexPath?.row == DateRow.Birthday.rawValue {
+            self.baby?.birthday = date
+        }
+    }
+    
     func datePickerCellDidClear(datePickerCell: DatePickerCell) {
+        
+        if self.visiblePickerIndexPath?.row == DateRow.Delivery.rawValue {
+            self.baby?.delivery = nil
+        } else if self.visiblePickerIndexPath?.row == DateRow.Birthday.rawValue {
+            self.baby?.birthday = nil
+        }
+        
         if visiblePickerIndexPath != nil {
             datePickerCell.setExpanded(false, animated: true)
             visiblePickerIndexPath = nil
