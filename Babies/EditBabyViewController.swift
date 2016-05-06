@@ -23,7 +23,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     enum Section: Int {
         case Dates, Adults, Gifts
     }
-
+    
+    enum CellType: Int {
+        case Unknown, Date, Adult, Gift, AddItem
+    }
+    
     let sectionHeaderTitles = [
         "Dates",
         "Adults",
@@ -32,22 +36,22 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
          "Events",
          */
     ]
-
+    
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
     @IBOutlet var givenNameTextField: UITextField!
     @IBOutlet var sexSegmentedControl: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
-
+    
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = UIColor.redColor()
         
         self.title = NSLocalizedString("NEW_BABY_TITLE", comment: "The title of the new baby view controller")
-
+        
         // Thumbnail Image
         self.thumbnailImageView.userInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
@@ -56,7 +60,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.familyNameTextField.text = self.baby?.familyName
         self.givenNameTextField.text = self.baby?.givenName
     }
-
+    
     
     // MARK: - UITableViewDataSource
     
@@ -90,106 +94,93 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var identifer: String = "AddItemCellIdentifier"
-        var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+        var identifer: String
+        var cell: UITableViewCell
         
-        if indexPath.section == Section.Dates.rawValue {
+        switch cellType(forIndexPath: indexPath) {
+            
+        case CellType.Date:
             identifer = "DatePickerCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-        } else if indexPath.section == Section.Adults.rawValue {
-            if let adultsCount = self.baby?.adults?.count {
-                if indexPath.row < adultsCount {
-                    identifer = "AdultCellIdentifier"
-                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                    cell.textLabel?.text = "\(self.baby?.adults?.allObjects[indexPath.row].givenName), \(self.baby?.adults?.allObjects[indexPath.row].familyName)"
-                } else {
-                    identifer = "AddItemCellIdentifier"
-                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                    cell.textLabel?.text = "Add adult"
-                }
+        case CellType.Adult:
+            identifer = "AdultCellIdentifier"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+            cell.textLabel?.text = "\(self.baby?.adults?.allObjects[indexPath.row].givenName), \(self.baby?.adults?.allObjects[indexPath.row].familyName)"
+        case CellType.Gift:
+            identifer = "GiftCellIdentifier"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+        case CellType.AddItem:
+            identifer = "AddItemCellIdentifier"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
+            if indexPath.section == Section.Adults.rawValue {
+                cell.textLabel?.text = "Add Adult"
             } else {
-                identifer = "AddItemCellIdentifier"
-                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                cell.textLabel?.text = "Add adult"
-                
+                cell.textLabel?.text = "Add Gift"
             }
-        } else if indexPath.section == Section.Gifts.rawValue {
-            if let giftsCount = self.baby?.gifts?.count {
-                if indexPath.row < giftsCount {
-                    identifer = "GiftCellIdentifier"
-                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                    
-                } else {
-                    identifer = "AddItemCellIdentifier"
-                    cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                    cell.textLabel?.text = "Add gift"
-                }
-            } else {
-                identifer = "AddItemCellIdentifier"
-                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-                cell.textLabel?.text = "Add gift"
-            }
+        default:
+            identifer = ""
+            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
         }
-
+        
         return cell
     }
-
+    
     
     // MARK: - UITableViewDelegate
-
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == Section.Dates.rawValue {
+        switch cellType(forIndexPath: indexPath) {
+        case CellType.Date:
             return 260
+        case CellType.Adult:
+            return 80
+        case CellType.Gift:
+            return 120
+        case CellType.AddItem:
+            return 50
+        default:
+            return 0
+        }
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    // MARK: - Helpers
+    
+    func cellType(forIndexPath indexPath: NSIndexPath) -> CellType {
+        if indexPath.section == Section.Dates.rawValue {
+            return CellType.Date
         } else if indexPath.section == Section.Adults.rawValue {
             if let adultsCount = self.baby?.adults?.count {
                 if indexPath.row < adultsCount {
-                    return 80
+                    return CellType.Adult
                 } else {
-                    return 50
+                    return CellType.AddItem
                 }
             } else {
-                return 50
+                return CellType.AddItem
             }
         } else if indexPath.section == Section.Gifts.rawValue {
             if let giftsCount = self.baby?.gifts?.count {
                 if indexPath.row < giftsCount {
-                    return 120
+                    return CellType.Gift
                 } else {
-                    return 50
+                    return CellType.AddItem
                 }
             } else {
-                return 50
+                return CellType.AddItem
             }
         }
         
-        return 300
-    }
-
-/*
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if indexPath.section == 0 {
-            if tableView.cellForRowAtIndexPath(indexPath) is DatePickerCell {
-                if visiblePickerIndexPath == indexPath {
-                    visiblePickerIndexPath = nil
-                } else {
-                    visiblePickerIndexPath = indexPath
-                }
-            }
-            
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        } else if indexPath.section == 1 {
-            if indexPath.row == self.dataSource.numberOfItems(forSection: 1)-1 {
-                UIAlertView(title: "add", message: "this will open contacts", delegate: nil, cancelButtonTitle: "sure").show()
-            }
-        }
+        return CellType.Unknown
         
     }
-*/
     
     // MARK: - Actions
-
+    
     @IBAction func sexChanged(sender: AnyObject) {
         print(#function)
     }
@@ -212,15 +203,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         newParent.familyName = "mum"
         
         let newParent1: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
-        newParent.givenName = "dad1"
-        newParent.familyName = "mum1"
+        newParent1.givenName = "dad1"
+        newParent1.familyName = "mum1"
         
         let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
         newBaby.birthday = NSDate()
         newBaby.givenName = self.givenNameTextField.text
         newBaby.familyName = self.familyNameTextField.text
         newBaby.sex = self.sexSegmentedControl.selectedSegmentIndex
-
+        
         newBaby.addAdultsObject(newParent)
         newParent.addBabiesObject(newBaby)
         
