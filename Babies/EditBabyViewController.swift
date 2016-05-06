@@ -69,6 +69,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             self.sexSegmentedControl.selectedSegmentIndex = 0
         }
+        
+        self.tableView.editing = true
     }
     
     
@@ -198,6 +200,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             //
         }
 
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        switch cellType(forIndexPath: indexPath) {
+        case CellType.AddItem:
+            return .Insert
+        default:
+            return .None
+        }
     }
     
     // MARK: - UIScrollViewDelegate
