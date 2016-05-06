@@ -63,6 +63,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         // Populate GUI for this baby
         self.familyNameTextField.text = self.baby?.familyName
         self.givenNameTextField.text = self.baby?.givenName
+        
+        if let sex:Int = self.baby?.sex?.integerValue {
+            self.sexSegmentedControl.selectedSegmentIndex = sex
+        } else {
+            self.sexSegmentedControl.selectedSegmentIndex = 0
+        }
     }
     
     
@@ -163,16 +169,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        if visiblePickerIndexPath != nil {
-            let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(self.visiblePickerIndexPath!) as! DatePickerCell
-            dateCell.setExpanded(false, animated: true)
-            visiblePickerIndexPath = nil
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-    }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         switch cellType(forIndexPath: indexPath) {
@@ -204,6 +200,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     }
     
+    // MARK: - UIScrollViewDelegate
+
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if visiblePickerIndexPath != nil {
+            let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(self.visiblePickerIndexPath!) as! DatePickerCell
+            dateCell.setExpanded(false, animated: true)
+            visiblePickerIndexPath = nil
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
+
     // MARK: - Helpers
     
     func cellType(forIndexPath indexPath: NSIndexPath) -> CellType {
