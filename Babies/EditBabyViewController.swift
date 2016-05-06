@@ -131,7 +131,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch cellType(forIndexPath: indexPath) {
         case CellType.Date:
-            return 260
+            if indexPath == self.visiblePickerIndexPath {
+                return 260
+            } else {
+                return 44
+            }
         case CellType.Adult:
             return 80
         case CellType.Gift:
@@ -143,9 +147,40 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if visiblePickerIndexPath != nil {
+            let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(self.visiblePickerIndexPath!) as! DatePickerCell
+            dateCell.setExpanded(false, animated: true)
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            visiblePickerIndexPath = nil
+        }
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+
+        switch cellType(forIndexPath: indexPath) {
+        case CellType.Date:
+            let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(indexPath) as! DatePickerCell
+            if visiblePickerIndexPath == indexPath {
+                visiblePickerIndexPath = nil
+                dateCell.setExpanded(false, animated: true)
+            } else {
+                visiblePickerIndexPath = indexPath
+                dateCell.setExpanded(true, animated: true)
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        case CellType.Adult: break
+            //
+        case CellType.Gift: break
+            //
+        case CellType.AddItem: break
+            //
+        default: break
+            //
+        }
+
     }
     
     // MARK: - Helpers
