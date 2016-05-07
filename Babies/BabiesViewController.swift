@@ -54,9 +54,10 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: - EditBabyViewControllerDelegate
     
-    func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.tableView.reloadData()
+    func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        self.dismissViewControllerAnimated(true) { 
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Actions
@@ -69,6 +70,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             editBabyViewController.moc = self.moc
             editBabyViewController.delegate = self
+            editBabyViewController.isAddingNewEntity = true
         } else if segue.identifier == "SegueShowBabyDetail" {
             let babyDetailViewController = segue.destinationViewController as? BabyDetailViewController
             

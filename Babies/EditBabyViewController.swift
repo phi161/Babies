@@ -10,12 +10,14 @@ import UIKit
 import CoreData
 
 protocol EditBabyViewControllerDelegate: class {
-    func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?)
+    func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
 class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate {
     
+    var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
+    var addNewBabyManagedObjectContext: NSManagedObjectContext?
     var baby: Baby?
     var visiblePickerIndexPath: NSIndexPath?
     weak var delegate: EditBabyViewControllerDelegate?
@@ -48,7 +50,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var tableView: UITableView!
     
     // MARK: - Setup
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,19 +61,34 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         // Thumbnail Image
         self.thumbnailImageView.userInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
-        
-        // Populate GUI for this baby
-        self.familyNameTextField.text = self.baby?.familyName
-        self.givenNameTextField.text = self.baby?.givenName
-        
-        if let sex:Int = self.baby?.sex?.integerValue {
-            self.sexSegmentedControl.selectedSegmentIndex = sex
-        } else {
-            self.sexSegmentedControl.selectedSegmentIndex = 0
-        }
-        
+
         self.tableView.editing = true
         self.tableView.allowsSelectionDuringEditing = true
+        
+        self.populateWithBabyProperties()
+    }
+    
+    func populateWithBabyProperties() {
+        if isAddingNewEntity {
+            // Create a new baby, empty interface
+            addNewBabyManagedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+            addNewBabyManagedObjectContext?.parentContext = self.moc
+            
+            let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: addNewBabyManagedObjectContext!) as! Baby
+            newBaby.sex = 0
+            
+            self.baby = newBaby
+        } else {
+            // Populate GUI for this baby
+            self.familyNameTextField.text = self.baby!.familyName
+            self.givenNameTextField.text = self.baby!.givenName
+            
+            if let sex:Int = self.baby!.sex?.integerValue {
+                self.sexSegmentedControl.selectedSegmentIndex = sex
+            } else {
+                self.sexSegmentedControl.selectedSegmentIndex = 0
+            }
+        }
     }
     
     
@@ -277,12 +294,43 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        self.delegate?.editBabyViewController(self, didAddBaby: nil)
+        self.delegate?.editBabyViewController(self, didFinishWithBaby: nil)
     }
     
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
         
+        self.baby?.givenName = self.givenNameTextField.text
+        self.baby?.familyName = self.familyNameTextField.text
+        self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex
+
+        if isAddingNewEntity {
+            addNewBabyManagedObjectContext?.performBlock({
+                do {
+                    try self.addNewBabyManagedObjectContext?.save()
+                    print("Saved child context!")
+                    self.moc?.performBlock({
+                        do {
+                            try self.moc?.save()
+                            print("Saved main context!")
+                        } catch {
+                            print("Error for main: \(error)")
+                        }
+                    })
+                } catch {
+                    print("Error for child: \(error)")
+                }
+            })
+        } else {
+            do {
+                try moc?.save()
+                print("Saved!")
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        
+        /*
         let newParent: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
         newParent.givenName = "dad"
         newParent.familyName = "mum"
@@ -308,8 +356,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } catch {
             print("Error: \(error)")
         }
+        */
         
-        self.delegate?.editBabyViewController(self, didAddBaby: newBaby)
+        self.delegate?.editBabyViewController(self, didFinishWithBaby: self.baby)
     }
     
     // MARK: - DatePickerCellDelegate

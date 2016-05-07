@@ -36,8 +36,12 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
         }
     }
     
-    func editBabyViewController(editBabyViewController: EditBabyViewController, didAddBaby baby: Baby?) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        self.dismissViewControllerAnimated(true) {
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.label.text = self.baby?.stringRepresentation()
+            })
+        }
     }
     
 }
