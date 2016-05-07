@@ -25,7 +25,7 @@ class Baby: NSManagedObject {
         if let s = self.sex?.integerValue {
             switch s {
             case 0:
-                return "n/a"
+                return "unknown"
             case 1:
                 return "boy"
             default:
@@ -37,8 +37,33 @@ class Baby: NSManagedObject {
     }
 
     func stringRepresentation() -> String {
-
-        return "\(self.familyName ?? "n/a"), \(self.givenName ?? "n/a")"
+        
+        // Name
+        var string: String = ""
+        string += self.familyName ?? "n/a"
+        string += ", "
+        string += self.givenName ?? "n/a"
+        
+        // Sex
+        string += " [\(self.sexString())]"
+        
+        // Delivery date
+        string += "\ndelivery: "
+        if self.delivery != nil {
+            string += NSDateFormatter.localizedStringFromDate(self.delivery!, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        } else {
+            string += "n/a"
+        }
+        
+        // Birthday
+        string += "\nbirthday: "
+        if self.birthday != nil {
+            string += NSDateFormatter.localizedStringFromDate(self.birthday!, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        } else {
+            string += "n/a"
+        }
+        
+        return string
     }
 
 }

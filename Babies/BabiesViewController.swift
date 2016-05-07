@@ -47,7 +47,6 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCellWithIdentifier("BabyListCell", forIndexPath: indexPath)
         
         cell.textLabel?.text = babies[indexPath.row].stringRepresentation()
-        cell.detailTextLabel?.text = babies[indexPath.row].birthdayString() + " " + babies[indexPath.row].sexString()
         
         return cell
     }
