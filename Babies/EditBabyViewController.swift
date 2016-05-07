@@ -241,6 +241,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        
+        self.view.endEditing(true)
+        
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(self.visiblePickerIndexPath!) as! DatePickerCell
             dateCell.setExpanded(false, animated: true)
