@@ -71,6 +71,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         self.tableView.editing = true
+        self.tableView.allowsSelectionDuringEditing = true
     }
     
     
@@ -200,6 +201,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             //
         }
 
+    }
+    
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        switch cellType(forIndexPath: indexPath) {
+        case CellType.AddItem:
+            return true
+        default:
+            return false
+        }
     }
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
