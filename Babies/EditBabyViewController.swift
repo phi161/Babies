@@ -212,8 +212,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             //
         case CellType.Gift: break
             //
-        case CellType.AddItem: break
-            //
+        case CellType.AddItem:
+            if indexPath.section == Section.Adults.rawValue {
+                // add adult
+            }
         default: break
             //
         }
