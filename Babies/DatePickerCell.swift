@@ -74,8 +74,11 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
         }
     }
     
-    func configure(withTitle title: String, date: NSDate?) {
+    func configure(withTitle title: String, date: NSDate?, mode: UIDatePickerMode) {
+        
         self.titleLabel.text = title
+        
+        self.datePicker.datePickerMode = mode
         
         if date != nil {
             self.dateLabel.text = NSDateFormatter.localizedStringFromDate(date!, dateStyle: .MediumStyle, timeStyle: .ShortStyle)

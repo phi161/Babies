@@ -134,9 +134,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             if let dateCell: DatePickerCell = tableView.dequeueReusableCellWithIdentifier(identifer) as? DatePickerCell {
                 dateCell.delegate = self
                 if indexPath.row == DateRow.Delivery.rawValue {
-                    dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery)
+                    dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery, mode: .Date)
                 } else {
-                    dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday)
+                    dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday, mode: .DateAndTime)
                 }
                 return dateCell
             } else {
@@ -212,10 +212,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             //
         case CellType.Gift: break
             //
-        case CellType.AddItem:
-            if indexPath.section == Section.Adults.rawValue {
-                // add adult
-            }
+        case CellType.AddItem: break
+            //
         default: break
             //
         }
