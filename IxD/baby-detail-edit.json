@@ -26,7 +26,7 @@
           "zOrder": "1"
         },
         {
-          "ID": "3",
+          "ID": "2",
           "measuredH": "24",
           "measuredW": "52",
           "properties": {
@@ -41,7 +41,7 @@
           "zOrder": "2"
         },
         {
-          "ID": "4",
+          "ID": "3",
           "measuredH": "24",
           "measuredW": "40",
           "properties": {
@@ -56,7 +56,7 @@
           "zOrder": "3"
         },
         {
-          "ID": "5",
+          "ID": "4",
           "h": "50",
           "measuredH": "79",
           "measuredW": "77",
@@ -70,7 +70,7 @@
           "zOrder": "4"
         },
         {
-          "ID": "6",
+          "ID": "5",
           "measuredH": "21",
           "measuredW": "36",
           "properties": {
@@ -83,7 +83,7 @@
           "zOrder": "5"
         },
         {
-          "ID": "7",
+          "ID": "6",
           "measuredH": "21",
           "measuredW": "56",
           "properties": {
@@ -96,7 +96,7 @@
           "zOrder": "6"
         },
         {
-          "ID": "9",
+          "ID": "7",
           "measuredH": "21",
           "measuredW": "118",
           "properties": {
@@ -109,7 +109,7 @@
           "zOrder": "7"
         },
         {
-          "ID": "13",
+          "ID": "8",
           "measuredH": "21",
           "measuredW": "93",
           "properties": {
@@ -122,7 +122,7 @@
           "zOrder": "8"
         },
         {
-          "ID": "16",
+          "ID": "9",
           "measuredH": "21",
           "measuredW": "37",
           "properties": {
@@ -135,7 +135,7 @@
           "zOrder": "9"
         },
         {
-          "ID": "17",
+          "ID": "10",
           "measuredH": "21",
           "measuredW": "100",
           "properties": {
@@ -148,7 +148,7 @@
           "zOrder": "10"
         },
         {
-          "ID": "24",
+          "ID": "11",
           "h": "27",
           "measuredH": "27",
           "measuredW": "122",
@@ -162,7 +162,7 @@
           "zOrder": "11"
         },
         {
-          "ID": "25",
+          "ID": "12",
           "measuredH": "25",
           "measuredW": "136",
           "properties": {
@@ -175,7 +175,7 @@
           "zOrder": "12"
         },
         {
-          "ID": "26",
+          "ID": "13",
           "measuredH": "25",
           "measuredW": "90",
           "properties": {
@@ -188,7 +188,7 @@
           "zOrder": "13"
         },
         {
-          "ID": "27",
+          "ID": "14",
           "measuredH": "21",
           "measuredW": "53",
           "properties": {
@@ -201,7 +201,7 @@
           "zOrder": "14"
         },
         {
-          "ID": "28",
+          "ID": "15",
           "measuredH": "21",
           "measuredW": "50",
           "properties": {
@@ -214,42 +214,28 @@
           "zOrder": "15"
         },
         {
-          "ID": "29",
-          "h": "90",
-          "measuredH": "123",
-          "measuredW": "109",
-          "properties": {
-            "text": "Date pickers should allow to select \"unknown\""
-          },
-          "typeID": "StickyNote",
-          "w": "147",
-          "x": "365",
-          "y": "263",
-          "zOrder": "17"
-        },
-        {
-          "ID": "30",
+          "ID": "16",
           "h": "4",
-          "measuredH": "100",
-          "measuredW": "150",
+          "measuredH": "3",
+          "measuredW": "242",
           "properties": {
             "curvature": "0",
             "direction": "top",
             "leftArrow": "false",
             "p0": {
-              "y": 0,
+              "length": 0,
               "x": 0,
-              "length": 0
+              "y": 0
             },
             "p1": {
-              "y": 0,
+              "length": 0.5,
               "x": 0.5,
-              "length": 0.5
+              "y": 0
             },
             "p2": {
-              "y": 3,
+              "length": 242.0185943269649,
               "x": 242,
-              "length": 242.0185943269649
+              "y": 3
             },
             "rightArrow": "false",
             "shape": "bezier",
@@ -260,13 +246,189 @@
           "x": "146",
           "y": "345",
           "zOrder": "16"
+        },
+        {
+          "ID": "17",
+          "h": "90",
+          "measuredH": "123",
+          "measuredW": "109",
+          "properties": {
+            "text": "Date pickers should allow to select \"unknown\""
+          },
+          "typeID": "StickyNote",
+          "w": "147",
+          "x": "365",
+          "y": "263",
+          "zOrder": "19"
+        },
+        {
+          "ID": "25",
+          "h": "119",
+          "measuredH": "117",
+          "measuredW": "214",
+          "properties": {
+            "curvature": "0",
+            "direction": "bottom",
+            "leftArrow": "false",
+            "p0": {
+              "x": 0,
+              "y": 117
+            },
+            "p1": {
+              "x": 0.5,
+              "y": 0
+            },
+            "p2": {
+              "x": 214,
+              "y": 0
+            },
+            "shape": "bezier",
+            "text": ""
+          },
+          "typeID": "Arrow",
+          "w": "216",
+          "x": "349",
+          "y": "246",
+          "zOrder": "18"
+        },
+        {
+          "ID": "26",
+          "children": {
+            "controls": {
+              "control": [
+                {
+                  "ID": "0",
+                  "h": "67",
+                  "measuredH": "70",
+                  "measuredW": "100",
+                  "typeID": "Canvas",
+                  "w": "293",
+                  "x": "70",
+                  "y": "0",
+                  "zOrder": "0"
+                },
+                {
+                  "ID": "1",
+                  "measuredH": "24",
+                  "measuredW": "62",
+                  "properties": {
+                    "bold": "true",
+                    "size": "16",
+                    "text": "child of.."
+                  },
+                  "typeID": "Label",
+                  "w": "64",
+                  "x": "86",
+                  "y": "21",
+                  "zOrder": "1"
+                },
+                {
+                  "ID": "2",
+                  "measuredH": "24",
+                  "measuredW": "164",
+                  "properties": {
+                    "bold": "true",
+                    "size": "16",
+                    "text": "tap to select contact"
+                  },
+                  "typeID": "Label",
+                  "w": "163",
+                  "x": "174",
+                  "y": "21",
+                  "zOrder": "2"
+                },
+                {
+                  "ID": "3",
+                  "measuredH": "24",
+                  "measuredW": "24",
+                  "properties": {
+                    "icon": {
+                      "ID": "angle-right",
+                      "size": "small"
+                    }
+                  },
+                  "typeID": "Icon",
+                  "x": "337",
+                  "y": "21",
+                  "zOrder": "3"
+                },
+                {
+                  "ID": "4",
+                  "h": "38",
+                  "measuredH": "37",
+                  "measuredW": "0",
+                  "properties": {
+                    "curvature": "0",
+                    "direction": "top",
+                    "leftArrow": "false",
+                    "p0": {
+                      "x": 0,
+                      "y": 0
+                    },
+                    "p1": {
+                      "x": 0.5,
+                      "y": 0
+                    },
+                    "p2": {
+                      "x": 0,
+                      "y": 37
+                    },
+                    "rightArrow": "false",
+                    "shape": "bezier",
+                    "text": ""
+                  },
+                  "typeID": "Arrow",
+                  "w": "1",
+                  "x": "158",
+                  "y": "14",
+                  "zOrder": "4"
+                },
+                {
+                  "ID": "5",
+                  "h": "107",
+                  "measuredH": "123",
+                  "measuredW": "109",
+                  "properties": {
+                    "text": "Opens UIPicker with different types of relationships (child, godchild, sibling etc)"
+                  },
+                  "typeID": "StickyNote",
+                  "w": "168",
+                  "x": "0",
+                  "y": "52",
+                  "zOrder": "5"
+                },
+                {
+                  "ID": "6",
+                  "h": "73",
+                  "measuredH": "123",
+                  "measuredW": "109",
+                  "properties": {
+                    "text": "Opens Contact Picker"
+                  },
+                  "typeID": "StickyNote",
+                  "w": "147",
+                  "x": "225",
+                  "y": "52",
+                  "zOrder": "6"
+                }
+              ]
+            }
+          },
+          "h": "159",
+          "measuredH": "159",
+          "measuredW": "372",
+          "typeID": "__group__",
+          "w": "372",
+          "x": "454",
+          "y": "88",
+          "zOrder": "17"
         }
       ]
     },
     "measuredH": "595",
-    "measuredW": "512",
+    "measuredW": "826",
     "mockupH": "573",
-    "mockupW": "384",
+    "mockupW": "698",
     "version": "1.0"
   }
 }
