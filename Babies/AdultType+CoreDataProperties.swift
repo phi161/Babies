@@ -1,5 +1,5 @@
 //
-//  Adult+CoreDataProperties.swift
+//  AdultType+CoreDataProperties.swift
 //  Babies
 //
 //  Created by phi161 on 11/05/16.
@@ -12,12 +12,10 @@
 import Foundation
 import CoreData
 
-extension Adult {
+extension AdultType {
 
-    @NSManaged var contactIdentifier: String?
-    @NSManaged var familyName: String?
-    @NSManaged var givenName: String?
-    @NSManaged var babies: NSSet?
-    @NSManaged var type: NSManagedObject?
+    @NSManaged var title: String?
+    @NSManaged var userDefined: NSNumber?
+    @NSManaged var adults: NSSet?
 
 }

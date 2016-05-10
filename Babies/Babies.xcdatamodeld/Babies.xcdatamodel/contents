@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="Adult" representedClassName=".Adult" syncable="YES">
         <attribute name="contactIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="familyName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="givenName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="babies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Baby" inverseName="adults" inverseEntity="Baby" syncable="YES"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AdultType" inverseName="adults" inverseEntity="AdultType" syncable="YES"/>
+    </entity>
+    <entity name="AdultType" representedClassName=".AdultType" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userDefined" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="adults" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Adult" inverseName="type" inverseEntity="Adult" syncable="YES"/>
     </entity>
     <entity name="Baby" representedClassName=".Baby" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
@@ -30,9 +35,10 @@
         <relationship name="baby" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Baby" inverseName="gifts" inverseEntity="Baby" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Baby" positionX="-11160" positionY="-8505" width="128" height="178"/>
-        <element name="Gift" positionX="-10937" positionY="-8311" width="128" height="103"/>
         <element name="Adult" positionX="-10964" positionY="-8635" width="128" height="118"/>
+        <element name="Baby" positionX="-11160" positionY="-8505" width="128" height="178"/>
         <element name="Event" positionX="-10899" positionY="-8469" width="128" height="88"/>
+        <element name="Gift" positionX="-10937" positionY="-8311" width="128" height="103"/>
+        <element name="AdultType" positionX="-10775" positionY="-8649" width="128" height="88"/>
     </elements>
 </model>
