@@ -8,12 +8,13 @@
 
 import UIKit
 import CoreData
+import ContactsUI
 
 protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, CNContactPickerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -152,7 +153,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.Adult:
             identifer = "AdultCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-            cell.textLabel?.text = "\(self.baby?.adults?.allObjects[indexPath.row].givenName), \(self.baby?.adults?.allObjects[indexPath.row].familyName)"
+            if let adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
+                if adult.contactIdentifier != nil {
+                    cell.textLabel?.text = adult.stringRepresentation()
+                } else {
+                    cell.textLabel?.text = "choose"
+                }
+            } else {
+                cell.textLabel?.text = "choose"
+            }
         case CellType.Gift:
             identifer = "GiftCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
@@ -213,8 +222,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
             tableView.beginUpdates()
             tableView.endUpdates()
-        case CellType.Adult: break
-            //
+        case CellType.Adult:
+            let contactPicker = CNContactPickerViewController()
+            contactPicker.delegate = self
+            self.presentViewController(contactPicker, animated: true, completion: nil)
         case CellType.Gift: break
             //
         case CellType.AddItem:
@@ -395,6 +406,31 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.beginUpdates()
             tableView.endUpdates()
         }
+    }
+    
+    
+    // MARK: - CNContactPickerDelegate
+    
+    func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+        
+        let selectedIndexPath = self.tableView.indexPathForSelectedRow!
+        
+        self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        
+        if let adult: Adult = self.baby?.adults?.allObjects[selectedIndexPath.row] as? Adult {
+            adult.familyName = contact.familyName
+            adult.givenName = contact.givenName
+            adult.contactIdentifier = contact.identifier
+            
+            self.tableView.reloadSections(NSIndexSet(index: Section.Adults.rawValue), withRowAnimation: .Automatic)
+        } else {
+            //
+        }
+
+    }
+    
+    func contactPickerDidCancel(picker: CNContactPickerViewController) {
+        self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
     }
     
 }

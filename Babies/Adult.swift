@@ -12,8 +12,19 @@ import CoreData
 
 class Adult: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
     @NSManaged func addBabiesObject(value:Baby)
     @NSManaged func removeBabiesObject(value:Baby)
 
+    func stringRepresentation() -> String {
+
+        // Name
+        var string: String = ""
+        string += self.familyName ?? "n/a"
+        string += ", "
+        string += self.givenName ?? "n/a"
+        
+        return string
+
+    }
+    
 }
