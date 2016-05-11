@@ -17,10 +17,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
-    var addNewBabyManagedObjectContext: NSManagedObjectContext?
-    var baby: Baby?
-    var visiblePickerIndexPath: NSIndexPath?
+    var babyObjectId: NSManagedObjectID?
     weak var delegate: EditBabyViewControllerDelegate?
+    
+    private var temporaryMoc: NSManagedObjectContext?
+    private var baby: Baby?
+    private var visiblePickerIndexPath: NSIndexPath?
     
     enum Section: Int {
         case Dates, Adults, Gifts
@@ -69,26 +71,29 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func populateWithBabyProperties() {
+        temporaryMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        temporaryMoc?.parentContext = self.moc
+        
         if isAddingNewEntity {
             // Create a new baby, empty interface
-            addNewBabyManagedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-            addNewBabyManagedObjectContext?.parentContext = self.moc
-            
-            let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: addNewBabyManagedObjectContext!) as! Baby
+            let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: temporaryMoc!) as! Baby
             newBaby.sex = 0
             
             self.baby = newBaby
         } else {
-            // Populate GUI for this baby
-            self.familyNameTextField.text = self.baby!.familyName
-            self.givenNameTextField.text = self.baby!.givenName
-            
-            if let sex:Int = self.baby!.sex?.integerValue {
-                self.sexSegmentedControl.selectedSegmentIndex = sex
-            } else {
-                self.sexSegmentedControl.selectedSegmentIndex = 0
-            }
+            self.baby = temporaryMoc?.objectWithID(self.babyObjectId!) as? Baby
         }
+        
+        // Populate GUI for this baby
+        self.familyNameTextField.text = self.baby!.familyName
+        self.givenNameTextField.text = self.baby!.givenName
+        
+        if let sex:Int = self.baby!.sex?.integerValue {
+            self.sexSegmentedControl.selectedSegmentIndex = sex
+        } else {
+            self.sexSegmentedControl.selectedSegmentIndex = 0
+        }
+
     }
     
     
@@ -225,7 +230,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func insertAdult() {
-        let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.addNewBabyManagedObjectContext!) as! Adult
+        let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.temporaryMoc!) as! Adult
         newAdult.addBabiesObject(self.baby!)
         self.baby?.addAdultsObject(newAdult)
         
@@ -322,60 +327,23 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex
 
-        if isAddingNewEntity {
-            addNewBabyManagedObjectContext?.performBlock({
-                do {
-                    try self.addNewBabyManagedObjectContext?.save()
-                    print("Saved child context!")
-                    self.moc?.performBlock({
-                        do {
-                            try self.moc?.save()
-                            print("Saved main context!")
-                        } catch {
-                            print("Error for main: \(error)")
-                        }
-                    })
-                } catch {
-                    print("Error for child: \(error)")
-                }
-            })
-        } else {
+        temporaryMoc?.performBlock({
             do {
-                try moc?.save()
-                print("Saved!")
+                try self.temporaryMoc?.save()
+                print("Saved child context!")
+                self.moc?.performBlock({
+                    do {
+                        try self.moc?.save()
+                        print("Saved main context!")
+                    } catch {
+                        print("Error for main: \(error)")
+                    }
+                })
             } catch {
-                print("Error: \(error)")
+                print("Error for child: \(error)")
             }
-        }
-        
-        /*
-        let newParent: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
-        newParent.givenName = "dad"
-        newParent.familyName = "mum"
-        
-        let newParent1: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.moc!) as! Adult
-        newParent1.givenName = "dad1"
-        newParent1.familyName = "mum1"
-        
-        let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: self.moc!) as! Baby
-        newBaby.givenName = self.givenNameTextField.text
-        newBaby.familyName = self.familyNameTextField.text
-        newBaby.sex = self.sexSegmentedControl.selectedSegmentIndex
-        
-        newBaby.addAdultsObject(newParent)
-        newParent.addBabiesObject(newBaby)
-        
-        newBaby.addAdultsObject(newParent1)
-        newParent1.addBabiesObject(newBaby)
-        
-        do {
-            try moc?.save()
-            print("Saved \(newBaby.stringRepresentation())")
-        } catch {
-            print("Error: \(error)")
-        }
-        */
-        
+        })
+
         self.delegate?.editBabyViewController(self, didFinishWithBaby: self.baby)
     }
     

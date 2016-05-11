@@ -32,7 +32,7 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
             self.presentViewController(navigationController, animated: true, completion: nil)
             editBabyViewController.delegate = self
             editBabyViewController.moc = self.moc
-            editBabyViewController.baby = self.baby
+            editBabyViewController.babyObjectId = self.baby?.objectID
         }
     }
     
