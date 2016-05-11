@@ -212,12 +212,27 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             //
         case CellType.Gift: break
             //
-        case CellType.AddItem: break
-            //
+        case CellType.AddItem:
+            if indexPath.section == Section.Adults.rawValue {
+                self.insertAdult()
+            } else {
+                //
+            }
         default: break
             //
         }
 
+    }
+    
+    func insertAdult() {
+        let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.addNewBabyManagedObjectContext!) as! Adult
+        newAdult.addBabiesObject(self.baby!)
+        self.baby?.addAdultsObject(newAdult)
+        
+        
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: Section.Adults.rawValue)], withRowAnimation: .Fade)
+        self.tableView.endUpdates()
     }
     
     func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
