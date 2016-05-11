@@ -240,6 +240,20 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.endUpdates()
     }
     
+    func removeAdult(atIndexPath indexPath: NSIndexPath) {
+        if let adult: Adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
+            self.baby?.removeAdultsObject(adult)
+            adult.removeBabiesObject(self.baby!)
+            self.temporaryMoc?.deleteObject(adult)
+        } else {
+            print("Attempt to delete the wrong Adult entity")
+        }
+
+        self.tableView.beginUpdates()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        self.tableView.endUpdates()
+    }
+    
     func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         switch cellType(forIndexPath: indexPath) {
         case CellType.AddItem:
@@ -249,8 +263,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            self.removeAdult(atIndexPath: indexPath)
+        } else if editingStyle == .Insert {
+            // Tapped the green "+" icon
+        }
+    }
+    
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         switch cellType(forIndexPath: indexPath) {
+        case CellType.Adult:
+            return .Delete
         case CellType.AddItem:
             return .Insert
         default:

@@ -12,6 +12,9 @@ import CoreData
 
 class Baby: NSManagedObject {
     
+    @NSManaged func addAdultsObject(value:Adult)
+    @NSManaged func removeAdultsObject(value:Adult)
+
     func birthdayString() -> String {
         if let d = self.birthday {
             return NSDateFormatter.localizedStringFromDate(d, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
