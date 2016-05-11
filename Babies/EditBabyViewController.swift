@@ -181,6 +181,34 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        switch cellType(forIndexPath: indexPath) {
+        case CellType.Adult:
+            if self.baby?.adults?.count > 1 {
+                return true
+            } else {
+                return false
+            }
+        default:
+            return false
+        }
+    }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        //
+    }
+    
+    func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        if proposedDestinationIndexPath.section != Section.Adults.rawValue {
+            return sourceIndexPath
+        } else {
+            if proposedDestinationIndexPath.row == self.baby?.adults?.count { // if user tries to drag below the "add item" cell
+                return sourceIndexPath
+            } else {
+                return proposedDestinationIndexPath
+            }
+        }
+    }
     
     // MARK: - UITableViewDelegate
     
