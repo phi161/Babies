@@ -207,14 +207,40 @@
                                             <outlet property="titleLabel" destination="mF8-W8-ERL" id="3Df-Ae-dO4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdultCellIdentifier" rowHeight="80" id="HMT-88-zVK">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdultCellIdentifier" rowHeight="80" id="HMT-88-zVK" customClass="AdultCell" customModule="Babies" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="456" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HMT-88-zVK" id="9qC-wf-FUA">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QV-zS-Am8">
+                                                    <rect key="frame" x="530" y="23" width="62" height="34"/>
+                                                    <state key="normal" title="contact"/>
+                                                    <connections>
+                                                        <action selector="contactButtonTapped:" destination="HMT-88-zVK" eventType="touchUpInside" id="FnW-TM-7oy"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I8F-hX-GQd">
+                                                    <rect key="frame" x="8" y="23" width="36" height="34"/>
+                                                    <state key="normal" title="type"/>
+                                                    <connections>
+                                                        <action selector="typeButtonTapped:" destination="HMT-88-zVK" eventType="touchUpInside" id="UCG-pc-akh"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7QV-zS-Am8" firstAttribute="centerY" secondItem="9qC-wf-FUA" secondAttribute="centerY" id="7OK-9e-ApU"/>
+                                                <constraint firstItem="I8F-hX-GQd" firstAttribute="leading" secondItem="9qC-wf-FUA" secondAttribute="leadingMargin" id="C2a-AZ-NTD"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7QV-zS-Am8" secondAttribute="trailing" id="j5u-32-g1X"/>
+                                                <constraint firstItem="I8F-hX-GQd" firstAttribute="centerY" secondItem="9qC-wf-FUA" secondAttribute="centerY" id="pNj-bD-btn"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.0" green="0.62745098040000002" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="contactButton" destination="7QV-zS-Am8" id="8gr-Uj-Dvc"/>
+                                            <outlet property="typeButton" destination="I8F-hX-GQd" id="TkI-Wv-yFa"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCellIdentifier" rowHeight="120" id="QoV-vc-MSN">
                                         <rect key="frame" x="0.0" y="536" width="600" height="120"/>
