@@ -14,7 +14,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, CNContactPickerDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -152,16 +152,23 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             
         case CellType.Adult:
             identifer = "AdultCellIdentifier"
-            cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
-            if let adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
-                if adult.contactIdentifier != nil {
-                    cell.textLabel?.text = adult.stringRepresentation()
+            if let adultCell: AdultCell = tableView.dequeueReusableCellWithIdentifier(identifer) as? AdultCell {
+                adultCell.delegate = self
+                if let adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
+                    if adult.contactIdentifier != nil {
+                        adultCell.contactButton.setTitle(adult.stringRepresentation(), forState: .Normal)
+                    } else {
+                        adultCell.contactButton.setTitle("choose1", forState: .Normal)
+                    }
                 } else {
-                    cell.textLabel?.text = "choose"
+                    adultCell.contactButton.setTitle("choose2", forState: .Normal)
                 }
+                return adultCell
             } else {
-                cell.textLabel?.text = "choose"
+                identifer = ""
+                cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
             }
+
         case CellType.Gift:
             identifer = "GiftCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
@@ -250,10 +257,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
             tableView.beginUpdates()
             tableView.endUpdates()
-        case CellType.Adult:
-            let contactPicker = CNContactPickerViewController()
-            contactPicker.delegate = self
-            self.presentViewController(contactPicker, animated: true, completion: nil)
         case CellType.Gift: break
             //
         case CellType.AddItem:
@@ -436,6 +439,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    // MARK: - AdultCellDelegate
+    
+    func adultCellDidTapTypeButton(adultCell: AdultCell) {
+        //
+    }
+    
+    func adultCellDidTapContactButton(adultCell: AdultCell) {
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+        self.presentViewController(contactPicker, animated: true, completion: nil)
+    }
     
     // MARK: - CNContactPickerDelegate
     
