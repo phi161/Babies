@@ -14,6 +14,18 @@ class Baby: NSManagedObject {
     
     @NSManaged func addAdultsObject(value:Adult)
     @NSManaged func removeAdultsObject(value:Adult)
+    
+    func adultsOrdered() -> [Adult]? {
+        if let adultsCount = adults?.count {
+            if adultsCount > 0 {
+                return adults?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "displayOrder", ascending: true)]) as? [Adult]
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
 
     func birthdayString() -> String {
         if let d = self.birthday {
