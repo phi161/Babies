@@ -155,15 +155,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             identifer = "AdultCellIdentifier"
             if let adultCell: AdultCell = tableView.dequeueReusableCellWithIdentifier(identifer) as? AdultCell {
                 adultCell.delegate = self
-                if let adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
-                    if adult.contactIdentifier != nil {
-                        adultCell.contactButton.setTitle(adult.stringRepresentation(), forState: .Normal)
-                    } else {
-                        adultCell.contactButton.setTitle("choose1", forState: .Normal)
-                    }
-                } else {
-                    adultCell.contactButton.setTitle("choose2", forState: .Normal)
-                }
                 return adultCell
             } else {
                 identifer = ""
@@ -187,6 +178,28 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        switch cellType(forIndexPath: indexPath) {
+
+        case CellType.Adult:
+            if let adultCell: AdultCell = cell as? AdultCell {
+                if let adult = self.baby?.adultsOrdered()![indexPath.row] {
+                    if adult.contactIdentifier != nil {
+                        adultCell.contactButton.setTitle(adult.stringRepresentation(), forState: .Normal)
+                    } else {
+                        adultCell.contactButton.setTitle("choose", forState: .Normal)
+                    }
+                } else {
+                    adultCell.contactButton.setTitle("problem", forState: .Normal)
+                }
+            }
+            
+        default: break
+        }
+
     }
     
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
