@@ -24,6 +24,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     private var temporaryMoc: NSManagedObjectContext?
     private var baby: Baby?
     private var visiblePickerIndexPath: NSIndexPath?
+    private var selectedIndexPath: NSIndexPath?
     
     enum Section: Int {
         case Dates, Adults, Gifts
@@ -446,6 +447,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func adultCellDidTapContactButton(adultCell: AdultCell) {
+        selectedIndexPath = tableView.indexPathForCell(adultCell)
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         self.presentViewController(contactPicker, animated: true, completion: nil)
@@ -454,12 +456,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - CNContactPickerDelegate
     
     func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+
+        self.tableView.deselectRowAtIndexPath(selectedIndexPath!, animated: true)
         
-        let selectedIndexPath = self.tableView.indexPathForSelectedRow!
-        
-        self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
-        
-        if let adult: Adult = self.baby?.adults?.allObjects[selectedIndexPath.row] as? Adult {
+        if let adult: Adult = self.baby?.adults?.allObjects[selectedIndexPath!.row] as? Adult {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
             adult.contactIdentifier = contact.identifier
