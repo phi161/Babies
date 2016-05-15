@@ -279,7 +279,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: Section.Adults.rawValue)], withRowAnimation: .Fade)
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.adults?.count)!-1, inSection: Section.Adults.rawValue)], withRowAnimation: .Fade)
         self.tableView.endUpdates()
     }
     
@@ -347,10 +347,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             return CellType.Date
         } else if indexPath.section == Section.Adults.rawValue {
             if let adultsCount = self.baby?.adults?.count {
-                if indexPath.row < adultsCount {
-                    return CellType.Adult
-                } else {
+                if indexPath.row == adultsCount {
                     return CellType.AddItem
+                } else {
+                    return CellType.Adult
                 }
             } else {
                 return CellType.AddItem
