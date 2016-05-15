@@ -274,6 +274,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func insertAdult() {
         let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.temporaryMoc!) as! Adult
+        newAdult.displayOrder = self.baby?.adults?.count
         newAdult.addBabiesObject(self.baby!)
         self.baby?.addAdultsObject(newAdult)
         
@@ -284,7 +285,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func removeAdult(atIndexPath indexPath: NSIndexPath) {
-        if let adult: Adult = self.baby?.adults?.allObjects[indexPath.row] as? Adult {
+        if let adult: Adult = self.baby?.adultsOrdered()![indexPath.row] {
             self.baby?.removeAdultsObject(adult)
             adult.removeBabiesObject(self.baby!)
             self.temporaryMoc?.deleteObject(adult)
@@ -459,7 +460,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.tableView.deselectRowAtIndexPath(selectedIndexPath!, animated: true)
         
-        if let adult: Adult = self.baby?.adults?.allObjects[selectedIndexPath!.row] as? Adult {
+        if let adult: Adult = self.baby?.adultsOrdered()![selectedIndexPath!.row] {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
             adult.contactIdentifier = contact.identifier
