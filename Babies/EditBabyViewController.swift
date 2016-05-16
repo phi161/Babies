@@ -216,8 +216,30 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        //
+        // Set the displayOrder property
+        var updatedOrderedAults = self.baby?.adultsOrdered()!
+        var adult = updatedOrderedAults![sourceIndexPath.row]
+        updatedOrderedAults?.removeAtIndex(sourceIndexPath.row)
+        updatedOrderedAults?.insert(adult, atIndex: destinationIndexPath.row)
+        
+        
+        var start = sourceIndexPath.row
+        if destinationIndexPath.row < start { // moving up
+            start = destinationIndexPath.row
+        }
+        
+        var end = destinationIndexPath.row
+        if sourceIndexPath.row > end { // moving down
+            end = sourceIndexPath.row
+        }
+        
+        for index in start...end {
+            adult = updatedOrderedAults![index]
+            adult.displayOrder = index
+        }
+
     }
+    
     
     func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
         if proposedDestinationIndexPath.section != Section.Adults.rawValue {
