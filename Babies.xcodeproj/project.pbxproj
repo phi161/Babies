@@ -26,6 +26,7 @@
 		CF761AB31CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */; };
 		CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB21CE29D9000CDA9DF /* AdultType.swift */; };
 		CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */; };
+		CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */ = {isa = PBXBuildFile; fileRef = CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
 		CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */; };
 		CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */; };
@@ -53,6 +54,7 @@
 		CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AdultType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF761AB21CE29D9000CDA9DF /* AdultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultType.swift; sourceTree = "<group>"; };
 		CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypeTableViewController.swift; sourceTree = "<group>"; };
+		CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adult_types.json; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
 		CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyDetailViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		7281D4601CB69A5A00713321 /* Babies */ = {
 			isa = PBXGroup;
 			children = (
+				CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */,
 				7281D46D1CB69A5A00713321 /* Info.plist */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* BabiesViewController.swift */,
@@ -183,6 +186,7 @@
 			files = (
 				7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */,
 				7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */,
+				CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */,
 				7281D4671CB69A5A00713321 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
