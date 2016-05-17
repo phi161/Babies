@@ -8,14 +8,22 @@
 
 import UIKit
 
+protocol AdultTypePickerDelegate: class {
+    func adultTypePicker(adultTypePicker: AdultTypeTableViewController, didSelectType type:AdultType)
+    func adultTypePickerDidCancel(adultTypePicker: AdultTypeTableViewController)
+}
+
 class AdultTypeTableViewController: UITableViewController {
     
+    var adultType: AdultType?
+    weak var delegate: AdultTypePickerDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 3
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -29,6 +37,10 @@ class AdultTypeTableViewController: UITableViewController {
         cell.textLabel?.text = "\(indexPath.section) - \(indexPath.row)"
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        delegate?.adultTypePickerDidCancel(self)
     }
 
 }

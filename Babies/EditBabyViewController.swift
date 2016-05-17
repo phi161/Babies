@@ -14,7 +14,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -127,10 +127,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func pickAdultType() {
-        let adultTypePicker = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AdultTypeViewControllerIdentifier")
-        let navigationController = UINavigationController(rootViewController: adultTypePicker)
-        
-        self.presentViewController(navigationController, animated: true, completion: nil)
+        if let adultTypePicker: AdultTypeTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AdultTypeViewControllerIdentifier") as? AdultTypeTableViewController {
+            let navigationController = UINavigationController(rootViewController: adultTypePicker)
+            adultTypePicker.delegate = self
+            self.presentViewController(navigationController, animated: true, completion: nil)
+        }
     }
 
     // MARK: - UITableViewDataSource
@@ -487,6 +488,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - AdultCellDelegate
     
     func adultCellDidTapTypeButton(adultCell: AdultCell) {
+        selectedIndexPath = tableView.indexPathForCell(adultCell)
         self.pickAdultType()
     }
     
@@ -501,8 +503,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
 
-        self.tableView.deselectRowAtIndexPath(selectedIndexPath!, animated: true)
-        
         if let adult: Adult = self.baby?.adultsOrdered()![selectedIndexPath!.row] {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
@@ -516,7 +516,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func contactPickerDidCancel(picker: CNContactPickerViewController) {
-        self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+        //
     }
     
+    // MARK: - AdultTypePickerDelegate
+    
+    func adultTypePickerDidCancel(adultTypePicker: AdultTypeTableViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func adultTypePicker(adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType) {
+        //
+    }
 }
