@@ -98,7 +98,41 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     }
     
+    // MARK: - Adults Section
     
+    func insertAdult() {
+        let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.temporaryMoc!) as! Adult
+        newAdult.displayOrder = self.baby?.adults?.count
+        newAdult.addBabiesObject(self.baby!)
+        self.baby?.addAdultsObject(newAdult)
+        
+        
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.adults?.count)!-1, inSection: Section.Adults.rawValue)], withRowAnimation: .Fade)
+        self.tableView.endUpdates()
+    }
+    
+    func removeAdult(atIndexPath indexPath: NSIndexPath) {
+        if let adult: Adult = self.baby?.adultsOrdered()![indexPath.row] {
+            self.baby?.removeAdultsObject(adult)
+            adult.removeBabiesObject(self.baby!)
+            self.temporaryMoc?.deleteObject(adult)
+        } else {
+            print("Attempt to delete the wrong Adult entity")
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        self.tableView.endUpdates()
+    }
+    
+    func pickAdultType() {
+        let adultTypePicker = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AdultTypeViewControllerIdentifier")
+        let navigationController = UINavigationController(rootViewController: adultTypePicker)
+        
+        self.presentViewController(navigationController, animated: true, completion: nil)
+    }
+
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -306,33 +340,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
     }
-    
-    func insertAdult() {
-        let newAdult: Adult = NSEntityDescription.insertNewObjectForEntityForName("Adult", inManagedObjectContext: self.temporaryMoc!) as! Adult
-        newAdult.displayOrder = self.baby?.adults?.count
-        newAdult.addBabiesObject(self.baby!)
-        self.baby?.addAdultsObject(newAdult)
-        
-        
-        self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.adults?.count)!-1, inSection: Section.Adults.rawValue)], withRowAnimation: .Fade)
-        self.tableView.endUpdates()
-    }
-    
-    func removeAdult(atIndexPath indexPath: NSIndexPath) {
-        if let adult: Adult = self.baby?.adultsOrdered()![indexPath.row] {
-            self.baby?.removeAdultsObject(adult)
-            adult.removeBabiesObject(self.baby!)
-            self.temporaryMoc?.deleteObject(adult)
-        } else {
-            print("Attempt to delete the wrong Adult entity")
-        }
 
-        self.tableView.beginUpdates()
-        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
-    }
-    
     func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         switch cellType(forIndexPath: indexPath) {
         case CellType.AddItem:
@@ -479,7 +487,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - AdultCellDelegate
     
     func adultCellDidTapTypeButton(adultCell: AdultCell) {
-        //
+        self.pickAdultType()
     }
     
     func adultCellDidTapContactButton(adultCell: AdultCell) {
