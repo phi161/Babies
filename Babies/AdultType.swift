@@ -11,8 +11,14 @@ import CoreData
 
 
 class AdultType: NSManagedObject {
-
     
-// Insert code here to add functionality to your managed object subclass
-
+    convenience init(title: String, identifier: Int, userDefined: Bool, context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entityForName("AdultType", inManagedObjectContext: context)!
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        self.userDefined = userDefined
+        self.title = title
+        self.identifier = identifier
+    }
+    
 }
