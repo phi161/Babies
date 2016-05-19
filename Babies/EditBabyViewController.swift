@@ -130,6 +130,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         if let adultTypePicker: AdultTypeTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AdultTypeViewControllerIdentifier") as? AdultTypeTableViewController {
             let navigationController = UINavigationController(rootViewController: adultTypePicker)
             adultTypePicker.delegate = self
+            adultTypePicker.managedObjectContext = self.moc
             self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }
