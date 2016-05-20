@@ -24,6 +24,7 @@ class AdultTypeTableViewController: UITableViewController {
         get {
             do {
                 let fetchRequest = NSFetchRequest(entityName: "AdultType")
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: true)]
                 var result: [AdultType]?
                 result = try self.managedObjectContext?.executeFetchRequest(fetchRequest) as? [AdultType]
                 return result
@@ -39,6 +40,8 @@ class AdultTypeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelButtonTapped(_:)))
         
         if adultTypes?.count == 0 {
             self.importFromJSON()
@@ -107,5 +110,12 @@ class AdultTypeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         delegate?.adultTypePickerDidCancel(self)
     }
+    
+    // MARK: Actions
+    
+    @IBAction func cancelButtonTapped(sender: AnyObject) {
+        delegate?.adultTypePickerDidCancel(self)
+    }
+
 
 }
