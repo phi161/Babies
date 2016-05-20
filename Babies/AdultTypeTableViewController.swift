@@ -19,65 +19,72 @@ class AdultTypeTableViewController: UITableViewController {
     var adultType: AdultType?
     weak var delegate: AdultTypePickerDelegate?
     var managedObjectContext: NSManagedObjectContext?
-    var dataSource: [AdultType]?
+    
+    var adultTypes: [AdultType]? {
+        get {
+            do {
+                let fetchRequest = NSFetchRequest(entityName: "AdultType")
+                var result: [AdultType]?
+                result = try self.managedObjectContext?.executeFetchRequest(fetchRequest) as? [AdultType]
+                return result
+            } catch {
+                let fetchError = error as NSError
+                print(fetchError)
+                return nil
+            }
+        }
+    }
 
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fetchRequest = NSFetchRequest(entityName: "AdultType")
-        
-        var result: [AdultType]?
-        do {
-            result = try self.managedObjectContext?.executeFetchRequest(fetchRequest) as? [AdultType]
-            dataSource = result
-            print(result)
-        } catch {
-            let fetchError = error as NSError
-            print(fetchError)
+        if adultTypes?.count == 0 {
+            self.importFromJSON()
+            tableView.reloadData()
         }
         
-        if result?.count == 0 {
-            // Populate from JSON
-            let jsonFileURL = NSBundle.mainBundle().URLForResource("adult_types", withExtension: "json")
-            
-            if let jsonData = NSData(contentsOfURL: jsonFileURL!) {
-                do {
-                    let jsonArray: Array! = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers) as? Array<[String:AnyObject]>
-                    for item in jsonArray {
-                        
-                        guard let title = item["title"] as? String, identifier = item["identifier"] as? Int else {
-                            return;
-                        }
-                        
-                        let adultType = AdultType(title: title, identifier: identifier, userDefined: false, context: managedObjectContext!)
-                        managedObjectContext?.insertObject(adultType)
-                        
+    }
+    
+    func importFromJSON() {
+        let jsonFileURL = NSBundle.mainBundle().URLForResource("adult_types", withExtension: "json")
+        
+        if let jsonData = NSData(contentsOfURL: jsonFileURL!) {
+            do {
+                let jsonArray: Array! = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers) as? Array<[String:AnyObject]>
+                for item in jsonArray {
+                    
+                    guard let title = item["title"] as? String, identifier = item["identifier"] as? Int else {
+                        return;
                     }
                     
-                    do {
-                        try managedObjectContext!.save()
-                        print("Saved main context!")
-                    } catch {
-                        print("Error for main: \(error)")
-                    }
+                    let adultType = AdultType(title: title, identifier: identifier, userDefined: false, context: managedObjectContext!)
+                    managedObjectContext?.insertObject(adultType)
                     
-                    // TODO: Set dataSource and reloadData()
-
-                    
-                } catch {
-                    print(error)
                 }
+                
+                do {
+                    try managedObjectContext!.save()
+                    print("Saved main context!")
+                } catch {
+                    print("Error for main: \(error)")
+                }
+
+            } catch {
+                print(error)
             }
         }
-        
     }
 
     // MARK: - UITableViewDelegate
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (dataSource?.count)!
+        if let count = adultTypes?.count {
+            return count
+        } else {
+            return 0
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -88,13 +95,12 @@ class AdultTypeTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("AdultTypeCellIdentifier", forIndexPath: indexPath)
         
-        if dataSource != nil {
-            let currentAdultType = dataSource![indexPath.row]
-            if let title = currentAdultType.title as String!, identifier = currentAdultType.identifier as Int! {
-                cell.textLabel?.text = "\(title) - \(identifier)"
+        if let currentAdultType = adultTypes?[indexPath.row] {
+            if let title: String = currentAdultType.title, identifier: NSNumber = currentAdultType.identifier {
+                cell.textLabel?.text = "\(title) - \(identifier) - \(identifier.integerValue)"
             }
         }
-        
+
         return cell
     }
     
