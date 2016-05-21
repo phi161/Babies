@@ -113,6 +113,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func removeAdult(atIndexPath indexPath: NSIndexPath) {
+        // TODO: Take care of adultType as well
+        
         if let adult: Adult = self.baby?.adultsOrdered()![indexPath.row] {
             self.baby?.removeAdultsObject(adult)
             adult.removeBabiesObject(self.baby!)
@@ -223,8 +225,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.Adult:
             if let adultCell: AdultCell = cell as? AdultCell {
                 if let adult = self.baby?.adultsOrdered()![indexPath.row] {
+                    // Type
+                    if adult.type != nil {
+                        adultCell.typeButton.setTitle(adult.type?.title, forState: .Normal)
+                    } else {
+                        adultCell.typeButton.setTitle("choose", forState: .Normal)
+                    }
+                    // Name
                     if adult.contactIdentifier != nil {
                         adultCell.contactButton.setTitle(adult.stringRepresentation(), forState: .Normal)
+                        adultCell.typeButton.setTitle(adult.type?.title, forState: .Normal)
                     } else {
                         adultCell.contactButton.setTitle("choose", forState: .Normal)
                     }
@@ -527,6 +537,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func adultTypePicker(adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType) {
-        //
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+        if let adult: Adult = self.baby?.adultsOrdered()![selectedIndexPath!.row] {
+            // TODO: Investigate if inverse relationship should also be set
+            let adultType = self.temporaryMoc?.objectWithID(type.objectID) as! AdultType
+            adult.type = adultType
+            self.tableView.reloadSections(NSIndexSet(index: Section.Adults.rawValue), withRowAnimation: .Automatic)
+        } else {
+            //
+        }
     }
 }

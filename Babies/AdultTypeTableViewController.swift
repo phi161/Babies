@@ -108,9 +108,10 @@ class AdultTypeTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.adultTypePickerDidCancel(self)
+        self.adultType = self.adultTypes![indexPath.row]
+        delegate?.adultTypePicker(self, didSelectType: self.adultType!)
     }
-    
+
     // MARK: Actions
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
