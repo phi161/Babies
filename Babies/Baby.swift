@@ -78,6 +78,17 @@ class Baby: NSManagedObject {
             string += "n/a"
         }
         
+        // Adults
+        string += "\n\n"
+        string += "\nadults:\n"
+        if let adults = self.adultsOrdered() {
+            for adult in adults {
+                string += "\(adult.stringRepresentation())\n"
+            }
+        } else {
+            string += "no adults yet"
+        }
+        
         return string
     }
 

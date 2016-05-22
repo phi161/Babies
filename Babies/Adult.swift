@@ -23,6 +23,14 @@ class Adult: NSManagedObject {
         string += ", "
         string += self.givenName ?? "n/a"
         
+        // Type
+        guard let _ = self.type, title = self.type?.title else {
+            string += " (no type)"
+            return string
+        }
+        
+        string += " (\(title))"
+
         return string
 
     }
