@@ -324,6 +324,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         switch cellType(forIndexPath: indexPath) {
         case CellType.Date:
+            self.view.endEditing(true)
+
             let dateCell: DatePickerCell = tableView.cellForRowAtIndexPath(indexPath) as! DatePickerCell
             if visiblePickerIndexPath == indexPath {
                 visiblePickerIndexPath = nil
@@ -430,7 +432,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Actions
     
     @IBAction func sexChanged(sender: AnyObject) {
-        print(#function)
+        self.view.endEditing(true)
     }
     
     
