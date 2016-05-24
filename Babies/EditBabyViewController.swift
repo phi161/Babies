@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import ContactsUI
+import Photos
 
 protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
@@ -429,6 +430,27 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func canAccessCamera() -> Bool {
+        let mediaType = AVMediaTypeVideo
+        let status = AVCaptureDevice.authorizationStatusForMediaType(mediaType)
+        
+        if (status == .Denied || status == .Restricted) {
+            return false
+        }
+        
+        return true
+    }
+
+    func canAccessPhotos() -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        if (status == .Denied || status == .Restricted) {
+            return false
+        }
+        
+        return true
+    }
+
     // MARK: - Actions
     
     @IBAction func sexChanged(sender: AnyObject) {
@@ -448,11 +470,25 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .Default) { (action) in
-            //
+            if self.canAccessCamera() {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .Camera
+                imagePicker.allowsEditing = true
+                self.presentViewController(imagePicker, animated: true, completion: nil)
+            } else {
+                print("no camera access")
+            }
         }
         
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .Default) { (action) in
-            //
+            if self.canAccessPhotos() {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .PhotoLibrary
+                imagePicker.allowsEditing = true
+                self.presentViewController(imagePicker, animated: true, completion: nil)
+            } else {
+                print("no photos access")
+            }
         }
         
         let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .Default) { (action) in
@@ -475,7 +511,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.presentViewController(deleteController, animated: true, completion: nil)
         }
         
-        alertController.addAction(takePhotoAction)
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            alertController.addAction(takePhotoAction)
+        }
         alertController.addAction(choosePhotoAction)
         alertController.addAction(deletePhotoAction)
         alertController.addAction(cancelAction)
