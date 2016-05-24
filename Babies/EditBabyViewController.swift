@@ -437,7 +437,50 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func thumbnailTapped(tap:UITapGestureRecognizer) {
-        print(#function)
+        self.view.endEditing(true)
+        
+        let alertController = UIAlertController(
+            title: NSLocalizedString("PHOTO_TITLE", comment: "The title of the alert message when tapping the image thumbnail"),
+            message: NSLocalizedString("PHOTO_MESSAGE", comment: "The message of the alert message when tapping the image thumbnail"), preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .Cancel) { (action) in
+            //
+        }
+        
+        let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .Default) { (action) in
+            //
+        }
+        
+        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .Default) { (action) in
+            //
+        }
+        
+        let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .Default) { (action) in
+            
+            let deleteController = UIAlertController(
+                title: NSLocalizedString("DELETE_PHOTO_TITLE", comment: "The title of the alert for deleting a photo"),
+                message: NSLocalizedString("DELETE_PHOTO_MESSAGE", comment: "The message of the alert for deleting a photo"),
+                preferredStyle: .ActionSheet)
+            
+            let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .Destructive, handler: { (action) in
+                //
+            })
+            
+            let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .Cancel, handler: { (action) in
+                //
+            })
+            deleteController.addAction(deleteAction)
+            deleteController.addAction(cancelAction)
+            
+            self.presentViewController(deleteController, animated: true, completion: nil)
+        }
+        
+        alertController.addAction(takePhotoAction)
+        alertController.addAction(choosePhotoAction)
+        alertController.addAction(deletePhotoAction)
+        alertController.addAction(cancelAction)
+
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     
