@@ -81,6 +81,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             // Create a new baby, empty interface
             let newBaby: Baby = NSEntityDescription.insertNewObjectForEntityForName("Baby", inManagedObjectContext: temporaryMoc!) as! Baby
             newBaby.sex = 0
+            newBaby.imageName = NSUUID().UUIDString
             
             self.baby = newBaby
         } else {
@@ -90,6 +91,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         // Populate GUI for this baby
         self.familyNameTextField.text = self.baby!.familyName
         self.givenNameTextField.text = self.baby!.givenName
+        
+        self.thumbnailImageView.image = self.baby?.thumbnailImage
         
         if let sex:Int = self.baby!.sex?.integerValue {
             self.sexSegmentedControl.selectedSegmentIndex = sex
@@ -526,6 +529,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.delegate?.editBabyViewController(self, didFinishWithBaby: nil)
+        
+        // Delete temp image if any
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
+        do {
+            try NSFileManager.defaultManager().removeItemAtURL(tempUrl)
+        } catch {
+            print(error)
+        }
     }
     
     
@@ -534,6 +546,22 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.baby?.givenName = self.givenNameTextField.text
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex
+        
+        // If there is a temp image, delete "baby.imageName" and rename temp to "baby.imageName"
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
+        do {
+            try NSFileManager.defaultManager().removeItemAtURL(url)
+        } catch {
+            print(error)
+        }
+        
+        let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
+        do {
+            try NSFileManager.defaultManager().moveItemAtURL(tempUrl, toURL: url)
+        } catch {
+            print(error)
+        }
 
         temporaryMoc?.performBlock({
             do {
