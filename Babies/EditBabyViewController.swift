@@ -15,7 +15,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -472,6 +472,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .Default) { (action) in
             if self.canAccessCamera() {
                 let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
                 imagePicker.sourceType = .Camera
                 imagePicker.allowsEditing = true
                 self.presentViewController(imagePicker, animated: true, completion: nil)
@@ -483,6 +484,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .Default) { (action) in
             if self.canAccessPhotos() {
                 let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
                 imagePicker.sourceType = .PhotoLibrary
                 imagePicker.allowsEditing = true
                 self.presentViewController(imagePicker, animated: true, completion: nil)
@@ -629,6 +631,29 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.tableView.reloadSections(NSIndexSet(index: Section.Adults.rawValue), withRowAnimation: .Automatic)
         } else {
             //
+        }
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            
+            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+            let url = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
+            UIImageJPEGRepresentation(image, 1)?.writeToURL(url, atomically: true)
+            
+
+            self.thumbnailImageView.alpha = 0
+            self.thumbnailImageView.image = image
+            self.dismissViewControllerAnimated(true, completion: { 
+                UIView.animateWithDuration(0.3, animations: { 
+                    self.thumbnailImageView.alpha = 1
+                })
+            })
+        } else {
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }
