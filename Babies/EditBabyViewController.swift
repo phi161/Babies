@@ -26,6 +26,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     private var baby: Baby?
     private var visiblePickerIndexPath: NSIndexPath?
     private var selectedIndexPath: NSIndexPath?
+    private var shouldDeleteImage = false // Used to delete/restore images during save/cancel
     
     enum Section: Int {
         case Dates, Adults, Gifts
@@ -504,7 +505,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 preferredStyle: .ActionSheet)
             
             let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .Destructive, handler: { (action) in
-                //
+                self.shouldDeleteImage = true
+
+                // TODO: Use default image instead
+                self.thumbnailImageView.image = nil
             })
             
             let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .Cancel, handler: { (action) in
@@ -547,22 +551,34 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex
         
-        // If there is a temp image, delete "baby.imageName" and rename temp to "baby.imageName"
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
-        do {
-            try NSFileManager.defaultManager().removeItemAtURL(url)
-        } catch {
-            print(error)
+        if self.shouldDeleteImage { // Delete both temp & original images
+            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+            let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
+            let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
+
+            do {
+                try NSFileManager.defaultManager().removeItemAtURL(url)
+                try NSFileManager.defaultManager().removeItemAtURL(tempUrl)
+            } catch {
+                print(error)
+            }
+        } else { // If there is a temp image, delete "baby.imageName" and rename temp to "baby.imageName"
+            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+            let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
+            do {
+                try NSFileManager.defaultManager().removeItemAtURL(url)
+            } catch {
+                print(error)
+            }
+            
+            let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
+            do {
+                try NSFileManager.defaultManager().moveItemAtURL(tempUrl, toURL: url)
+            } catch {
+                print(error)
+            }
         }
         
-        let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
-        do {
-            try NSFileManager.defaultManager().moveItemAtURL(tempUrl, toURL: url)
-        } catch {
-            print(error)
-        }
-
         temporaryMoc?.performBlock({
             do {
                 try self.temporaryMoc?.save()
@@ -579,7 +595,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 print("Error for child: \(error)")
             }
         })
-
+        
         self.delegate?.editBabyViewController(self, didFinishWithBaby: self.baby)
     }
     
@@ -668,6 +684,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             
+            self.shouldDeleteImage = false
+
             let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
             let url = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
             UIImageJPEGRepresentation(image, 1)?.writeToURL(url, atomically: true)
