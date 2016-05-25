@@ -523,8 +523,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             alertController.addAction(takePhotoAction)
         }
+        
         alertController.addAction(choosePhotoAction)
-        alertController.addAction(deletePhotoAction)
+        
+        if self.baby?.thumbnailImage != nil || !self.shouldDeleteImage {
+            alertController.addAction(deletePhotoAction)
+        }
+        
         alertController.addAction(cancelAction)
 
         self.presentViewController(alertController, animated: true, completion: nil)
