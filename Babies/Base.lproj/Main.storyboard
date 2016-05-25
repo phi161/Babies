@@ -378,20 +378,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asl-QO-T4G">
-                                <rect key="frame" x="20" y="104" width="560" height="21"/>
+                                <rect key="frame" x="20" y="274" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Scm-tZ-RDC">
+                                <rect key="frame" x="20" y="64" width="560" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="b0Q-ks-Tne"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.98594826459999996" green="0.0" blue="0.02878310718" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Scm-tZ-RDC" firstAttribute="leading" secondItem="OBJ-tC-n4K" secondAttribute="leadingMargin" id="7AS-S9-flM"/>
+                            <constraint firstItem="Scm-tZ-RDC" firstAttribute="top" secondItem="KQ2-zk-h0H" secondAttribute="bottom" id="E4h-np-Djf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="asl-QO-T4G" secondAttribute="trailing" id="Kk8-kX-JKL"/>
-                            <constraint firstItem="asl-QO-T4G" firstAttribute="top" secondItem="KQ2-zk-h0H" secondAttribute="bottom" constant="40" id="aRB-hB-7sz"/>
+                            <constraint firstItem="asl-QO-T4G" firstAttribute="top" secondItem="Scm-tZ-RDC" secondAttribute="bottom" constant="10" id="WSf-Ld-N1M"/>
                             <constraint firstItem="asl-QO-T4G" firstAttribute="leading" secondItem="OBJ-tC-n4K" secondAttribute="leadingMargin" id="jxX-Qc-pRu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Scm-tZ-RDC" secondAttribute="trailing" id="qfR-JR-5ld"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="Scm-tZ-RDC" id="FvC-7x-7P1"/>
                         <outlet property="label" destination="asl-QO-T4G" id="pr6-Sx-WJz"/>
                     </connections>
                 </viewController>

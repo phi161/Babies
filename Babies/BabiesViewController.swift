@@ -52,6 +52,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BabyListCell", forIndexPath: indexPath)
         
+        cell.imageView?.image = babies[indexPath.row].thumbnailImage
         cell.textLabel?.text = babies[indexPath.row].stringRepresentation()
         
         return cell

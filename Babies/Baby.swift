@@ -8,12 +8,31 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 class Baby: NSManagedObject {
     
     @NSManaged func addAdultsObject(value:Adult)
     @NSManaged func removeAdultsObject(value:Adult)
+    
+    var thumbnailImage: UIImage? {
+        get {
+            if imageName != nil {
+                // if image exists return it, or else return nil
+                let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+                let url = urls[urls.count-1].URLByAppendingPathComponent(imageName!)
+                let imageData = NSData(contentsOfURL: url)
+                if let _ = imageData {
+                    return UIImage(data: imageData!)
+                } else {
+                    return nil
+                }
+
+            } else {
+                return nil
+            }
+        }
+    }
     
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
