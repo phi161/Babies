@@ -14,6 +14,14 @@ class Adult: NSManagedObject {
 
     @NSManaged func addBabiesObject(value:Baby)
     @NSManaged func removeBabiesObject(value:Baby)
+    
+    func name() -> String {
+        var string: String = ""
+        string += self.givenName ?? ""
+        string += " "
+        string += self.familyName ?? ""
+        return string
+    }
 
     func stringRepresentation() -> String {
 

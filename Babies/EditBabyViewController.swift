@@ -231,17 +231,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             if let adultCell: AdultCell = cell as? AdultCell {
                 if let adult = self.baby?.adultsOrdered()![indexPath.row] {
                     // Type
-                    if adult.type != nil {
-                        adultCell.typeButton.setTitle(adult.type?.title, forState: .Normal)
-                    } else {
-                        adultCell.typeButton.setTitle("choose", forState: .Normal)
-                    }
+                    adultCell.typeButton.setTitle(adult.type?.title ?? "type", forState: .Normal)
                     // Name
                     if adult.contactIdentifier != nil {
-                        adultCell.contactButton.setTitle(adult.stringRepresentation(), forState: .Normal)
-                        adultCell.typeButton.setTitle(adult.type?.title, forState: .Normal)
+                        adultCell.contactButton.setTitle(adult.name(), forState: .Normal)
                     } else {
-                        adultCell.contactButton.setTitle("choose", forState: .Normal)
+                        adultCell.contactButton.setTitle("select contact", forState: .Normal)
                     }
                 } else {
                     adultCell.contactButton.setTitle("problem", forState: .Normal)
