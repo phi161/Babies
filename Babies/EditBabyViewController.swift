@@ -564,18 +564,22 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
         } else { // If there is a temp image, delete "baby.imageName" and rename temp to "baby.imageName"
             let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-            let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
-            do {
-                try NSFileManager.defaultManager().removeItemAtURL(url)
-            } catch {
-                print(error)
-            }
-            
             let tempUrl = urls[urls.count-1].URLByAppendingPathComponent("temp.jpg")
-            do {
-                try NSFileManager.defaultManager().moveItemAtURL(tempUrl, toURL: url)
-            } catch {
-                print(error)
+
+            guard let path = tempUrl.path else {return }
+            if NSFileManager.defaultManager().fileExistsAtPath(path) {
+                let url = urls[urls.count-1].URLByAppendingPathComponent((self.baby?.imageName)!)
+                do {
+                    try NSFileManager.defaultManager().removeItemAtURL(url)
+                } catch {
+                    print("could not remove \(url.path)")
+                }
+                
+                do {
+                    try NSFileManager.defaultManager().moveItemAtURL(tempUrl, toURL: url)
+                } catch {
+                    print(error)
+                }
             }
         }
         
