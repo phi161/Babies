@@ -13,6 +13,8 @@
 		7281D4671CB69A5A00713321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D4651CB69A5A00713321 /* Main.storyboard */; };
 		7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7281D4681CB69A5A00713321 /* Assets.xcassets */; };
 		7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */; };
+		72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEA1CF858E10051D671 /* GiftViewController.swift */; };
+		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
@@ -41,6 +43,8 @@
 		7281D4681CB69A5A00713321 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7281D46B1CB69A5A00713321 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7281D46D1CB69A5A00713321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72915EEA1CF858E10051D671 /* GiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
+		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				CF55E8D81CE671A100638A5A /* AdultCell.swift */,
 				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
 				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
+				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
+				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
@@ -186,6 +192,7 @@
 			files = (
 				7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */,
 				7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */,
+				72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */,
 				CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */,
 				7281D4671CB69A5A00713321 /* Main.storyboard in Resources */,
 			);
@@ -206,6 +213,7 @@
 				CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */,
 				CF761AB31CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift in Sources */,
 				CF48459F1CC0272F000BED2A /* Gift.swift in Sources */,
+				72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */,
 				7281D4641CB69A5A00713321 /* BabiesViewController.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
