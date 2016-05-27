@@ -14,6 +14,8 @@ class Baby: NSManagedObject {
     
     @NSManaged func addAdultsObject(value:Adult)
     @NSManaged func removeAdultsObject(value:Adult)
+    @NSManaged func addGiftsObject(value:Gift)
+    @NSManaged func removeGiftsObject(value:Gift)
     
     var thumbnailImage: UIImage? {
         get {

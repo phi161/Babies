@@ -141,6 +141,19 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Gifts Section
+    
+    func insertGift() {
+        let newGift: Gift = NSEntityDescription.insertNewObjectForEntityForName("Gift", inManagedObjectContext: self.temporaryMoc!) as! Gift
+        newGift.baby = self.baby
+        self.baby?.addGiftsObject(newGift)
+        
+        
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.gifts?.count)!-1, inSection: Section.Gifts.rawValue)], withRowAnimation: .Fade)
+        self.tableView.endUpdates()
+    }
 
     // MARK: - UITableViewDataSource
     
@@ -346,8 +359,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.AddItem:
             if indexPath.section == Section.Adults.rawValue {
                 self.insertAdult()
-            } else {
-                //
+            } else if indexPath.section == Section.Gifts.rawValue {
+                self.insertGift()
             }
         default: break
             //
