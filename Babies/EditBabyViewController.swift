@@ -146,10 +146,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func insertGift() {
         let newGift: Gift = NSEntityDescription.insertNewObjectForEntityForName("Gift", inManagedObjectContext: self.temporaryMoc!) as! Gift
+        newGift.date = NSDate()
+        newGift.price = 0
         newGift.baby = self.baby
+        newGift.details = "tap to edit details"
         self.baby?.addGiftsObject(newGift)
-        
-        
+
         self.tableView.beginUpdates()
         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.gifts?.count)!-1, inSection: Section.Gifts.rawValue)], withRowAnimation: .Fade)
         self.tableView.endUpdates()
@@ -256,6 +258,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             
+        case CellType.Gift:
+            if let giftCell: GiftCell = cell as? GiftCell {
+                if let gift = self.baby?.gifts?.allObjects[indexPath.row] {
+                    giftCell.updateInterface(gift as! Gift)
+                }
+            }
+            
         default: break
         }
 
@@ -354,8 +363,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
             tableView.beginUpdates()
             tableView.endUpdates()
-        case CellType.Gift: break
-            //
+        case CellType.Gift:
+            let giftViewController = GiftViewController(nibName: nil, bundle: nil)
+            let navigationController = UINavigationController(rootViewController: giftViewController)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         case CellType.AddItem:
             if indexPath.section == Section.Adults.rawValue {
                 self.insertAdult()
