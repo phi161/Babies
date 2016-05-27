@@ -15,7 +15,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -157,6 +157,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.endUpdates()
     }
 
+    func giftViewController(giftViewController: GiftViewController, didFinishWithGift gift: Gift) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -364,9 +368,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.beginUpdates()
             tableView.endUpdates()
         case CellType.Gift:
-            let giftViewController = GiftViewController(nibName: nil, bundle: nil)
-            let navigationController = UINavigationController(rootViewController: giftViewController)
-            self.presentViewController(navigationController, animated: true, completion: nil)
+            if let gift = self.baby?.gifts?.allObjects[indexPath.row] as? Gift {
+                let giftViewController = GiftViewController(gift: gift)
+                giftViewController.delegate = self
+                let navigationController = UINavigationController(rootViewController: giftViewController)
+                self.presentViewController(navigationController, animated: true, completion: nil)
+            }
         case CellType.AddItem:
             if indexPath.section == Section.Adults.rawValue {
                 self.insertAdult()
