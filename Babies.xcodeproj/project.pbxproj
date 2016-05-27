@@ -15,6 +15,7 @@
 		7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */; };
 		72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEA1CF858E10051D671 /* GiftViewController.swift */; };
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
+		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
@@ -45,6 +46,7 @@
 		7281D46D1CB69A5A00713321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72915EEA1CF858E10051D671 /* GiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
+		72915EEE1CF890EF0051D671 /* GiftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftCell.swift; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
+				72915EEE1CF890EF0051D671 /* GiftCell.swift */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				7281D4621CB69A5A00713321 /* AppDelegate.swift in Sources */,
 				CF48459D1CC0272F000BED2A /* Baby.swift in Sources */,
 				CF4845A01CC0272F000BED2A /* Adult+CoreDataProperties.swift in Sources */,
+				72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */,
 				72766E761CBBC0C10044F7BC /* Babies.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
