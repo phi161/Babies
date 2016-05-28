@@ -159,6 +159,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     func giftViewController(giftViewController: GiftViewController, didFinishWithGift gift: Gift) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        
+        self.tableView.reloadSections(NSIndexSet(index: Section.Gifts.rawValue), withRowAnimation: .Automatic)
     }
     
     // MARK: - UITableViewDataSource
