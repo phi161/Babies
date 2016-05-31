@@ -156,6 +156,19 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.gifts?.count)!-1, inSection: Section.Gifts.rawValue)], withRowAnimation: .Fade)
         self.tableView.endUpdates()
     }
+    
+    func removeGift(atIndexPath indexPath: NSIndexPath) {
+        if let gift: Gift = self.baby?.giftsOrdered()![indexPath.row] {
+            self.baby?.removeGiftsObject(gift)
+            self.temporaryMoc?.deleteObject(gift)
+        } else {
+            print("Attempt to delete the wrong Gift entity")
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        self.tableView.endUpdates()
+    }
 
     func giftViewController(giftViewController: GiftViewController, didFinishWithGift gift: Gift) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -399,7 +412,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            self.removeAdult(atIndexPath: indexPath)
+            if indexPath.section == Section.Adults.rawValue {
+                self.removeAdult(atIndexPath: indexPath)
+            } else if indexPath.section == Section.Gifts.rawValue {
+                self.removeGift(atIndexPath: indexPath)
+            }
         } else if editingStyle == .Insert {
             // Tapped the green "+" icon
         }
@@ -407,7 +424,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         switch cellType(forIndexPath: indexPath) {
-        case CellType.Adult:
+        case CellType.Adult,
+             CellType.Gift:
             return .Delete
         case CellType.AddItem:
             return .Insert
