@@ -15,7 +15,7 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
     
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
@@ -141,7 +141,41 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Gifts Section
+    
+    func insertGift() {
+        let newGift: Gift = NSEntityDescription.insertNewObjectForEntityForName("Gift", inManagedObjectContext: self.temporaryMoc!) as! Gift
+        newGift.date = NSDate()
+        newGift.price = 0
+        newGift.baby = self.baby
+        newGift.details = "tap to edit details"
+        self.baby?.addGiftsObject(newGift)
 
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: (self.baby?.gifts?.count)!-1, inSection: Section.Gifts.rawValue)], withRowAnimation: .Fade)
+        self.tableView.endUpdates()
+    }
+    
+    func removeGift(atIndexPath indexPath: NSIndexPath) {
+        if let gift: Gift = self.baby?.giftsOrdered()![indexPath.row] {
+            self.baby?.removeGiftsObject(gift)
+            self.temporaryMoc?.deleteObject(gift)
+        } else {
+            print("Attempt to delete the wrong Gift entity")
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        self.tableView.endUpdates()
+    }
+
+    func giftViewController(giftViewController: GiftViewController, didFinishWithGift gift: Gift) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        self.tableView.reloadSections(NSIndexSet(index: Section.Gifts.rawValue), withRowAnimation: .Automatic)
+    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -243,6 +277,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             
+        case CellType.Gift:
+            if let giftCell: GiftCell = cell as? GiftCell {
+                if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                    giftCell.updateInterface(gift)
+                }
+            }
+            
         default: break
         }
 
@@ -312,7 +353,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.Adult:
             return 80
         case CellType.Gift:
-            return 120
+            return 80
         case CellType.AddItem:
             return 50
         default:
@@ -341,13 +382,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
             tableView.beginUpdates()
             tableView.endUpdates()
-        case CellType.Gift: break
-            //
+        case CellType.Gift:
+            if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                let giftViewController = GiftViewController(gift: gift)
+                giftViewController.delegate = self
+                let navigationController = UINavigationController(rootViewController: giftViewController)
+                self.presentViewController(navigationController, animated: true, completion: nil)
+            }
         case CellType.AddItem:
             if indexPath.section == Section.Adults.rawValue {
                 self.insertAdult()
-            } else {
-                //
+            } else if indexPath.section == Section.Gifts.rawValue {
+                self.insertGift()
             }
         default: break
             //
@@ -366,7 +412,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            self.removeAdult(atIndexPath: indexPath)
+            if indexPath.section == Section.Adults.rawValue {
+                self.removeAdult(atIndexPath: indexPath)
+            } else if indexPath.section == Section.Gifts.rawValue {
+                self.removeGift(atIndexPath: indexPath)
+            }
         } else if editingStyle == .Insert {
             // Tapped the green "+" icon
         }
@@ -374,7 +424,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         switch cellType(forIndexPath: indexPath) {
-        case CellType.Adult:
+        case CellType.Adult,
+             CellType.Gift:
             return .Delete
         case CellType.AddItem:
             return .Insert

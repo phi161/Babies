@@ -14,6 +14,8 @@ class Baby: NSManagedObject {
     
     @NSManaged func addAdultsObject(value:Adult)
     @NSManaged func removeAdultsObject(value:Adult)
+    @NSManaged func addGiftsObject(value:Gift)
+    @NSManaged func removeGiftsObject(value:Gift)
     
     var thumbnailImage: UIImage? {
         get {
@@ -31,6 +33,18 @@ class Baby: NSManagedObject {
             } else {
                 return nil
             }
+        }
+    }
+    
+    func giftsOrdered() -> [Gift]? {
+        if let giftsCount = gifts?.count {
+            if giftsCount > 0 {
+                return gifts?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: true)]) as? [Gift]
+            } else {
+                return nil
+            }
+        } else {
+            return nil
         }
     }
     
@@ -98,7 +112,7 @@ class Baby: NSManagedObject {
         }
         
         // Adults
-        string += "\n\n"
+        string += "\n"
         string += "\nadults:\n"
         if let adults = self.adultsOrdered() {
             for adult in adults {
@@ -106,6 +120,17 @@ class Baby: NSManagedObject {
             }
         } else {
             string += "no adults yet"
+        }
+        
+        // Gifts
+        string += "\n"
+        string += "\nGifts:\n"
+        if let gifts = self.giftsOrdered() {
+            for gift in gifts {
+                string += "\(gift.stringRepresentation())\n"
+            }
+        } else {
+            string += "no gifts yet"
         }
         
         return string

@@ -12,6 +12,22 @@ import CoreData
 
 class Gift: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    func stringRepresentation() -> String {
+
+        var string: String = ""
+        string += self.details ?? "n/a"
+        string += "("
+        string += String(self.price!) ?? "n/a"
+        string += ") "
+        
+        if self.date != nil {
+            string += NSDateFormatter.localizedStringFromDate(self.date!, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        } else {
+            string += "n/a"
+        }
+
+        return string
+        
+    }
 
 }

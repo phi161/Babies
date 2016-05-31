@@ -246,17 +246,57 @@
                                             <outlet property="typeButton" destination="I8F-hX-GQd" id="TkI-Wv-yFa"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCellIdentifier" rowHeight="120" id="QoV-vc-MSN">
-                                        <rect key="frame" x="0.0" y="536" width="600" height="120"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCellIdentifier" rowHeight="80" id="QoV-vc-MSN" customClass="GiftCell" customModule="Babies" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="536" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QoV-vc-MSN" id="Dyh-ln-3iD">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxo-vJ-zxt">
+                                                    <rect key="frame" x="8" y="8" width="584" height="41"/>
+                                                    <color key="backgroundColor" red="1" green="0.4355585917" blue="0.26428363329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">two
+lines</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRZ-de-fmm">
+                                                    <rect key="frame" x="8" y="50" width="35" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.4355585917" blue="0.26428363329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-TO-VWU">
+                                                    <rect key="frame" x="524" y="50" width="68" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.4355585917" blue="0.26428363329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="PRZ-de-fmm" secondAttribute="bottom" id="Cay-St-wuU"/>
+                                                <constraint firstItem="Uxo-vJ-zxt" firstAttribute="top" secondItem="Dyh-ln-3iD" secondAttribute="topMargin" id="Jym-Q1-TPQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lUb-TO-VWU" secondAttribute="trailing" id="RiI-2E-r9u"/>
+                                                <constraint firstItem="PRZ-de-fmm" firstAttribute="leading" secondItem="Dyh-ln-3iD" secondAttribute="leadingMargin" id="T39-Lo-E8R"/>
+                                                <constraint firstItem="Uxo-vJ-zxt" firstAttribute="leading" secondItem="Dyh-ln-3iD" secondAttribute="leadingMargin" id="dfH-Ah-xaJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="lUb-TO-VWU" secondAttribute="bottom" id="mLB-9L-Ijc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Uxo-vJ-zxt" secondAttribute="trailing" id="ydK-tJ-v0y"/>
+                                                <constraint firstItem="lUb-TO-VWU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PRZ-de-fmm" secondAttribute="trailing" constant="20" id="zht-jC-shx"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="currencyLabel" destination="lUb-TO-VWU" id="rmL-WV-gKr"/>
+                                            <outlet property="dateLabel" destination="PRZ-de-fmm" id="JI0-BB-jcj"/>
+                                            <outlet property="titleLabel" destination="Uxo-vJ-zxt" id="b2U-t6-sHI"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemCellIdentifier" textLabel="uXg-4l-62y" rowHeight="50" style="IBUITableViewCellStyleDefault" id="7Yl-za-8EX">
-                                        <rect key="frame" x="0.0" y="656" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="616" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Yl-za-8EX" id="CMc-y6-Cb4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
