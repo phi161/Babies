@@ -112,7 +112,7 @@ class Baby: NSManagedObject {
         }
         
         // Adults
-        string += "\n\n"
+        string += "\n"
         string += "\nadults:\n"
         if let adults = self.adultsOrdered() {
             for adult in adults {
@@ -120,6 +120,17 @@ class Baby: NSManagedObject {
             }
         } else {
             string += "no adults yet"
+        }
+        
+        // Gifts
+        string += "\n"
+        string += "\nGifts:\n"
+        if let gifts = self.giftsOrdered() {
+            for gift in gifts {
+                string += "\(gift.stringRepresentation())\n"
+            }
+        } else {
+            string += "no gifts yet"
         }
         
         return string
