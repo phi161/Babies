@@ -36,6 +36,18 @@ class Baby: NSManagedObject {
         }
     }
     
+    func giftsOrdered() -> [Gift]? {
+        if let giftsCount = gifts?.count {
+            if giftsCount > 0 {
+                return gifts?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: true)]) as? [Gift]
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
             if adultsCount > 0 {

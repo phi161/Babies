@@ -266,8 +266,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             
         case CellType.Gift:
             if let giftCell: GiftCell = cell as? GiftCell {
-                if let gift = self.baby?.gifts?.allObjects[indexPath.row] {
-                    giftCell.updateInterface(gift as! Gift)
+                if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                    giftCell.updateInterface(gift)
                 }
             }
             
@@ -370,7 +370,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.beginUpdates()
             tableView.endUpdates()
         case CellType.Gift:
-            if let gift = self.baby?.gifts?.allObjects[indexPath.row] as? Gift {
+            if let gift = self.baby?.giftsOrdered()![indexPath.row] {
                 let giftViewController = GiftViewController(gift: gift)
                 giftViewController.delegate = self
                 let navigationController = UINavigationController(rootViewController: giftViewController)
