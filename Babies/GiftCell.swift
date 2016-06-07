@@ -16,7 +16,8 @@ class GiftCell: UITableViewCell {
 
     
     func updateInterface(gift: Gift) {
-        titleLabel.text = gift.details
+        let textPrompt = NSLocalizedString("TAP_TO_EDIT_GIFT", comment: "Prompt text when the gift details is nil or empty")
+        titleLabel.text = (gift.details ?? "").isEmpty ? textPrompt : gift.details!
         if let date = gift.date {
             dateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         } else {

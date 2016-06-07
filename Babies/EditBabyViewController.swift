@@ -149,7 +149,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         newGift.date = NSDate()
         newGift.price = 0
         newGift.baby = self.baby
-        newGift.details = "tap to edit details"
+        newGift.details = ""
         self.baby?.addGiftsObject(newGift)
 
         self.tableView.beginUpdates()
