@@ -16,13 +16,23 @@ class GiftCell: UITableViewCell {
 
     
     func updateInterface(gift: Gift) {
+        
+        // Details
         let textPrompt = NSLocalizedString("TAP_TO_EDIT_GIFT", comment: "Prompt text when the gift details is nil or empty")
         titleLabel.text = (gift.details ?? "").isEmpty ? textPrompt : gift.details!
+        
+        // Date
         if let date = gift.date {
             dateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         } else {
             dateLabel.text = "n/a"
         }
-        currencyLabel.text = gift.price?.stringValue
+        
+        // Price
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        formatter.locale = NSLocale.currentLocale()
+        
+        currencyLabel.text = formatter.stringFromNumber(gift.price!)
     }
 }
