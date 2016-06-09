@@ -16,6 +16,7 @@ class GiftViewController: UIViewController {
     
     @IBOutlet var detailsTextView: UITextView!
     @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet var dateLabel: UILabel!
     @IBOutlet var priceTextField: UITextField!
 
     var gift: Gift
@@ -37,8 +38,12 @@ class GiftViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneButtonTapped(_:)))
         
+        self.dateLabel.text = NSLocalizedString("GIFT_DATE_TITLE", comment: "The text above the gift date picker")
         self.datePicker.date = gift.date!
+        
         self.detailsTextView.text = gift.details
+        
+        self.priceTextField.placeholder = NSLocalizedString("GIFT_PRICE_PLACEHOLDER", comment: "Placeholder text for the gift price textfield")
         self.priceTextField.text = gift.price?.stringValue
     }
 
