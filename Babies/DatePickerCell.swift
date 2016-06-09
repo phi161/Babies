@@ -47,7 +47,6 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
             } else {
                 // expand
                 self.clearButtonTrailingConstraint.constant = 0
-                self.dateLabel.textColor = UIColor.redColor()
                 
                 UIView.animateWithDuration(duration) {
                     self.contentView.layoutIfNeeded()

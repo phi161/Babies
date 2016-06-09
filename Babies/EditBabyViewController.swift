@@ -353,7 +353,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.Adult:
             return 80
         case CellType.Gift:
-            return 80
+            return 66
         case CellType.AddItem:
             return 50
         default:
