@@ -23,7 +23,7 @@ class GiftCell: UITableViewCell {
         
         // Date
         if let date = gift.date {
-            dateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            dateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .LongStyle, timeStyle: .NoStyle)
         } else {
             dateLabel.text = "n/a"
         }
