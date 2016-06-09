@@ -41,9 +41,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     let sectionHeaderTitles = [
-        "Dates",
-        "Adults",
-        "Gifts",
+        NSLocalizedString("SECTION_TITLE_DATES", comment: "The section title for dates"),
+        NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
+        NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
         /*
          "Events",
          */
@@ -245,9 +245,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             identifer = "AddItemCellIdentifier"
             cell = tableView.dequeueReusableCellWithIdentifier(identifer)!
             if indexPath.section == Section.Adults.rawValue {
-                cell.textLabel?.text = "Add Adult"
+                cell.textLabel?.text = NSLocalizedString("ADD_ADULT", comment: "Text for adding a new adult")
             } else {
-                cell.textLabel?.text = "Add Gift"
+                cell.textLabel?.text = NSLocalizedString("ADD_GIFT", comment: "Text for adding a new gift")
             }
         default:
             identifer = ""
@@ -265,12 +265,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             if let adultCell: AdultCell = cell as? AdultCell {
                 if let adult = self.baby?.adultsOrdered()![indexPath.row] {
                     // Type
-                    adultCell.typeButton.setTitle(adult.type?.title ?? "type", forState: .Normal)
+                    adultCell.typeButton.setTitle(adult.type?.title ?? NSLocalizedString("SELECT_TYPE", comment: "Text for opening the contact type view while adding a new adult"), forState: .Normal)
                     // Name
                     if adult.contactIdentifier != nil {
                         adultCell.contactButton.setTitle(adult.name(), forState: .Normal)
                     } else {
-                        adultCell.contactButton.setTitle("select contact", forState: .Normal)
+                        adultCell.contactButton.setTitle(NSLocalizedString("SELECT_CONTACT", comment: "Text for opening the contact picker while adding a new adult"), forState: .Normal)
                     }
                 } else {
                     adultCell.contactButton.setTitle("problem", forState: .Normal)
