@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 protocol AdultTypePickerDelegate: class {
-    func adultTypePicker(adultTypePicker: AdultTypeTableViewController, didSelectType type:AdultType)
-    func adultTypePickerDidCancel(adultTypePicker: AdultTypeTableViewController)
+    func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type:AdultType)
+    func adultTypePickerDidCancel(_ adultTypePicker: AdultTypeTableViewController)
 }
 
 class AdultTypeTableViewController: UITableViewController {
@@ -23,10 +23,10 @@ class AdultTypeTableViewController: UITableViewController {
     var adultTypes: [AdultType]? {
         get {
             do {
-                let fetchRequest = NSFetchRequest(entityName: "AdultType")
+                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AdultType")
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: true)]
                 var result: [AdultType]?
-                result = try self.managedObjectContext?.executeFetchRequest(fetchRequest) as? [AdultType]
+                result = try self.managedObjectContext?.fetch(fetchRequest) as? [AdultType]
                 return result
             } catch {
                 let fetchError = error as NSError
@@ -41,7 +41,7 @@ class AdultTypeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelButtonTapped(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
         
         if adultTypes?.count == 0 {
             self.importFromJSON()
@@ -51,19 +51,19 @@ class AdultTypeTableViewController: UITableViewController {
     }
     
     func importFromJSON() {
-        let jsonFileURL = NSBundle.mainBundle().URLForResource("adult_types", withExtension: "json")
+        let jsonFileURL = Bundle.main.url(forResource: "adult_types", withExtension: "json")
         
-        if let jsonData = NSData(contentsOfURL: jsonFileURL!) {
+        if let jsonData = try? Data(contentsOf: jsonFileURL!) {
             do {
-                let jsonArray: Array! = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .MutableContainers) as? Array<[String:AnyObject]>
+                let jsonArray: Array! = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? Array<[String:AnyObject]>
                 for item in jsonArray {
                     
-                    guard let title = item["title"] as? String, identifier = item["identifier"] as? Int else {
+                    guard let title = item["title"] as? String, let identifier = item["identifier"] as? Int else {
                         return;
                     }
                     
                     let adultType = AdultType(title: title, identifier: identifier, userDefined: false, context: managedObjectContext!)
-                    managedObjectContext?.insertObject(adultType)
+                    managedObjectContext?.insert(adultType)
                     
                 }
                 
@@ -82,7 +82,7 @@ class AdultTypeTableViewController: UITableViewController {
 
     // MARK: - UITableViewDelegate
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = adultTypes?.count {
             return count
         } else {
@@ -90,31 +90,31 @@ class AdultTypeTableViewController: UITableViewController {
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("AdultTypeCellIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AdultTypeCellIdentifier", for: indexPath)
         
-        if let currentAdultType = adultTypes?[indexPath.row] {
-            if let title: String = currentAdultType.title, identifier: NSNumber = currentAdultType.identifier {
-                cell.textLabel?.text = "\(title) - \(identifier) - \(identifier.integerValue)"
+        if let currentAdultType = adultTypes?[(indexPath as NSIndexPath).row] {
+            if let title: String = currentAdultType.title, let identifier: NSNumber = currentAdultType.identifier {
+                cell.textLabel?.text = "\(title) - \(identifier) - \(identifier.intValue)"
             }
         }
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.adultType = self.adultTypes![indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.adultType = self.adultTypes![(indexPath as NSIndexPath).row]
         delegate?.adultTypePicker(self, didSelectType: self.adultType!)
     }
 
     // MARK: Actions
     
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         delegate?.adultTypePickerDidCancel(self)
     }
 

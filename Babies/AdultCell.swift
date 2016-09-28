@@ -9,8 +9,8 @@
 import UIKit
 
 protocol AdultCellDelegate: class {
-    func adultCellDidTapTypeButton(adultCell: AdultCell)
-    func adultCellDidTapContactButton(adultCell: AdultCell)
+    func adultCellDidTapTypeButton(_ adultCell: AdultCell)
+    func adultCellDidTapContactButton(_ adultCell: AdultCell)
 }
 
 class AdultCell: UITableViewCell {
@@ -20,11 +20,11 @@ class AdultCell: UITableViewCell {
     @IBOutlet var typeButton: UIButton!
     @IBOutlet var contactButton: UIButton!
 
-    @IBAction func typeButtonTapped(sender: AnyObject) {
+    @IBAction func typeButtonTapped(_ sender: AnyObject) {
         delegate?.adultCellDidTapTypeButton(self)
     }
     
-    @IBAction func contactButtonTapped(sender: AnyObject) {
+    @IBAction func contactButtonTapped(_ sender: AnyObject) {
         delegate?.adultCellDidTapContactButton(self)
     }
     

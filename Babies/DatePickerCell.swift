@@ -9,8 +9,8 @@
 import UIKit
 
 protocol DatePickerCellDelegate: class {
-    func datePickerCellDidClear(datePickerCell: DatePickerCell)
-    func datePickerCell(datePickerCell: DatePickerCell, didSelectDate date:NSDate)
+    func datePickerCellDidClear(_ datePickerCell: DatePickerCell)
+    func datePickerCell(_ datePickerCell: DatePickerCell, didSelectDate date:Date)
 }
 
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
@@ -23,18 +23,18 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     weak var delegate: DatePickerCellDelegate?
     
-    private var isExpanded = false
+    fileprivate var isExpanded = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.clearButton.setTitle(NSLocalizedString("CLEAR_BUTTON", comment: "The title of the clear button"), forState: .Normal)
+        self.clearButton.setTitle(NSLocalizedString("CLEAR_BUTTON", comment: "The title of the clear button"), for: UIControlState())
         
         self.clearButtonTrailingConstraint.constant = -64
-        self.dateLabel.textColor = UIColor.blueColor()
+        self.dateLabel.textColor = UIColor.blue
     }
     
-    func setExpanded(expanded: Bool, animated: Bool) {
+    func setExpanded(_ expanded: Bool, animated: Bool) {
         
         var duration = 0.0
         if animated == true {
@@ -48,9 +48,9 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
                 // expand
                 self.clearButtonTrailingConstraint.constant = 0
                 
-                UIView.animateWithDuration(duration) {
+                UIView.animate(withDuration: duration, animations: {
                     self.contentView.layoutIfNeeded()
-                }
+                }) 
                 
                 isExpanded = true
 
@@ -59,11 +59,11 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
             if isExpanded {
                 // collapse
                 self.clearButtonTrailingConstraint.constant = -64
-                self.dateLabel.textColor = UIColor.blueColor()
+                self.dateLabel.textColor = UIColor.blue
                 
-                UIView.animateWithDuration(duration) {
+                UIView.animate(withDuration: duration, animations: {
                     self.contentView.layoutIfNeeded()
-                }
+                }) 
                 
                 isExpanded = false
 
@@ -73,25 +73,25 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
         }
     }
     
-    func configure(withTitle title: String, date: NSDate?, mode: UIDatePickerMode) {
+    func configure(withTitle title: String, date: Date?, mode: UIDatePickerMode) {
         
         self.titleLabel.text = title
         
         self.datePicker.datePickerMode = mode
         
         if date != nil {
-            self.dateLabel.text = NSDateFormatter.localizedStringFromDate(date!, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+            self.dateLabel.text = DateFormatter.localizedString(from: date!, dateStyle: .medium, timeStyle: .short)
         } else {
             self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         }
     }
 
-    @IBAction func datePickerChanged(sender: UIDatePicker) {
-        self.dateLabel.text = NSDateFormatter.localizedStringFromDate(sender.date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+    @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        self.dateLabel.text = DateFormatter.localizedString(from: sender.date, dateStyle: .medium, timeStyle: .short)
         delegate?.datePickerCell(self, didSelectDate: sender.date)
     }
     
-    @IBAction func clearButtonTapped(sender: AnyObject) {
+    @IBAction func clearButtonTapped(_ sender: AnyObject) {
         self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         delegate?.datePickerCellDidClear(self)
     }

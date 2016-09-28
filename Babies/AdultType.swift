@@ -13,12 +13,12 @@ import CoreData
 class AdultType: NSManagedObject {
     
     convenience init(title: String, identifier: Int, userDefined: Bool, context: NSManagedObjectContext) {
-        let entity = NSEntityDescription.entityForName("AdultType", inManagedObjectContext: context)!
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        let entity = NSEntityDescription.entity(forEntityName: "AdultType", in: context)!
+        self.init(entity: entity, insertInto: context)
         
-        self.userDefined = userDefined
+        self.userDefined = userDefined as NSNumber?
         self.title = title
-        self.identifier = identifier
+        self.identifier = identifier as NSNumber?
     }
     
 }
