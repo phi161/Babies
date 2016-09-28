@@ -15,10 +15,10 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var moc: NSManagedObjectContext?
     var babies: [Baby] {
-        let fetchRequest = NSFetchRequest(entityName: "Baby")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Baby")
         var result:[Baby]
         do {
-            try result = self.moc?.executeFetchRequest(fetchRequest) as! [Baby]
+            try result = self.moc?.fetch(fetchRequest) as! [Baby]
         } catch {
             result = []
             print("Error: \(error)")
@@ -33,7 +33,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.tableView.reloadData()
@@ -45,44 +45,44 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: - UITableViewDelegate
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return babies.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BabyListCell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BabyListCell", for: indexPath)
         
-        cell.imageView?.image = babies[indexPath.row].thumbnailImage
-        cell.textLabel?.text = babies[indexPath.row].stringRepresentation()
+        cell.imageView?.image = babies[(indexPath as NSIndexPath).row].thumbnailImage
+        cell.textLabel?.text = babies[(indexPath as NSIndexPath).row].stringRepresentation()
         
         return cell
     }
     
     // MARK: - EditBabyViewControllerDelegate
     
-    func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
-        self.dismissViewControllerAnimated(true) { 
+    func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        self.dismiss(animated: true) { 
             self.tableView.reloadData()
         }
     }
     
     // MARK: - Actions
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "SegueAddNewBaby" {
-            let navigationController = segue.destinationViewController as? UINavigationController
+            let navigationController = segue.destination as? UINavigationController
             let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
             
             editBabyViewController.moc = self.moc
             editBabyViewController.delegate = self
             editBabyViewController.isAddingNewEntity = true
         } else if segue.identifier == "SegueShowBabyDetail" {
-            let babyDetailViewController = segue.destinationViewController as? BabyDetailViewController
+            let babyDetailViewController = segue.destination as? BabyDetailViewController
             
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             babyDetailViewController?.moc = self.moc
-            babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
+            babyDetailViewController?.baby = babies[((selectedIndexPath as NSIndexPath?)?.row)!]
         }
     }
     

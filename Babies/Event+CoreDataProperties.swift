@@ -12,7 +12,7 @@ import CoreData
 extension Event {
 
     @NSManaged var type: NSNumber?
-    @NSManaged var date: NSDate?
+    @NSManaged var date: Date?
     @NSManaged var baby: Baby?
 
 }

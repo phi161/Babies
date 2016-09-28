@@ -11,7 +11,7 @@ import CoreData
 
 extension Gift {
 
-    @NSManaged var date: NSDate?
+    @NSManaged var date: Date?
     @NSManaged var details: String?
     @NSManaged var price: NSNumber?
     @NSManaged var baby: Baby?

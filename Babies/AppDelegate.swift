@@ -16,10 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - App Delegate
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let storeURL = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Babies.sqlite")
-        let modelURL = NSBundle.mainBundle().URLForResource("Babies", withExtension: "momd")!
+        let storeURL = self.applicationDocumentsDirectory.appendingPathComponent("Babies.sqlite")
+        let modelURL = Bundle.main.url(forResource: "Babies", withExtension: "momd")!
         let coreDataStack = CoreDataStack(storeURL: storeURL, modelURL: modelURL)
 
         let navigationController = self.window!.rootViewController as? UINavigationController
@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Helpers
     
-    lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    lazy var applicationDocumentsDirectory: URL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
     

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GiftViewControllerDelegate: class {
-    func giftViewController(giftViewController: GiftViewController, didFinishWithGift gift: Gift)
+    func giftViewController(_ giftViewController: GiftViewController, didFinishWithGift gift: Gift)
 }
 
 class GiftViewController: UIViewController {
@@ -36,10 +36,10 @@ class GiftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneButtonTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped(_:)))
         
         self.dateLabel.text = NSLocalizedString("GIFT_DATE_TITLE", comment: "The text above the gift date picker")
-        self.datePicker.date = gift.date!
+        self.datePicker.date = gift.date! as Date
         
         self.detailsTextView.text = gift.details
         
@@ -53,10 +53,10 @@ class GiftViewController: UIViewController {
 
     // MARK: - Actions
     
-    @IBAction func doneButtonTapped(sender: AnyObject) {
+    @IBAction func doneButtonTapped(_ sender: AnyObject) {
         gift.date = self.datePicker.date
         gift.details = self.detailsTextView.text
-        gift.price = (self.priceTextField.text! as NSString).floatValue
+        gift.price = (self.priceTextField.text! as NSString).floatValue as NSNumber?
         
         self.delegate?.giftViewController(self, didFinishWithGift: gift)
     }

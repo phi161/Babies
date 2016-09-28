@@ -12,8 +12,8 @@ import CoreData
 
 class Adult: NSManagedObject {
 
-    @NSManaged func addBabiesObject(value:Baby)
-    @NSManaged func removeBabiesObject(value:Baby)
+    @NSManaged func addBabiesObject(_ value:Baby)
+    @NSManaged func removeBabiesObject(_ value:Baby)
     
     func name() -> String {
         var string: String = ""
@@ -32,7 +32,7 @@ class Adult: NSManagedObject {
         string += self.givenName ?? "n/a"
         
         // Type
-        guard let _ = self.type, title = self.type?.title else {
+        guard let _ = self.type, let title = self.type?.title else {
             string += " (no type)"
             return string
         }

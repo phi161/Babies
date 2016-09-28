@@ -12,18 +12,18 @@ import UIKit
 
 class Baby: NSManagedObject {
     
-    @NSManaged func addAdultsObject(value:Adult)
-    @NSManaged func removeAdultsObject(value:Adult)
-    @NSManaged func addGiftsObject(value:Gift)
-    @NSManaged func removeGiftsObject(value:Gift)
+    @NSManaged func addAdultsObject(_ value:Adult)
+    @NSManaged func removeAdultsObject(_ value:Adult)
+    @NSManaged func addGiftsObject(_ value:Gift)
+    @NSManaged func removeGiftsObject(_ value:Gift)
     
     var thumbnailImage: UIImage? {
         get {
             if imageName != nil {
                 // if image exists return it, or else return nil
-                let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-                let url = urls[urls.count-1].URLByAppendingPathComponent(imageName!)
-                let imageData = NSData(contentsOfURL: url)
+                let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                let url = urls[urls.count-1].appendingPathComponent(imageName!)
+                let imageData = try? Data(contentsOf: url)
                 if let _ = imageData {
                     return UIImage(data: imageData!)
                 } else {
@@ -39,7 +39,7 @@ class Baby: NSManagedObject {
     func giftsOrdered() -> [Gift]? {
         if let giftsCount = gifts?.count {
             if giftsCount > 0 {
-                return gifts?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: true)]) as? [Gift]
+                return gifts?.sortedArray(using: [NSSortDescriptor(key: "date", ascending: true)]) as? [Gift]
             } else {
                 return nil
             }
@@ -51,7 +51,7 @@ class Baby: NSManagedObject {
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
             if adultsCount > 0 {
-                return adults?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "displayOrder", ascending: true)]) as? [Adult]
+                return adults?.sortedArray(using: [NSSortDescriptor(key: "displayOrder", ascending: true)]) as? [Adult]
             } else {
                 return nil
             }
@@ -62,7 +62,7 @@ class Baby: NSManagedObject {
 
     func birthdayString() -> String {
         if let d = self.birthday {
-            return NSDateFormatter.localizedStringFromDate(d, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            return DateFormatter.localizedString(from: d as Date, dateStyle: .short, timeStyle: .short)
         } else {
             return "n/a"
         }
@@ -70,7 +70,7 @@ class Baby: NSManagedObject {
     
     func sexString() -> String {
         
-        if let s = self.sex?.integerValue {
+        if let s = self.sex?.intValue {
             switch s {
             case 0:
                 return "unknown"
@@ -98,7 +98,7 @@ class Baby: NSManagedObject {
         // Delivery date
         string += "\ndelivery: "
         if self.delivery != nil {
-            string += NSDateFormatter.localizedStringFromDate(self.delivery!, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            string += DateFormatter.localizedString(from: self.delivery! as Date, dateStyle: .short, timeStyle: .short)
         } else {
             string += "n/a"
         }
@@ -106,7 +106,7 @@ class Baby: NSManagedObject {
         // Birthday
         string += "\nbirthday: "
         if self.birthday != nil {
-            string += NSDateFormatter.localizedStringFromDate(self.birthday!, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            string += DateFormatter.localizedString(from: self.birthday! as Date, dateStyle: .short, timeStyle: .short)
         } else {
             string += "n/a"
         }

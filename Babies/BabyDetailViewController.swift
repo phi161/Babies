@@ -20,27 +20,27 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editButtonTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
         
         self.label.text = self.baby?.stringRepresentation()
         self.imageView.image = self.baby?.thumbnailImage
     }
     
-    func editButtonTapped(sender: AnyObject) {
+    func editButtonTapped(_ sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let editBabyViewController = storyboard.instantiateViewControllerWithIdentifier("EditBabyViewControllerId") as? EditBabyViewController {
+        if let editBabyViewController = storyboard.instantiateViewController(withIdentifier: "EditBabyViewControllerId") as? EditBabyViewController {
             let navigationController = UINavigationController(rootViewController: editBabyViewController)
-            navigationController.modalTransitionStyle = .CrossDissolve
-            self.presentViewController(navigationController, animated: true, completion: nil)
+            navigationController.modalTransitionStyle = .crossDissolve
+            self.present(navigationController, animated: true, completion: nil)
             editBabyViewController.delegate = self
             editBabyViewController.moc = self.moc
             editBabyViewController.babyObjectId = self.baby?.objectID
         }
     }
     
-    func editBabyViewController(editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
-        self.dismissViewControllerAnimated(true) {
-            dispatch_async(dispatch_get_main_queue(), { 
+    func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        self.dismiss(animated: true) {
+            DispatchQueue.main.async(execute: { 
                 self.imageView.image = self.baby?.thumbnailImage
                 self.label.text = self.baby?.stringRepresentation()
             })
