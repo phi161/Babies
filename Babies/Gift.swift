@@ -17,7 +17,7 @@ class Gift: NSManagedObject {
         var string: String = ""
         string += self.details ?? "n/a"
         string += "("
-        string += String(describing: self.price!) ?? "n/a"
+        string += String(describing: self.price!) 
         string += ") "
         
         if self.date != nil {
