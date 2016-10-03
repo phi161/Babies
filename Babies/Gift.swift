@@ -16,12 +16,12 @@ class Gift: NSManagedObject {
 
         var string: String = ""
         string += self.details ?? "n/a"
-        string += "("
+        string += " ("
         string += String(describing: self.price!) 
         string += ") "
         
         if self.date != nil {
-            string += DateFormatter.localizedString(from: self.date! as Date, dateStyle: .short, timeStyle: .short)
+            string += DateFormatter.localizedString(from: self.date! as Date, dateStyle: .medium, timeStyle: .none)
         } else {
             string += "n/a"
         }

@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiftViewController" customModule="Babies" customModuleProvider="target">
             <connections>
+                <outlet property="currencyLabel" destination="qaB-aZ-wQn" id="XUo-Of-ZTd"/>
                 <outlet property="dateLabel" destination="pix-dk-5B2" id="BL9-rd-sIa"/>
                 <outlet property="datePicker" destination="PjT-3Z-1MI" id="Yh2-7a-LFx"/>
                 <outlet property="detailsTextView" destination="D1a-Xc-3rH" id="HT0-qk-tCY"/>
@@ -42,15 +43,22 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaB-aZ-wQn">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="PjT-3Z-1MI" secondAttribute="trailing" constant="10" id="6MM-gX-QHt"/>
-                <constraint firstItem="dXt-9s-ZN4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="7b9-ge-AtS"/>
                 <constraint firstAttribute="trailing" secondItem="dXt-9s-ZN4" secondAttribute="trailing" constant="10" id="CXB-TP-bW0"/>
                 <constraint firstItem="D1a-Xc-3rH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="PS5-sR-sTh"/>
                 <constraint firstAttribute="trailing" secondItem="D1a-Xc-3rH" secondAttribute="trailing" constant="10" id="UZp-Ma-mWl"/>
                 <constraint firstItem="dXt-9s-ZN4" firstAttribute="top" secondItem="D1a-Xc-3rH" secondAttribute="bottom" constant="16" id="UyT-m7-cq7"/>
+                <constraint firstItem="dXt-9s-ZN4" firstAttribute="leading" secondItem="qaB-aZ-wQn" secondAttribute="trailing" constant="5" id="VsB-wc-FIJ"/>
+                <constraint firstItem="qaB-aZ-wQn" firstAttribute="centerY" secondItem="dXt-9s-ZN4" secondAttribute="centerY" id="d2U-Vo-Rr6"/>
+                <constraint firstItem="qaB-aZ-wQn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="gM5-u5-bPH"/>
                 <constraint firstItem="pix-dk-5B2" firstAttribute="top" secondItem="dXt-9s-ZN4" secondAttribute="bottom" constant="30" id="irw-X1-t7i"/>
                 <constraint firstItem="dXt-9s-ZN4" firstAttribute="centerY" secondItem="pix-dk-5B2" secondAttribute="centerY" id="kky-hN-Oke"/>
                 <constraint firstItem="PjT-3Z-1MI" firstAttribute="top" secondItem="pix-dk-5B2" secondAttribute="bottom" constant="10" id="mfS-lo-oGt"/>

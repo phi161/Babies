@@ -17,6 +17,7 @@ class GiftViewController: UIViewController {
     @IBOutlet var detailsTextView: UITextView!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var currencyLabel: UILabel!
     @IBOutlet var priceTextField: UITextField!
 
     var gift: Gift
@@ -37,6 +38,8 @@ class GiftViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = NSLocalizedString("GIFT_VIEW_TITLE", comment: "The title of the Gift detail view")
+        
+        self.currencyLabel.text = Locale.current.currencySymbol ?? "€"
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(doneButtonTapped(_:)))
         
