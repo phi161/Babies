@@ -36,7 +36,7 @@ class GiftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(doneButtonTapped(_:)))
         
         self.dateLabel.text = NSLocalizedString("GIFT_DATE_TITLE", comment: "The text above the gift date picker")
         self.datePicker.date = gift.date! as Date
@@ -45,6 +45,17 @@ class GiftViewController: UIViewController {
         
         self.priceTextField.placeholder = NSLocalizedString("GIFT_PRICE_PLACEHOLDER", comment: "Placeholder text for the gift price textfield")
         self.priceTextField.text = gift.price?.stringValue
+        
+        // Keyboard toolbar
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50))
+        toolbar.barStyle = .default
+        toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(GiftViewController.hideKeyboard))
+        ]
+        
+        self.priceTextField.inputAccessoryView = toolbar
+        self.detailsTextView.inputAccessoryView = toolbar
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +64,13 @@ class GiftViewController: UIViewController {
 
     // MARK: - Actions
     
+    func hideKeyboard() {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
+        hideKeyboard()
+        
         gift.date = self.datePicker.date
         gift.details = self.detailsTextView.text
         gift.price = (self.priceTextField.text! as NSString).floatValue as NSNumber?
