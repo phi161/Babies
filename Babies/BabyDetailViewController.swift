@@ -9,10 +9,9 @@
 import UIKit
 import CoreData
 
-class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate {
+class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
 
-    @IBOutlet var label: UILabel!
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var tableView: UITableView!
     
     var baby:Baby? = nil
     var moc: NSManagedObjectContext?
@@ -21,9 +20,6 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
-        
-        self.label.text = self.baby?.stringRepresentation()
-        self.imageView.image = self.baby?.thumbnailImage
     }
     
     func editButtonTapped(_ sender: AnyObject) {
@@ -40,11 +36,35 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
         self.dismiss(animated: true) {
-            DispatchQueue.main.async(execute: { 
-                self.imageView.image = self.baby?.thumbnailImage
-                self.label.text = self.baby?.stringRepresentation()
+            DispatchQueue.main.async(execute: {
+                // Update GUI
             })
         }
     }
     
+    // MARK: - UITableViewDataSource
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section \(section+1)"
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "generic")!
+        cell.textLabel?.text = "\(indexPath.section) - \(indexPath.row)"
+        return cell
+    }
+
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
+    }
 }
