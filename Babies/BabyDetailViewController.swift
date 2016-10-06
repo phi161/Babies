@@ -33,9 +33,9 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidLayoutSubviews() {
         if baby != nil {
-            self.nameLabel.text = "\(self.baby!.fullName())\nbirthday"
+            self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
             self.imageView.image = self.baby!.thumbnailImage
         }
     }
@@ -58,7 +58,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 // Update GUI
                 self.tableView.reloadData()
                 if baby != nil {
-                    self.nameLabel.text = "\(self.baby!.fullName())\nbirthday"
+                    self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
                     self.imageView.image = self.baby!.thumbnailImage
                 }
             })
