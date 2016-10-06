@@ -21,6 +21,8 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     ]
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
     
     var baby:Baby? = nil
     var moc: NSManagedObjectContext?
@@ -29,6 +31,13 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if baby != nil {
+            self.nameLabel.text = "\(self.baby!.fullName())\nbirthday"
+            self.imageView.image = self.baby!.thumbnailImage
+        }
     }
     
     func editButtonTapped(_ sender: AnyObject) {
@@ -47,6 +56,11 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.dismiss(animated: true) {
             DispatchQueue.main.async(execute: {
                 // Update GUI
+                self.tableView.reloadData()
+                if baby != nil {
+                    self.nameLabel.text = "\(self.baby!.fullName())\nbirthday"
+                    self.imageView.image = self.baby!.thumbnailImage
+                }
             })
         }
     }

@@ -36,6 +36,14 @@ class Baby: NSManagedObject {
         }
     }
     
+    func fullName() -> String {
+        var string: String = ""
+        string += self.familyName ?? "n/a"
+        string += ", "
+        string += self.givenName ?? "n/a"
+        return string
+    }
+    
     func giftsOrdered() -> [Gift]? {
         if let giftsCount = gifts?.count {
             if giftsCount > 0 {

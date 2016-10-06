@@ -401,9 +401,32 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aBc-cF-wHC">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="L45-It-AKi">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BQu-ZK-Uc0"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhZ-QX-Q1K">
+                                            <string key="text">Name
+Date</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="BQu-ZK-Uc0" firstAttribute="leading" secondItem="L45-It-AKi" secondAttribute="leading" id="1Ui-zf-GeH"/>
+                                        <constraint firstItem="YhZ-QX-Q1K" firstAttribute="top" secondItem="BQu-ZK-Uc0" secondAttribute="bottom" priority="750" constant="8" id="Ku6-B4-ild"/>
+                                        <constraint firstAttribute="trailing" secondItem="BQu-ZK-Uc0" secondAttribute="trailing" id="RC6-8f-WzV"/>
+                                        <constraint firstItem="YhZ-QX-Q1K" firstAttribute="centerX" secondItem="L45-It-AKi" secondAttribute="centerX" id="Rc9-Cl-77o"/>
+                                        <constraint firstAttribute="bottom" secondItem="YhZ-QX-Q1K" secondAttribute="bottom" constant="8" id="oqb-Se-QDN"/>
+                                        <constraint firstItem="BQu-ZK-Uc0" firstAttribute="top" secondItem="L45-It-AKi" secondAttribute="top" id="tbh-bO-AxQ"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="generic" textLabel="1Hx-Kc-Z7J" detailTextLabel="ucA-1h-5zh" style="IBUITableViewCellStyleSubtitle" id="nqJ-Bt-PeH">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="228" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nqJ-Bt-PeH" id="Yly-vI-jLB">
                                             <frame key="frameInset" width="320" height="43"/>
@@ -441,12 +464,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="BQu-ZK-Uc0" id="edb-aG-y5j"/>
+                        <outlet property="nameLabel" destination="YhZ-QX-Q1K" id="GoT-dN-FWo"/>
                         <outlet property="tableView" destination="aBc-cF-wHC" id="RyN-4h-MLw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWx-6o-Wfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1821" y="1185"/>
+            <point key="canvasLocation" x="1820.625" y="1185"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JzV-dW-EAM">
