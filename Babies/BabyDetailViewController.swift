@@ -10,6 +10,15 @@ import UIKit
 import CoreData
 
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
+    
+    enum Section: Int {
+        case adults, gifts
+    }
+
+    let sectionHeaderTitles = [
+        NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
+        NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts")
+    ]
 
     @IBOutlet var tableView: UITableView!
     
@@ -45,20 +54,49 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sectionHeaderTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == Section.adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
+                return adultsCount
+            }
+        } else if section == Section.gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
+                return giftsCount
+            }
+        }
+        
+        return 1
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section \(section+1)"
+        return sectionHeaderTitles[section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "generic")!
-        cell.textLabel?.text = "\(indexPath.section) - \(indexPath.row)"
+
+        if indexPath.section == Section.adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
+                if let adult = self.baby?.adultsOrdered()![indexPath.row] {
+                    cell.textLabel?.text = adult.name()
+                    cell.detailTextLabel?.text = adult.type?.title
+                }
+            } else {
+                cell.textLabel?.text = "no adults"
+            }
+        } else if indexPath.section == Section.gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
+                if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                    cell.textLabel?.text = gift.details
+                }
+            } else {
+                cell.textLabel?.text = "no gifts"
+            }
+        }
+        
         return cell
     }
 
