@@ -100,14 +100,17 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             } else {
                 cell.textLabel?.text = "no adults"
+                cell.detailTextLabel?.text = ""
             }
         } else if indexPath.section == Section.gifts.rawValue {
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
                 if let gift = self.baby?.giftsOrdered()![indexPath.row] {
-                    cell.textLabel?.text = gift.details
+                    cell.textLabel?.text = "\(gift.detailsString()) - \(gift.priceWithCurrency())"
+                    cell.detailTextLabel?.text = DateFormatter.localizedString(from: gift.date!, dateStyle: .medium, timeStyle: .none)
                 }
             } else {
                 cell.textLabel?.text = "no gifts"
+                cell.detailTextLabel?.text = ""
             }
         }
         
