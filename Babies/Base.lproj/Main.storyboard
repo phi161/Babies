@@ -234,48 +234,8 @@
                                             <outlet property="typeButton" destination="I8F-hX-GQd" id="TkI-Wv-yFa"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCellIdentifier" rowHeight="66" id="QoV-vc-MSN" customClass="GiftCell" customModule="Babies" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="536" width="600" height="66"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QoV-vc-MSN" id="Dyh-ln-3iD">
-                                            <frame key="frameInset" width="600" height="65"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxo-vJ-zxt">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRZ-de-fmm">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-TO-VWU">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="PRZ-de-fmm" secondAttribute="bottom" id="Cay-St-wuU"/>
-                                                <constraint firstItem="Uxo-vJ-zxt" firstAttribute="top" secondItem="Dyh-ln-3iD" secondAttribute="topMargin" id="Jym-Q1-TPQ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="lUb-TO-VWU" secondAttribute="trailing" id="RiI-2E-r9u"/>
-                                                <constraint firstItem="PRZ-de-fmm" firstAttribute="leading" secondItem="Dyh-ln-3iD" secondAttribute="leadingMargin" id="T39-Lo-E8R"/>
-                                                <constraint firstItem="Uxo-vJ-zxt" firstAttribute="leading" secondItem="Dyh-ln-3iD" secondAttribute="leadingMargin" id="dfH-Ah-xaJ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="lUb-TO-VWU" secondAttribute="bottom" id="mLB-9L-Ijc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Uxo-vJ-zxt" secondAttribute="trailing" id="ydK-tJ-v0y"/>
-                                                <constraint firstItem="lUb-TO-VWU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PRZ-de-fmm" secondAttribute="trailing" constant="20" id="zht-jC-shx"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="currencyLabel" destination="lUb-TO-VWU" id="rmL-WV-gKr"/>
-                                            <outlet property="dateLabel" destination="PRZ-de-fmm" id="JI0-BB-jcj"/>
-                                            <outlet property="titleLabel" destination="Uxo-vJ-zxt" id="b2U-t6-sHI"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemCellIdentifier" textLabel="uXg-4l-62y" rowHeight="50" style="IBUITableViewCellStyleDefault" id="7Yl-za-8EX">
-                                        <rect key="frame" x="0.0" y="602" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="536" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Yl-za-8EX" id="CMc-y6-Cb4">
                                             <frame key="frameInset" width="600" height="49"/>

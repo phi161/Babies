@@ -90,6 +90,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.tableView.isEditing = true
         self.tableView.allowsSelectionDuringEditing = true
+        self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
         
         self.populateWithBabyProperties()
     }
