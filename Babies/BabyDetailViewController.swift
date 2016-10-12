@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+struct CellData {
+    var identifier: String
+    var rows: Int
+}
+
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
     
     enum Section: Int {
@@ -31,6 +36,8 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
+        
+        self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,17 +79,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == Section.adults.rawValue {
-            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                return adultsCount
-            }
-        } else if section == Section.gifts.rawValue {
-            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                return giftsCount
-            }
-        }
-        
-        return 1
+        return self.cellData(indexPath: IndexPath(row: 0, section: section)).rows
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -90,8 +87,14 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "generic")!
 
+        let identifier = self.cellData(indexPath: indexPath).identifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == Section.adults.rawValue {
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
                 if let adult = self.baby?.adultsOrdered()![indexPath.row] {
@@ -105,21 +108,45 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         } else if indexPath.section == Section.gifts.rawValue {
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
                 if let gift = self.baby?.giftsOrdered()![indexPath.row] {
-                    cell.textLabel?.text = "\(gift.detailsString()) - \(gift.priceWithCurrency())"
-                    cell.detailTextLabel?.text = DateFormatter.localizedString(from: gift.date!, dateStyle: .medium, timeStyle: .none)
+                    if let c = cell as? GiftCell {
+                        c.updateInterface(gift)
+                    }
                 }
             } else {
                 cell.textLabel?.text = "no gifts"
                 cell.detailTextLabel?.text = ""
             }
         }
-        
-        return cell
     }
 
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
+    }
+    
+    // MARK: - Helpers
+    
+    func cellData(indexPath: IndexPath) -> CellData {
+        var cellData = CellData(identifier: "generic", rows: 0)
+        
+        switch indexPath.section {
+        case Section.adults.rawValue:
+            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
+                cellData = CellData(identifier: "generic", rows: adultsCount)
+            } else {
+                cellData = CellData(identifier: "generic", rows: 1)
+            }
+        case Section.gifts.rawValue:
+            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount)
+            } else {
+                cellData = CellData(identifier: "generic", rows: 1)
+            }
+        default:
+            break
+        }
+        
+        return cellData
     }
 }
