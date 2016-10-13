@@ -12,6 +12,8 @@ import CoreData
 struct CellData {
     var identifier: String
     var rows: Int
+    var rowHeight: Float
+    var action: () -> ()
 }
 
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
@@ -38,6 +40,8 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
         
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
+        
+        tableView.tableFooterView = UIView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -76,6 +80,10 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionHeaderTitles.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(self.cellData(indexPath: indexPath).rowHeight)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,26 +130,34 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        self.cellData(indexPath: indexPath).action()
     }
     
     // MARK: - Helpers
     
     func cellData(indexPath: IndexPath) -> CellData {
-        var cellData = CellData(identifier: "generic", rows: 0)
+        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0) {}
         
         switch indexPath.section {
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                cellData = CellData(identifier: "generic", rows: adultsCount)
+                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60) {
+                    print("adult \(indexPath.row)")
+                }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1)
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20) {
+                    print("no adult")
+                }
             }
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount)
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80) {
+                    print("gift \(indexPath.row)")
+                }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1)
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20) {
+                    print("no gift")
+                }
             }
         default:
             break
