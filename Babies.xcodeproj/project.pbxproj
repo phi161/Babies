@@ -28,6 +28,7 @@
 		CF55E8D91CE671A100638A5A /* AdultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF55E8D81CE671A100638A5A /* AdultCell.swift */; };
 		CF761AB31CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */; };
 		CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB21CE29D9000CDA9DF /* AdultType.swift */; };
+		CF8E73C41DA8F45000F52CD7 /* GiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */; };
 		CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */; };
 		CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */ = {isa = PBXBuildFile; fileRef = CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
@@ -59,6 +60,7 @@
 		CF55E8D81CE671A100638A5A /* AdultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultCell.swift; sourceTree = "<group>"; };
 		CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AdultType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF761AB21CE29D9000CDA9DF /* AdultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultType.swift; sourceTree = "<group>"; };
+		CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftCell.xib; sourceTree = "<group>"; };
 		CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypeTableViewController.swift; sourceTree = "<group>"; };
 		CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adult_types.json; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
 				72915EEE1CF890EF0051D671 /* GiftCell.swift */,
+				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
@@ -199,6 +202,7 @@
 				72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */,
 				CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */,
 				7281D4671CB69A5A00713321 /* Main.storyboard in Resources */,
+				CF8E73C41DA8F45000F52CD7 /* GiftCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

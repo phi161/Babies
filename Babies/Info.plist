@@ -20,6 +20,8 @@
 	<string>????</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PHOTO_LIBRARY_USAGE_DESCRIPTION</string>
+	<key>NSContactsUsageDescription</key>
+	<string>CONTACTS_USAGE_DESCRIPTION</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

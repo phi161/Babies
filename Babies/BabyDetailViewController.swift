@@ -8,11 +8,31 @@
 
 import UIKit
 import CoreData
+import Contacts
+import ContactsUI
 
-class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate {
+struct CellData {
+    var identifier: String
+    var rows: Int
+    var rowHeight: Float
+    var selectable: Bool
+    var action: () -> ()
+}
 
-    @IBOutlet var label: UILabel!
+class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
+    
+    enum Section: Int {
+        case adults, gifts
+    }
+
+    let sectionHeaderTitles = [
+        NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
+        NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts")
+    ]
+
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
     
     var baby:Baby? = nil
     var moc: NSManagedObjectContext?
@@ -22,8 +42,23 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
         
-        self.label.text = self.baby?.stringRepresentation()
-        self.imageView.image = self.baby?.thumbnailImage
+        self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
+        
+        tableView.tableFooterView = UIView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else { return }
+        self.tableView.deselectRow(at: selectedIndexPath, animated: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if baby != nil {
+            self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
+            self.imageView.image = self.baby!.thumbnailImage
+        }
     }
     
     func editButtonTapped(_ sender: AnyObject) {
@@ -40,11 +75,115 @@ class BabyDetailViewController: UIViewController, EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
         self.dismiss(animated: true) {
-            DispatchQueue.main.async(execute: { 
-                self.imageView.image = self.baby?.thumbnailImage
-                self.label.text = self.baby?.stringRepresentation()
+            DispatchQueue.main.async(execute: {
+                // Update GUI
+                self.tableView.reloadData()
+                if baby != nil {
+                    self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
+                    self.imageView.image = self.baby!.thumbnailImage
+                }
             })
         }
     }
     
+    // MARK: - UITableViewDataSource
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionHeaderTitles.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(self.cellData(indexPath: indexPath).rowHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.cellData(indexPath: IndexPath(row: 0, section: section)).rows
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionHeaderTitles[section]
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let identifier = self.cellData(indexPath: indexPath).identifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.selectionStyle = self.cellData(indexPath: indexPath).selectable == true ? .blue : .none
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == Section.adults.rawValue {
+            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
+                if let adult = self.baby?.adultsOrdered()![indexPath.row] {
+                    cell.textLabel?.text = adult.name()
+                    cell.detailTextLabel?.text = adult.type?.title
+                }
+            } else {
+                cell.textLabel?.text = "no adults"
+                cell.detailTextLabel?.text = ""
+            }
+        } else if indexPath.section == Section.gifts.rawValue {
+            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
+                if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                    if let c = cell as? GiftCell {
+                        c.updateInterface(gift)
+                    }
+                }
+            } else {
+                cell.textLabel?.text = "no gifts"
+                cell.detailTextLabel?.text = ""
+            }
+        }
+    }
+
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.cellData(indexPath: indexPath).action()
+    }
+    
+    // MARK: - Helpers
+    
+    func cellData(indexPath: IndexPath) -> CellData {
+        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0, selectable: false) {}
+        
+        switch indexPath.section {
+        case Section.adults.rawValue:
+            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
+                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true) {
+                    print("adult \(indexPath.row)")
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let store = CNContactStore()
+                        let adult = self.baby?.adultsOrdered()?[indexPath.row]
+                        let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+                        let viewController = CNContactViewController(for: contact!)
+                        viewController.contactStore = store
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(viewController, animated: true)
+                        }
+                    }
+                }
+            } else {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
+                    print("no adult")
+                }
+            }
+        case Section.gifts.rawValue:
+            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false) {
+                    print("gift \(indexPath.row)")
+                }
+            } else {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
+                    print("no gift")
+                }
+            }
+        default:
+            break
+        }
+        
+        return cellData
+    }
 }

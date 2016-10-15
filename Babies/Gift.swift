@@ -27,7 +27,23 @@ class Gift: NSManagedObject {
         }
 
         return string
-        
+    }
+    
+    func detailsString() -> String {
+        if let details = self.details {
+            return details
+        } else {
+            return "n/a"
+        }
     }
 
+    func priceWithCurrency() -> String {
+        let currencySymbol = Locale.current.currencySymbol ?? "€"
+
+        if let price = self.price {
+            return "\(currencySymbol)\(price)"
+        } else {
+            return "\(currencySymbol)0"
+        }
+    }
 }
