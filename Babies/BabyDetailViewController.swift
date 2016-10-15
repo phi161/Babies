@@ -15,6 +15,7 @@ struct CellData {
     var identifier: String
     var rows: Int
     var rowHeight: Float
+    var selectable: Bool
     var action: () -> ()
 }
 
@@ -44,6 +45,13 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
         
         tableView.tableFooterView = UIView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else { return }
+        self.tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,6 +108,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let identifier = self.cellData(indexPath: indexPath).identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.selectionStyle = self.cellData(indexPath: indexPath).selectable == true ? .blue : .none
 
         return cell
     }
@@ -138,12 +147,12 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Helpers
     
     func cellData(indexPath: IndexPath) -> CellData {
-        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0) {}
+        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0, selectable: false) {}
         
         switch indexPath.section {
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60) {
+                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true) {
                     print("adult \(indexPath.row)")
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
@@ -157,17 +166,17 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
                     print("no adult")
                 }
             }
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80) {
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false) {
                     print("gift \(indexPath.row)")
                 }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
                     print("no gift")
                 }
             }
