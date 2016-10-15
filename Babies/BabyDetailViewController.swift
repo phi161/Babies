@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Contacts
+import ContactsUI
 
 struct CellData {
     var identifier: String
@@ -143,6 +145,16 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
                 cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60) {
                     print("adult \(indexPath.row)")
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let store = CNContactStore()
+                        let adult = self.baby?.adultsOrdered()?[indexPath.row]
+                        let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+                        let viewController = CNContactViewController(for: contact!)
+                        viewController.contactStore = store
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(viewController, animated: true)
+                        }
+                    }
                 }
             } else {
                 cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20) {
