@@ -251,6 +251,35 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditNotesCellIdentifier" rowHeight="100" id="K84-8f-y6e">
+                                        <rect key="frame" x="0.0" y="586" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K84-8f-y6e" id="iZI-e1-3ET">
+                                            <frame key="frameInset" width="600" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kh0-oW-i3u">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DQ1-rO-bl1">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DQ1-rO-bl1" secondAttribute="bottom" id="0Dy-Q1-m1K"/>
+                                                <constraint firstItem="kh0-oW-i3u" firstAttribute="leading" secondItem="iZI-e1-3ET" secondAttribute="leading" constant="8" id="Kk2-6U-Xqh"/>
+                                                <constraint firstItem="DQ1-rO-bl1" firstAttribute="top" secondItem="kh0-oW-i3u" secondAttribute="bottom" constant="7" id="Tii-YP-RVK"/>
+                                                <constraint firstItem="DQ1-rO-bl1" firstAttribute="leading" secondItem="iZI-e1-3ET" secondAttribute="leading" constant="8" id="hd0-c2-YYb"/>
+                                                <constraint firstAttribute="trailing" secondItem="DQ1-rO-bl1" secondAttribute="trailing" constant="8" id="l8B-dx-IfU"/>
+                                                <constraint firstItem="kh0-oW-i3u" firstAttribute="top" secondItem="iZI-e1-3ET" secondAttribute="top" constant="8" id="yHM-22-xcp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Vc7-JT-GAg" id="pM0-c0-Ici"/>
@@ -290,7 +319,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EE-eY-2r3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3544" y="628"/>
+            <point key="canvasLocation" x="3543.75" y="627.5"/>
         </scene>
         <!--Adult Type Table View Controller-->
         <scene sceneID="IKS-5W-3HS">
