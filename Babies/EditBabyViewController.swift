@@ -35,8 +35,25 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
+extension EditBabyViewController: Scrollable {
+    internal var scrollView: UIScrollView {
+        return self.tableView
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startObservingKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.stopObservingKeyboardNotifications()
+    }
+}
+
+
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
+
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
     var babyObjectId: NSManagedObjectID?
@@ -466,9 +483,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-        self.view.endEditing(true)
-        
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
             dateCell.setExpanded(false, animated: true)
