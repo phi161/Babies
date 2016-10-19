@@ -35,8 +35,25 @@ protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
 }
 
-class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
+extension EditBabyViewController: Scrollable {
+    internal var scrollView: UIScrollView {
+        return self.tableView
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startObservingKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.stopObservingKeyboardNotifications()
+    }
+}
+
+
+class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
+
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
     var babyObjectId: NSManagedObjectID?
@@ -49,7 +66,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     fileprivate var shouldDeleteImage = false // Used to delete/restore images during save/cancel
     
     enum Section: Int {
-        case dates, adults, gifts
+        case dates, adults, gifts, notes
     }
     
     enum DateRow: Int {
@@ -57,13 +74,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     enum CellType: Int {
-        case unknown, date, adult, gift, addItem
+        case unknown, date, adult, gift, addItem, notes
     }
     
     let sectionHeaderTitles = [
         NSLocalizedString("SECTION_TITLE_DATES", comment: "The section title for dates"),
         NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
         NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
+        NSLocalizedString("SECTION_TITLE_NOTES", comment: "The section title for notes")
         /*
          "Events",
          */
@@ -91,6 +109,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.isEditing = true
         self.tableView.allowsSelectionDuringEditing = true
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
+        self.tableView.register(UINib.init(nibName: "NoteCell", bundle: nil), forCellReuseIdentifier: "NoteCellIdentifier")
         
         self.populateWithBabyProperties()
     }
@@ -218,6 +237,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 return 1
             }
+        } else if section == Section.notes.rawValue {
+            return 1
         }
         
         return 1
@@ -262,6 +283,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.gift:
             identifer = "GiftCellIdentifier"
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
+            
         case CellType.addItem:
             identifer = "AddItemCellIdentifier"
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
@@ -270,6 +292,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 cell.textLabel?.text = NSLocalizedString("ADD_GIFT", comment: "Text for adding a new gift")
             }
+            
+        case CellType.notes:
+            identifer = "NoteCellIdentifier"
+            if let noteCell = tableView.dequeueReusableCell(withIdentifier: identifer) as? NoteCell {
+                noteCell.baby = self.baby
+                return noteCell
+            } else {
+                identifer = ""
+                cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
+            }
+            
         default:
             identifer = ""
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
@@ -303,6 +336,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 if let gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
                     giftCell.updateInterface(gift)
                 }
+            }
+            
+        case CellType.notes:
+            if let noteCell: NoteCell = cell as? NoteCell {
+                noteCell.updateInterface()
             }
             
         default: break
@@ -377,6 +415,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             return 66
         case CellType.addItem:
             return 50
+        case CellType.notes:
+            return 100
         default:
             return 0
         }
@@ -458,9 +498,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-        self.view.endEditing(true)
-        
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
             dateCell.setExpanded(false, animated: true)
@@ -495,6 +532,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 return CellType.addItem
             }
+        } else if (indexPath.section == Section.notes.rawValue) {
+            return CellType.notes
         }
         
         return CellType.unknown

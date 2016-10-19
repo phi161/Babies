@@ -16,6 +16,8 @@
 		72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEA1CF858E10051D671 /* GiftViewController.swift */; };
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
+		CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1CD7F31DB7B396000F863D /* NoteCell.swift */; };
+		CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
@@ -28,6 +30,7 @@
 		CF55E8D91CE671A100638A5A /* AdultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF55E8D81CE671A100638A5A /* AdultCell.swift */; };
 		CF761AB31CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */; };
 		CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB21CE29D9000CDA9DF /* AdultType.swift */; };
+		CF84F6D61DB3A065007C84BE /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84F6D51DB3A065007C84BE /* Scrolling.swift */; };
 		CF8E73C41DA8F45000F52CD7 /* GiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */; };
 		CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */; };
 		CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */ = {isa = PBXBuildFile; fileRef = CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */; };
@@ -48,6 +51,8 @@
 		72915EEA1CF858E10051D671 /* GiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		72915EEE1CF890EF0051D671 /* GiftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftCell.swift; sourceTree = "<group>"; };
+		CF1CD7F31DB7B396000F863D /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
@@ -60,6 +65,7 @@
 		CF55E8D81CE671A100638A5A /* AdultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultCell.swift; sourceTree = "<group>"; };
 		CF761AB11CE29D9000CDA9DF /* AdultType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AdultType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF761AB21CE29D9000CDA9DF /* AdultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultType.swift; sourceTree = "<group>"; };
+		CF84F6D51DB3A065007C84BE /* Scrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftCell.xib; sourceTree = "<group>"; };
 		CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypeTableViewController.swift; sourceTree = "<group>"; };
 		CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adult_types.json; sourceTree = "<group>"; };
@@ -100,19 +106,22 @@
 			children = (
 				CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */,
 				7281D46D1CB69A5A00713321 /* Info.plist */,
+				CF55E8D81CE671A100638A5A /* AdultCell.swift */,
+				CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* BabiesViewController.swift */,
 				CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */,
 				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
-				CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */,
-				CF55E8D81CE671A100638A5A /* AdultCell.swift */,
 				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
 				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
-				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
-				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
 				72915EEE1CF890EF0051D671 /* GiftCell.swift */,
-				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
+				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
+				CF1CD7F31DB7B396000F863D /* NoteCell.swift */,
+				CF84F6D51DB3A065007C84BE /* Scrolling.swift */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
+				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
+				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
+				CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
 				7281D4651CB69A5A00713321 /* Main.storyboard */,
@@ -197,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */,
 				7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */,
 				7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */,
 				72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */,
@@ -223,7 +233,9 @@
 				CF48459F1CC0272F000BED2A /* Gift.swift in Sources */,
 				72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */,
 				7281D4641CB69A5A00713321 /* BabiesViewController.swift in Sources */,
+				CF84F6D61DB3A065007C84BE /* Scrolling.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
+				CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
 				CF55E8D91CE671A100638A5A /* AdultCell.swift in Sources */,
 				CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */,
