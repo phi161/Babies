@@ -22,12 +22,13 @@ struct CellData {
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
     
     enum Section: Int {
-        case adults, gifts
+        case adults, gifts, notes
     }
 
     let sectionHeaderTitles = [
         NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
-        NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts")
+        NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
+        NSLocalizedString("SECTION_TITLE_NOTES", comment: "The section title for notes")
     ]
 
     @IBOutlet var tableView: UITableView!
@@ -43,6 +44,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
         
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
+        self.tableView.register(UINib.init(nibName: "NoteCell", bundle: nil), forCellReuseIdentifier: "NoteCellIdentifier")
         
         tableView.tableFooterView = UIView()
     }
@@ -135,6 +137,12 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.textLabel?.text = "no gifts"
                 cell.detailTextLabel?.text = ""
             }
+        } else if indexPath.section == Section.notes.rawValue {
+            if let cell = cell as? NoteCell {
+                cell.baby = self.baby
+                cell.editable = false
+                cell.updateInterface()
+            }
         }
     }
 
@@ -180,6 +188,8 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     print("no gift")
                 }
             }
+        case Section.notes.rawValue:
+            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false) {}
         default:
             break
         }

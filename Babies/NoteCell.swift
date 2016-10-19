@@ -12,6 +12,12 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet var textView: UITextView!
     var baby: Baby?
     
+    var editable: Bool = true {
+        didSet {
+            self.textView.isEditable = editable
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if self.baby?.notes == nil {
             self.textView.text = ""
@@ -26,7 +32,11 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
         if let text = self.baby?.notes {
             self.textView.text = text
         } else {
-            self.textView.text = "EMPTY_NOTE_TEXTVIEW_PROMPT"
+            if editable {
+                self.textView.text = "EMPTY_NOTE_EDITABLE"
+            } else {
+                self.textView.text = "EMPTY_NOTE_READ_ONLY"
+            }
         }
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11521.1" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="156" id="qeo-MJ-o8V" customClass="NoteCell" customModule="Babies" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qeo-MJ-o8V" id="bNJ-Ws-irZ">
+                <frame key="frameInset" width="375" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YhX-uJ-gvO">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <connections>
+                            <outlet property="delegate" destination="qeo-MJ-o8V" id="hAg-WX-Xd7"/>
+                        </connections>
+                    </textView>
+                </subviews>
+                <color key="backgroundColor" red="0.0" green="0.99607849120000003" blue="0.11372549830000001" alpha="1" colorSpace="deviceRGB"/>
+                <constraints>
+                    <constraint firstItem="YhX-uJ-gvO" firstAttribute="top" secondItem="bNJ-Ws-irZ" secondAttribute="top" constant="8" id="7JE-fI-0rc"/>
+                    <constraint firstAttribute="bottom" secondItem="YhX-uJ-gvO" secondAttribute="bottom" constant="8" id="88g-9D-EDv"/>
+                    <constraint firstAttribute="trailing" secondItem="YhX-uJ-gvO" secondAttribute="trailing" constant="8" id="KV4-Df-eS0"/>
+                    <constraint firstItem="YhX-uJ-gvO" firstAttribute="leading" secondItem="bNJ-Ws-irZ" secondAttribute="leading" constant="8" id="vfC-FU-2Sm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="textView" destination="YhX-uJ-gvO" id="awW-qE-Swq"/>
+            </connections>
+            <point key="canvasLocation" x="-140.5" y="32"/>
+        </tableViewCell>
+    </objects>
+</document>

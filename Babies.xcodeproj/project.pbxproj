@@ -17,6 +17,7 @@
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
 		CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1CD7F31DB7B396000F863D /* NoteCell.swift */; };
+		CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
@@ -51,6 +52,7 @@
 		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		72915EEE1CF890EF0051D671 /* GiftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftCell.swift; sourceTree = "<group>"; };
 		CF1CD7F31DB7B396000F863D /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
+				CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
 				7281D4651CB69A5A00713321 /* Main.storyboard */,
@@ -203,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */,
 				7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */,
 				7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */,
 				72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */,
