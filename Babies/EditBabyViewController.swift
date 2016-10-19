@@ -282,6 +282,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case CellType.gift:
             identifer = "GiftCellIdentifier"
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
+            
         case CellType.addItem:
             identifer = "AddItemCellIdentifier"
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
@@ -290,9 +291,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 cell.textLabel?.text = NSLocalizedString("ADD_GIFT", comment: "Text for adding a new gift")
             }
+            
         case CellType.notes:
-            identifer = "EditNotesCellIdentifier"
-            cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
+            identifer = "NoteCellIdentifier"
+            if let noteCell = tableView.dequeueReusableCell(withIdentifier: identifer) as? NoteCell {
+                noteCell.baby = self.baby
+                return noteCell
+            } else {
+                identifer = ""
+                cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
+            }
+            
         default:
             identifer = ""
             cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
@@ -326,6 +335,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 if let gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
                     giftCell.updateInterface(gift)
                 }
+            }
+            
+        case CellType.notes:
+            if let noteCell: NoteCell = cell as? NoteCell {
+                noteCell.updateInterface()
             }
             
         default: break
