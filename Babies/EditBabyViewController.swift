@@ -10,26 +10,6 @@ import UIKit
 import CoreData
 import ContactsUI
 import Photos
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
@@ -351,7 +331,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         switch cellType(forIndexPath: indexPath) {
         case CellType.adult:
-            if self.baby?.adults?.count > 1 {
+            if let count = self.baby?.adults?.count, count > 1 {
                 return true
             } else {
                 return false
