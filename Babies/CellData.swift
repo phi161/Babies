@@ -9,12 +9,13 @@
 import UIKit
 
 struct CellData {
-    var identifier: String
-    var rows: Int
-    var rowHeight: Float
-    var selectable: Bool
-    var canMove: Bool
-    var shouldIndentWhileEditing: Bool
-    var editingStyle: UITableViewCellEditingStyle
-    var action: () -> Void
+    var identifier = ""
+    var rows = 0
+    var rowHeight: Float = 44.0
+    var selectable = false
+    var canMove = false
+    var shouldIndentWhileEditing = false
+    var editingStyle: UITableViewCellEditingStyle = .none
+    var action: () -> Void = {}
+    var willDisplayConfiguration: (_ cell: UITableViewCell) -> Void = { _ in }
 }
