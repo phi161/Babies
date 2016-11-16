@@ -209,103 +209,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var identifer: String
-        var cell: UITableViewCell
-        
-        switch cellType(forIndexPath: indexPath) {
-            
-        case CellType.date:
-            identifer = "DatePickerCellIdentifier"
-            if let dateCell: DatePickerCell = tableView.dequeueReusableCell(withIdentifier: identifer) as? DatePickerCell {
-                dateCell.delegate = self
-                if (indexPath as NSIndexPath).row == DateRow.delivery.rawValue {
-                    dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery, mode: .date)
-                } else {
-                    dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday, mode: .dateAndTime)
-                }
-                return dateCell
-            } else {
-                identifer = ""
-                cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-            }
-            
-        case CellType.adult:
-            identifer = "AdultCellIdentifier"
-            if let adultCell: AdultCell = tableView.dequeueReusableCell(withIdentifier: identifer) as? AdultCell {
-                adultCell.delegate = self
-                return adultCell
-            } else {
-                identifer = ""
-                cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-            }
-
-        case CellType.gift:
-            identifer = "GiftCellIdentifier"
-            cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-            
-        case CellType.addItem:
-            identifer = "AddItemCellIdentifier"
-            cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-            if (indexPath as NSIndexPath).section == Section.adults.rawValue {
-                cell.textLabel?.text = NSLocalizedString("ADD_ADULT", comment: "Text for adding a new adult")
-            } else {
-                cell.textLabel?.text = NSLocalizedString("ADD_GIFT", comment: "Text for adding a new gift")
-            }
-            
-        case CellType.notes:
-            identifer = "NoteCellIdentifier"
-            if let noteCell = tableView.dequeueReusableCell(withIdentifier: identifer) as? NoteCell {
-                noteCell.baby = self.baby
-                return noteCell
-            } else {
-                identifer = ""
-                cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-            }
-            
-        default:
-            identifer = ""
-            cell = tableView.dequeueReusableCell(withIdentifier: identifer)!
-        }
-        
-        return cell
+        let identifier = self.cellData(indexPath: indexPath).identifier
+        return tableView.dequeueReusableCell(withIdentifier: identifier)!
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        switch cellType(forIndexPath: indexPath) {
-
-        case CellType.adult:
-            if let adultCell: AdultCell = cell as? AdultCell {
-                if let adult = self.baby?.adultsOrdered()![(indexPath as NSIndexPath).row] {
-                    // Type
-                    adultCell.typeButton.setTitle(adult.type?.title ?? NSLocalizedString("SELECT_TYPE", comment: "Text for opening the contact type view while adding a new adult"), for: UIControlState())
-                    // Name
-                    if adult.contactIdentifier != nil {
-                        adultCell.contactButton.setTitle(adult.name(), for: UIControlState())
-                    } else {
-                        adultCell.contactButton.setTitle(NSLocalizedString("SELECT_CONTACT", comment: "Text for opening the contact picker while adding a new adult"), for: UIControlState())
-                    }
-                } else {
-                    adultCell.contactButton.setTitle("problem", for: UIControlState())
-                }
-            }
-            
-        case CellType.gift:
-            if let giftCell: GiftCell = cell as? GiftCell {
-                if let gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
-                    giftCell.updateInterface(gift)
-                }
-            }
-            
-        case CellType.notes:
-            if let noteCell: NoteCell = cell as? NoteCell {
-                noteCell.updateInterface()
-            }
-            
-        default: break
-        }
-
+        self.cellData(indexPath: indexPath).willDisplayConfiguration(cell)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -397,12 +306,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Helpers
     
     func cellData(indexPath: IndexPath) -> CellData {
-        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 50, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {}
+        var cellData = CellData()
         
         switch indexPath.section {
         case Section.dates.rawValue:
             let dateRowHeight:Float = indexPath == self.visiblePickerIndexPath ? 260 : 44
-            cellData = CellData(identifier: "DatePickerCellIdentifier", rows: 2, rowHeight: dateRowHeight, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none){
+            
+            cellData = CellData(identifier: "DatePickerCellIdentifier", rows: 2, rowHeight: dateRowHeight, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                 self.view.endEditing(true)
                 
                 let dateCell: DatePickerCell = self.tableView.cellForRow(at: indexPath) as! DatePickerCell
@@ -420,32 +330,72 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
-            }
+                }, willDisplayConfiguration: { cell in
+                    if let dateCell = cell as? DatePickerCell {
+                        dateCell.delegate = self
+                        if indexPath.row == DateRow.delivery.rawValue {
+                            dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery, mode: .date)
+                        } else {
+                            dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday, mode: .dateAndTime)
+                        }
+                    }
+            })
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, indexPath.row < adultsCount {
-                cellData = CellData(identifier: "AdultCellIdentifier", rows: adultsCount+1, rowHeight: 80, selectable: false, canMove: true, shouldIndentWhileEditing: false, editingStyle: .delete){}
+                cellData = CellData(identifier: "AdultCellIdentifier", rows: adultsCount+1, rowHeight: 80, selectable: false, canMove: true, shouldIndentWhileEditing: false, editingStyle: .delete, action: {}, willDisplayConfiguration: { cell in
+                    if let adultCell = cell as? AdultCell {
+                        adultCell.delegate = self
+                        if let adult = self.baby?.adultsOrdered()![(indexPath as NSIndexPath).row] {
+                            // Type
+                            adultCell.typeButton.setTitle(adult.type?.title ?? NSLocalizedString("SELECT_TYPE", comment: "Text for opening the contact type view while adding a new adult"), for: UIControlState())
+                            // Name
+                            if adult.contactIdentifier != nil {
+                                adultCell.contactButton.setTitle(adult.name(), for: UIControlState())
+                            } else {
+                                adultCell.contactButton.setTitle(NSLocalizedString("SELECT_CONTACT", comment: "Text for opening the contact picker while adding a new adult"), for: UIControlState())
+                            }
+                        } else {
+                            adultCell.contactButton.setTitle("problem", for: UIControlState())
+                        }
+                    }
+                })
             } else {
-                cellData = CellData(identifier: "AddItemCellIdentifier", rows: 1, rowHeight: 44, selectable: false, canMove: false, shouldIndentWhileEditing: true, editingStyle: .insert) {
-                        self.insertAdult()
-                }
+                cellData = CellData(identifier: "AddItemCellIdentifier", rows: 1, rowHeight: 44, selectable: false, canMove: false, shouldIndentWhileEditing: true, editingStyle: .insert, action: {
+                    self.insertAdult()
+                    }, willDisplayConfiguration: { cell in
+                        cell.textLabel?.text = NSLocalizedString("ADD_ADULT", comment: "Text for adding a new adult")
+                })
             }
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, indexPath.row < giftsCount {
-                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount+1, rowHeight: 66, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .delete){
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount+1, rowHeight: 66, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .delete, action: {
                     if let gift = self.baby?.giftsOrdered()![indexPath.row] {
                         let giftViewController = GiftViewController(gift: gift)
                         giftViewController.delegate = self
                         let navigationController = UINavigationController(rootViewController: giftViewController)
                         self.present(navigationController, animated: true, completion: nil)
                     }
-                }
+                    }, willDisplayConfiguration: { cell in
+                        if let giftCell = cell as? GiftCell {
+                            if let gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
+                                giftCell.updateInterface(gift)
+                            }
+                        }
+                })
             } else {
-                cellData = CellData(identifier: "AddItemCellIdentifier", rows: 1, rowHeight: 44, selectable: false, canMove: false, shouldIndentWhileEditing: true, editingStyle: .insert){
+                cellData = CellData(identifier: "AddItemCellIdentifier", rows: 1, rowHeight: 44, selectable: false, canMove: false, shouldIndentWhileEditing: true, editingStyle: .insert, action: {
                     self.insertGift()
-                }
+                    }, willDisplayConfiguration: { cell in
+                        cell.textLabel?.text = NSLocalizedString("ADD_GIFT", comment: "Text for adding a new gift")
+                })
             }
         case Section.notes.rawValue:
-            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none){}
+            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {}, willDisplayConfiguration: { cell in
+                if let noteCell = cell as? NoteCell {
+                    noteCell.baby = self.baby
+                    noteCell.updateInterface()
+                }
+            })
         default:
             break
         }
