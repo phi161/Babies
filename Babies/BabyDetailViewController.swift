@@ -16,13 +16,13 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     enum Section: Int {
         case adults, gifts, notes
     }
-
+    
     let sectionHeaderTitles = [
         NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
         NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
         NSLocalizedString("SECTION_TITLE_NOTES", comment: "The section title for notes")
     ]
-
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -93,51 +93,24 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cellData(indexPath: IndexPath(row: 0, section: section)).rows
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionHeaderTitles[section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let identifier = self.cellData(indexPath: indexPath).identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.selectionStyle = self.cellData(indexPath: indexPath).selectable == true ? .blue : .none
-
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.section == Section.adults.rawValue {
-            if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                if let adult = self.baby?.adultsOrdered()![indexPath.row] {
-                    cell.textLabel?.text = adult.name()
-                    cell.detailTextLabel?.text = adult.type?.title
-                }
-            } else {
-                cell.textLabel?.text = "no adults"
-                cell.detailTextLabel?.text = ""
-            }
-        } else if indexPath.section == Section.gifts.rawValue {
-            if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                if let gift = self.baby?.giftsOrdered()![indexPath.row] {
-                    if let c = cell as? GiftCell {
-                        c.updateInterface(gift)
-                    }
-                }
-            } else {
-                cell.textLabel?.text = "no gifts"
-                cell.detailTextLabel?.text = ""
-            }
-        } else if indexPath.section == Section.notes.rawValue {
-            if let cell = cell as? NoteCell {
-                cell.baby = self.baby
-                cell.editable = false
-                cell.updateInterface()
-            }
-        }
+        self.cellData(indexPath: indexPath).willDisplayConfiguration(cell)
     }
-
+    
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -147,12 +120,12 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Helpers
     
     func cellData(indexPath: IndexPath) -> CellData {
-        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {}
+        var cellData = CellData()
         
         switch indexPath.section {
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
+                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                     print("adult \(indexPath.row)")
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
@@ -164,24 +137,47 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                             self.navigationController?.pushViewController(viewController, animated: true)
                         }
                     }
-                }
+                    }, willDisplayConfiguration: { cell in
+                        if let adult = self.baby?.adultsOrdered()![indexPath.row] {
+                            cell.textLabel?.text = adult.name()
+                            cell.detailTextLabel?.text = adult.type?.title
+                        }
+                })
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                     print("no adult")
-                }
+                    }, willDisplayConfiguration: { cell in
+                        cell.textLabel?.text = "no adults"
+                        cell.detailTextLabel?.text = ""
+                })
             }
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                     print("gift \(indexPath.row)")
-                }
+                    }, willDisplayConfiguration: { cell in
+                        if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                            if let c = cell as? GiftCell {
+                                c.updateInterface(gift)
+                            }
+                        }
+                })
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                     print("no gift")
-                }
+                    }, willDisplayConfiguration: { cell in
+                        cell.textLabel?.text = "no gifts"
+                        cell.detailTextLabel?.text = ""
+                })
             }
         case Section.notes.rawValue:
-            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {}
+            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {}, willDisplayConfiguration: { cell in
+                if let cell = cell as? NoteCell {
+                    cell.baby = self.baby
+                    cell.editable = false
+                    cell.updateInterface()
+                }
+            })
         default:
             break
         }
