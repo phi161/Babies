@@ -11,14 +11,6 @@ import CoreData
 import Contacts
 import ContactsUI
 
-struct CellData {
-    var identifier: String
-    var rows: Int
-    var rowHeight: Float
-    var selectable: Bool
-    var action: () -> ()
-}
-
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
     
     enum Section: Int {
@@ -155,12 +147,12 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Helpers
     
     func cellData(indexPath: IndexPath) -> CellData {
-        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0, selectable: false) {}
+        var cellData = CellData(identifier: "generic", rows: 0, rowHeight: 0, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {}
         
         switch indexPath.section {
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
-                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true) {
+                cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
                     print("adult \(indexPath.row)")
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
@@ -174,22 +166,22 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
                     print("no adult")
                 }
             }
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, giftsCount > 0 {
-                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false) {
+                cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount, rowHeight: 80, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
                     print("gift \(indexPath.row)")
                 }
             } else {
-                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false) {
+                cellData = CellData(identifier: "generic", rows: 1, rowHeight: 20, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {
                     print("no gift")
                 }
             }
         case Section.notes.rawValue:
-            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false) {}
+            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none) {}
         default:
             break
         }
