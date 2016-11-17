@@ -101,16 +101,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             
             self.baby = newBaby
         } else {
-            self.baby = temporaryMoc?.object(with: self.babyObjectId!) as? Baby
+            if let objectId = self.babyObjectId {
+                self.baby = temporaryMoc?.object(with: objectId) as? Baby
+            }
         }
         
         // Populate GUI for this baby
-        self.familyNameTextField.text = self.baby!.familyName
-        self.givenNameTextField.text = self.baby!.givenName
+        self.familyNameTextField.text = self.baby?.familyName
+        self.givenNameTextField.text = self.baby?.givenName
         
         self.thumbnailImageView.image = self.baby?.thumbnailImage
         
-        if let sex:Int = self.baby!.sex?.intValue {
+        if let sex = self.baby?.sex?.intValue {
             self.sexSegmentedControl.selectedSegmentIndex = sex
         } else {
             self.sexSegmentedControl.selectedSegmentIndex = 0
@@ -134,7 +136,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func removeAdult(atIndexPath indexPath: IndexPath) {
         // TODO: Take care of adultType as well
         
-        if let adult: Adult = self.baby?.adultsOrdered()![(indexPath as NSIndexPath).row] {
+        if let adult = self.baby?.adultsOrdered()?[indexPath.row] {
             self.baby?.removeAdultsObject(adult)
             adult.removeBabiesObject(self.baby!)
             self.temporaryMoc?.delete(adult)
@@ -173,7 +175,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func removeGift(atIndexPath indexPath: IndexPath) {
-        if let gift: Gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
+        if let gift = self.baby?.giftsOrdered()?[indexPath.row] {
             self.baby?.removeGiftsObject(gift)
             self.temporaryMoc?.delete(gift)
         } else {
@@ -221,32 +223,34 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
  
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // Set the displayOrder property
-        var updatedOrderedAults = self.baby?.adultsOrdered()!
-        var adult = updatedOrderedAults![(sourceIndexPath as NSIndexPath).row]
-        updatedOrderedAults?.remove(at: (sourceIndexPath as NSIndexPath).row)
-        updatedOrderedAults?.insert(adult, at: (destinationIndexPath as NSIndexPath).row)
-
-        var start = (sourceIndexPath as NSIndexPath).row
-        if (destinationIndexPath as NSIndexPath).row < start { // moving up
-            start = (destinationIndexPath as NSIndexPath).row
-        }
-        
-        var end = (destinationIndexPath as NSIndexPath).row
-        if (sourceIndexPath as NSIndexPath).row > end { // moving down
-            end = (sourceIndexPath as NSIndexPath).row
-        }
-        
-        for index in start...end {
-            adult = updatedOrderedAults![index]
-            adult.displayOrder = index as NSNumber?
+        if let adults = self.baby?.adultsOrdered() {
+            var updatedOrderedAdults = adults
+            var adult = updatedOrderedAdults[sourceIndexPath.row]
+            updatedOrderedAdults.remove(at: sourceIndexPath.row)
+            updatedOrderedAdults.insert(adult, at: destinationIndexPath.row)
+            
+            var start = sourceIndexPath.row
+            if destinationIndexPath.row < start { // moving up
+                start = destinationIndexPath.row
+            }
+            
+            var end = destinationIndexPath.row
+            if sourceIndexPath.row > end { // moving down
+                end = sourceIndexPath.row
+            }
+            
+            for index in start...end {
+                adult = updatedOrderedAdults[index]
+                adult.displayOrder = index as NSNumber?
+            }
         }
     }
 
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if (proposedDestinationIndexPath as NSIndexPath).section != Section.adults.rawValue {
+        if proposedDestinationIndexPath.section != Section.adults.rawValue {
             return sourceIndexPath
         } else {
-            if (proposedDestinationIndexPath as NSIndexPath).row == self.baby?.adults?.count { // if user tries to drag below the "add item" cell
+            if proposedDestinationIndexPath.row == self.baby?.adults?.count { // if user tries to drag below the "add item" cell
                 return sourceIndexPath
             } else {
                 return proposedDestinationIndexPath
@@ -341,7 +345,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 cellData = CellData(identifier: "AdultCellIdentifier", rows: adultsCount+1, rowHeight: 80, selectable: false, canMove: true, shouldIndentWhileEditing: false, editingStyle: .delete, action: {}, willDisplayConfiguration: { cell in
                     if let adultCell = cell as? AdultCell {
                         adultCell.delegate = self
-                        if let adult = self.baby?.adultsOrdered()![(indexPath as NSIndexPath).row] {
+                        if let adult = self.baby?.adultsOrdered()?[indexPath.row] {
                             // Type
                             adultCell.typeButton.setTitle(adult.type?.title ?? NSLocalizedString("SELECT_TYPE", comment: "Text for opening the contact type view while adding a new adult"), for: UIControlState())
                             // Name
@@ -365,7 +369,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         case Section.gifts.rawValue:
             if let giftsCount = self.baby?.gifts?.count, indexPath.row < giftsCount {
                 cellData = CellData(identifier: "GiftCellIdentifier", rows: giftsCount+1, rowHeight: 66, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .delete, action: {
-                    if let gift = self.baby?.giftsOrdered()![indexPath.row] {
+                    if let gift = self.baby?.giftsOrdered()?[indexPath.row] {
                         let giftViewController = GiftViewController(gift: gift)
                         giftViewController.delegate = self
                         let navigationController = UINavigationController(rootViewController: giftViewController)
@@ -373,7 +377,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     }, willDisplayConfiguration: { cell in
                         if let giftCell = cell as? GiftCell {
-                            if let gift = self.baby?.giftsOrdered()![(indexPath as NSIndexPath).row] {
+                            if let gift = self.baby?.giftsOrdered()?[indexPath.row] {
                                 giftCell.updateInterface(gift)
                             }
                         }
@@ -552,11 +556,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         temporaryMoc?.perform({
             do {
                 try self.temporaryMoc?.save()
-                print("Saved child context!")
+                print("Saved child context")
                 self.moc?.perform({
                     do {
                         try self.moc?.save()
-                        print("Saved main context!")
+                        print("Saved main context")
                     } catch {
                         print("Error for main: \(error)")
                     }
@@ -614,7 +618,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - CNContactPickerDelegate
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-        if let adult: Adult = self.baby?.adultsOrdered()![(selectedIndexPath! as NSIndexPath).row] {
+        if let indexPath = selectedIndexPath, let adult = baby?.adultsOrdered()?[indexPath.row] {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
             adult.contactIdentifier = contact.identifier
@@ -633,7 +637,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType) {
         self.dismiss(animated: true, completion: nil)
 
-        if let adult: Adult = self.baby?.adultsOrdered()![selectedIndexPath!.row] {
+        if let indexPath = selectedIndexPath, let adult = baby?.adultsOrdered()?[indexPath.row] {
             // TODO: Investigate if inverse relationship should also be set
             let adultType = self.temporaryMoc?.object(with: type.objectID) as! AdultType
             adult.type = adultType
