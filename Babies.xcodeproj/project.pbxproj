@@ -16,6 +16,7 @@
 		72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEA1CF858E10051D671 /* GiftViewController.swift */; };
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
+		CF0394451DB92557006D3CB6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0394441DB92557006D3CB6 /* CellData.swift */; };
 		CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1CD7F31DB7B396000F863D /* NoteCell.swift */; };
 		CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
@@ -51,6 +52,7 @@
 		72915EEA1CF858E10051D671 /* GiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		72915EEE1CF890EF0051D671 /* GiftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftCell.swift; sourceTree = "<group>"; };
+		CF0394441DB92557006D3CB6 /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		CF1CD7F31DB7B396000F863D /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* BabiesViewController.swift */,
 				CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */,
+				CF0394441DB92557006D3CB6 /* CellData.swift */,
 				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
 				CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */,
 				CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */,
@@ -234,6 +237,7 @@
 				72915EEC1CF858E10051D671 /* GiftViewController.swift in Sources */,
 				7281D4641CB69A5A00713321 /* BabiesViewController.swift in Sources */,
 				CF84F6D61DB3A065007C84BE /* Scrolling.swift in Sources */,
+				CF0394451DB92557006D3CB6 /* CellData.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
 				CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,

@@ -20,6 +20,8 @@
 	<string>????</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>PHOTO_LIBRARY_USAGE_DESCRIPTION</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CAMERA_USAGE_DESCRIPTION</string>
 	<key>NSContactsUsageDescription</key>
 	<string>CONTACTS_USAGE_DESCRIPTION</string>
 	<key>CFBundleVersion</key>
