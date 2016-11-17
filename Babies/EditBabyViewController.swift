@@ -115,7 +115,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             self.sexSegmentedControl.selectedSegmentIndex = 0
         }
-
     }
     
 
@@ -126,8 +125,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         newAdult.displayOrder = self.baby?.adults?.count as NSNumber?
         newAdult.addBabiesObject(self.baby!)
         self.baby?.addAdultsObject(newAdult)
-        
-        
+
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [IndexPath(row: (self.baby?.adults?.count)!-1, section: Section.adults.rawValue)], with: .fade)
         self.tableView.endUpdates()
@@ -227,8 +225,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         var adult = updatedOrderedAults![(sourceIndexPath as NSIndexPath).row]
         updatedOrderedAults?.remove(at: (sourceIndexPath as NSIndexPath).row)
         updatedOrderedAults?.insert(adult, at: (destinationIndexPath as NSIndexPath).row)
-        
-        
+
         var start = (sourceIndexPath as NSIndexPath).row
         if (destinationIndexPath as NSIndexPath).row < start { // moving up
             start = (destinationIndexPath as NSIndexPath).row
@@ -243,7 +240,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             adult = updatedOrderedAults![index]
             adult.displayOrder = index as NSNumber?
         }
-
     }
 
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -518,7 +514,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        
         self.baby?.givenName = self.givenNameTextField.text
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex as NSNumber?
@@ -586,7 +581,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func datePickerCellDidClear(_ datePickerCell: DatePickerCell) {
-        
         if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.delivery.rawValue {
             self.baby?.delivery = nil
         } else if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.birthday.rawValue {
@@ -620,24 +614,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - CNContactPickerDelegate
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-
         if let adult: Adult = self.baby?.adultsOrdered()![(selectedIndexPath! as NSIndexPath).row] {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
             adult.contactIdentifier = contact.identifier
             
             self.tableView.reloadSections(IndexSet(integer: Section.adults.rawValue), with: .automatic)
-        } else {
-            //
         }
-
     }
-    
-    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
-        //
-    }
-    
 
+    
     // MARK: - AdultTypePickerDelegate
     
     func adultTypePickerDidCancel(_ adultTypePicker: AdultTypeTableViewController) {
@@ -647,13 +633,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType) {
         self.dismiss(animated: true, completion: nil)
 
-        if let adult: Adult = self.baby?.adultsOrdered()![(selectedIndexPath! as NSIndexPath).row] {
+        if let adult: Adult = self.baby?.adultsOrdered()![selectedIndexPath!.row] {
             // TODO: Investigate if inverse relationship should also be set
             let adultType = self.temporaryMoc?.object(with: type.objectID) as! AdultType
             adult.type = adultType
             self.tableView.reloadSections(IndexSet(integer: Section.adults.rawValue), with: .automatic)
-        } else {
-            //
         }
     }
     
@@ -661,7 +645,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             
             self.shouldDeleteImage = false
