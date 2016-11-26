@@ -296,10 +296,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        // Dismiss the keyboard if in note cell
-        if let noteCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.notes.rawValue)) as? NoteCell {
-            noteCell.textView.resignFirstResponder()
-        }
+        self.dismissKeyboard()
         
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
@@ -431,6 +428,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         return true
     }
+    
+    func dismissKeyboard() {
+        // Dismiss the keyboard if in note cell
+        if let noteCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.notes.rawValue)) as? NoteCell {
+            noteCell.textView.resignFirstResponder()
+        }
+    }
 
 
     // MARK: - Actions
@@ -513,6 +517,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
+        self.dismissKeyboard()
         self.delegate?.editBabyViewController(self, didFinishWithBaby: nil)
         
         // Delete temp image if any
@@ -526,6 +531,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
+        self.dismissKeyboard()
+        
         self.baby?.givenName = self.givenNameTextField.text
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex as NSNumber?
@@ -680,7 +687,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let url = urls[urls.count-1].appendingPathComponent("temp.jpg")
             try? UIImageJPEGRepresentation(image, 1)?.write(to: url, options: [.atomic])
-            
 
             self.thumbnailImageView.alpha = 0
             self.thumbnailImageView.image = image
