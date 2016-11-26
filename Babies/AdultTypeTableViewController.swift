@@ -48,6 +48,7 @@ class AdultTypeTableViewController: UITableViewController {
             tableView.reloadData()
         }
         
+        title = NSLocalizedString("ADULT_TYPE_TITLE", comment: "The title of the view for selecting adult type")
     }
     
     func importFromJSON() {
@@ -117,6 +118,5 @@ class AdultTypeTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         delegate?.adultTypePickerDidCancel(self)
     }
-
 
 }
