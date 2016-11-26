@@ -524,6 +524,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex as NSNumber?
         
+        // Delete adult entries without an assigned contact
+        if let adults = baby?.adultsOrdered() {
+            for adult in adults {
+                if adult.contactIdentifier == nil {
+                    baby?.removeAdultsObject(adult)
+                }
+            }
+        }
+        
         if self.shouldDeleteImage { // Delete both temp & original images
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
