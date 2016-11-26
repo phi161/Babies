@@ -35,6 +35,7 @@ extension EditBabyViewController: Scrollable {
 
 class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
 
+    var adultTypeTransitioningDelegate = AdultTypeTransitioningDelegate()
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
     var babyObjectId: NSManagedObjectID?
@@ -134,8 +135,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func removeAdult(atIndexPath indexPath: IndexPath) {
-        // TODO: Take care of adultType as well
-        
         if let adult = self.baby?.adultsOrdered()?[indexPath.row] {
             self.baby?.removeAdultsObject(adult)
             adult.removeBabiesObject(self.baby!)
@@ -149,11 +148,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.endUpdates()
     }
     
-    func pickAdultType() {
+    func pickAdultType(_ adultType: AdultType?) {
         if let adultTypePicker: AdultTypeTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AdultTypeViewControllerIdentifier") as? AdultTypeTableViewController {
             let navigationController = UINavigationController(rootViewController: adultTypePicker)
             adultTypePicker.delegate = self
             adultTypePicker.managedObjectContext = self.moc
+            adultTypePicker.adultType = adultType
+            navigationController.transitioningDelegate = adultTypeTransitioningDelegate
+            navigationController.modalPresentationStyle = .custom
             self.present(navigationController, animated: true, completion: nil)
         }
     }
@@ -522,6 +524,15 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex as NSNumber?
         
+        // Delete adult entries without an assigned contact
+        if let adults = baby?.adultsOrdered() {
+            for adult in adults {
+                if adult.contactIdentifier == nil {
+                    baby?.removeAdultsObject(adult)
+                }
+            }
+        }
+        
         if self.shouldDeleteImage { // Delete both temp & original images
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
@@ -604,7 +615,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func adultCellDidTapTypeButton(_ adultCell: AdultCell) {
         selectedIndexPath = tableView.indexPath(for: adultCell)
-        self.pickAdultType()
+        
+        if let adult = baby?.adultsOrdered()?[(selectedIndexPath?.row)!] {
+            self.pickAdultType(adult.type)
+        }
     }
     
     func adultCellDidTapContactButton(_ adultCell: AdultCell) {
