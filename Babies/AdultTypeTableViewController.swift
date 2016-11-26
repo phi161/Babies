@@ -59,7 +59,7 @@ class AdultTypeTableViewController: UITableViewController {
                 let jsonArray: Array! = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? Array<[String:AnyObject]>
                 for item in jsonArray {
                     
-                    guard let title = item["title"] as? String, let identifier = item["identifier"] as? Int else {
+                    guard let title = item["key"] as? String, let identifier = item["identifier"] as? Int else {
                         return;
                     }
                     
@@ -100,8 +100,8 @@ class AdultTypeTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AdultTypeCellIdentifier", for: indexPath)
         
         if let currentAdultType = adultTypes?[(indexPath as NSIndexPath).row] {
-            if let title: String = currentAdultType.title, let identifier: NSNumber = currentAdultType.identifier {
-                cell.textLabel?.text = "\(title) - \(identifier) - \(identifier.intValue)"
+            if let title: String = currentAdultType.title {
+                cell.textLabel?.text = NSLocalizedString(title, comment: "")
             }
         }
 

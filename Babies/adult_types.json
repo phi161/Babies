@@ -1,58 +1,50 @@
 [
   {
     "identifier": 0,
-    "title": "mum"
+    "key": "ADULT_TYPE_OTHER"
   },
   {
     "identifier": 1,
-    "title": "dad"
+    "key": "ADULT_TYPE_DAD"
   },
   {
     "identifier": 2,
-    "title": "parent"
+    "key": "ADULT_TYPE_MUM"
   },
   {
     "identifier": 3,
-    "title": "brother"
+    "key": "ADULT_TYPE_BROTHER"
   },
   {
     "identifier": 4,
-    "title": "sister"
+    "key": "ADULT_TYPE_SISTER"
   },
   {
     "identifier": 5,
-    "title": "sibling"
+    "key": "ADULT_TYPE_GRANDFATHER"
   },
   {
     "identifier": 6,
-    "title": "grandfather"
+    "key": "ADULT_TYPE_GRANDMOTHER"
   },
   {
     "identifier": 7,
-    "title": "grandmother"
+    "key": "ADULT_TYPE_UNCLE"
   },
   {
     "identifier": 8,
-    "title": "grandparent"
+    "key": "ADULT_TYPE_AUNT"
   },
   {
     "identifier": 9,
-    "title": "uncle"
+    "key": "ADULT_TYPE_COUSIN"
   },
   {
     "identifier": 10,
-    "title": "aunt"
+    "key": "ADULT_TYPE_GODFATHER"
   },
   {
     "identifier": 11,
-    "title": "cousin"
-  },
-  {
-    "identifier": 12,
-    "title": "godmother"
-  },
-  {
-    "identifier": 13,
-    "title": "godfather"
+    "key": "ADULT_TYPE_GODMOTHER"
   }
 ]
