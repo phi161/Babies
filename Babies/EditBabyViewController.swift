@@ -268,6 +268,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         self.cellData(indexPath: indexPath).action()
     }
 
@@ -295,6 +296,11 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // Dismiss the keyboard if in note cell
+        if let noteCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.notes.rawValue)) as? NoteCell {
+            noteCell.textView.resignFirstResponder()
+        }
+        
         if visiblePickerIndexPath != nil {
             let dateCell: DatePickerCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
             dateCell.setExpanded(false, animated: true)
