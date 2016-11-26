@@ -103,6 +103,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let identifier = self.cellData(indexPath: indexPath).identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.selectionStyle = self.cellData(indexPath: indexPath).selectable == true ? .blue : .none
+        cell.accessoryType = self.cellData(indexPath: indexPath).selectable == true ? .disclosureIndicator : .none
         
         return cell
     }
