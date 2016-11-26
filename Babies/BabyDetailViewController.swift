@@ -38,6 +38,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
         self.tableView.register(UINib.init(nibName: "NoteCell", bundle: nil), forCellReuseIdentifier: "NoteCellIdentifier")
         
+        tableView.estimatedRowHeight = 100 // Needed for calculating automatically the textView's height
         tableView.tableFooterView = UIView()
     }
     
@@ -172,11 +173,13 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 })
             }
         case Section.notes.rawValue:
-            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: 100, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {}, willDisplayConfiguration: { cell in
+            cellData = CellData(identifier: "NoteCellIdentifier", rows: 1, rowHeight: UITableViewAutomaticDimension, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {}, willDisplayConfiguration: { cell in
                 if let cell = cell as? NoteCell {
                     cell.baby = self.baby
                     cell.editable = false
                     cell.updateInterface()
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
                 }
             })
         default:

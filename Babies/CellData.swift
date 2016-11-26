@@ -11,7 +11,7 @@ import UIKit
 struct CellData {
     var identifier = ""
     var rows = 0
-    var rowHeight: Float = 44.0
+    var rowHeight: CGFloat = 44.0
     var selectable = false
     var canMove = false
     var shouldIndentWhileEditing = false

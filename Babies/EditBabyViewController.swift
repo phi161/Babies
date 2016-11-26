@@ -318,7 +318,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch indexPath.section {
         case Section.dates.rawValue:
-            let dateRowHeight:Float = indexPath == self.visiblePickerIndexPath ? 260 : 44
+            let dateRowHeight: CGFloat = indexPath == self.visiblePickerIndexPath ? 260 : 44
             
             cellData = CellData(identifier: "DatePickerCellIdentifier", rows: 2, rowHeight: dateRowHeight, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                 self.view.endEditing(true)

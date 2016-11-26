@@ -15,6 +15,7 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
     var editable: Bool = true {
         didSet {
             self.textView.isEditable = editable
+            self.textView.isScrollEnabled = editable
         }
     }
     
