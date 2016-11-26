@@ -20,6 +20,7 @@
 		CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1CD7F31DB7B396000F863D /* NoteCell.swift */; };
 		CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
+		CF4817F51DE46E650093B0F6 /* AdultTypePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4817F41DE46E650093B0F6 /* AdultTypePresentationController.swift */; };
 		CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */; };
 		CF48459D1CC0272F000BED2A /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845951CC0272F000BED2A /* Baby.swift */; };
 		CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */; };
@@ -57,6 +58,7 @@
 		CF1CD7F31DB7B396000F863D /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
+		CF4817F41DE46E650093B0F6 /* AdultTypePresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypePresentationController.swift; sourceTree = "<group>"; };
 		CF4845941CC0272F000BED2A /* Baby+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Baby+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF4845951CC0272F000BED2A /* Baby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
 		CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gift+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		7281D4601CB69A5A00713321 /* Babies */ = {
 			isa = PBXGroup;
 			children = (
+				CF4817F41DE46E650093B0F6 /* AdultTypePresentationController.swift */,
 				CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */,
 				7281D46D1CB69A5A00713321 /* Info.plist */,
 				CF55E8D81CE671A100638A5A /* AdultCell.swift */,
@@ -245,6 +248,7 @@
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
 				CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
+				CF4817F51DE46E650093B0F6 /* AdultTypePresentationController.swift in Sources */,
 				CF55E8D91CE671A100638A5A /* AdultCell.swift in Sources */,
 				CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */,
 				CF4845A11CC0272F000BED2A /* Adult.swift in Sources */,
