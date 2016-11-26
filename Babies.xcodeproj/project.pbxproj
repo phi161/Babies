@@ -33,6 +33,7 @@
 		CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF761AB21CE29D9000CDA9DF /* AdultType.swift */; };
 		CF84F6D61DB3A065007C84BE /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF84F6D51DB3A065007C84BE /* Scrolling.swift */; };
 		CF8E73C41DA8F45000F52CD7 /* GiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */; };
+		CF9317AA1DE9A8BD00DC5879 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */; };
 		CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */; };
 		CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */ = {isa = PBXBuildFile; fileRef = CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
@@ -69,6 +70,7 @@
 		CF761AB21CE29D9000CDA9DF /* AdultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultType.swift; sourceTree = "<group>"; };
 		CF84F6D51DB3A065007C84BE /* Scrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftCell.xib; sourceTree = "<group>"; };
+		CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypeTableViewController.swift; sourceTree = "<group>"; };
 		CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adult_types.json; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				CF1CD7F31DB7B396000F863D /* NoteCell.swift */,
 				CF84F6D51DB3A065007C84BE /* Scrolling.swift */,
+				CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */,
+				CF9317AA1DE9A8BD00DC5879 /* UIView+Autolayout.swift in Sources */,
 				CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */,
 				CF4845A21CC0272F000BED2A /* Event+CoreDataProperties.swift in Sources */,
 				CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */,
