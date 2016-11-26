@@ -134,8 +134,7 @@
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				CF1CD7F31DB7B396000F863D /* NoteCell.swift */,
 				CF84F6D51DB3A065007C84BE /* Scrolling.swift */,
-				CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */,
-				CF9317AD1DEA249200DC5879 /* String+Utilities.swift */,
+				CF9317AF1DEA2E1500DC5879 /* Extensions */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
@@ -163,6 +162,15 @@
 				CF4845961CC0272F000BED2A /* Gift+CoreDataProperties.swift */,
 			);
 			name = "Model Classes";
+			sourceTree = "<group>";
+		};
+		CF9317AF1DEA2E1500DC5879 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CF9317AD1DEA249200DC5879 /* String+Utilities.swift */,
+				CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +269,7 @@
 				CF4817F51DE46E650093B0F6 /* AdultTypePresentationController.swift in Sources */,
 				CF4817F71DE4D6000093B0F6 /* AdultTypeTransitionAnimator.swift in Sources */,
 				CF55E8D91CE671A100638A5A /* AdultCell.swift in Sources */,
+				CF9317AE1DEA249200DC5879 /* String+Utilities.swift in Sources */,
 				CFFFBCBB1CD40BC4000EDF12 /* BabyDetailViewController.swift in Sources */,
 				CF4845A11CC0272F000BED2A /* Adult.swift in Sources */,
 				CF48459C1CC0272F000BED2A /* Baby+CoreDataProperties.swift in Sources */,
