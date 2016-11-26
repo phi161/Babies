@@ -13,6 +13,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet var tableView: UITableView!
     
+    var selectedIndexPath: IndexPath?
     var moc: NSManagedObjectContext?
     var babies: [Baby] {
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Baby")
@@ -36,7 +37,9 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tableView.reloadData()
+        if let indexPath = selectedIndexPath {
+            self.tableView.reloadRows(at: [indexPath], with: .fade)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,6 +74,8 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "SegueAddNewBaby" {
+            selectedIndexPath = nil
+            
             let navigationController = segue.destination as? UINavigationController
             let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
             
@@ -80,9 +85,9 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else if segue.identifier == "SegueShowBabyDetail" {
             let babyDetailViewController = segue.destination as? BabyDetailViewController
             
-            let selectedIndexPath = self.tableView.indexPathForSelectedRow
+            selectedIndexPath = self.tableView.indexPathForSelectedRow
             babyDetailViewController?.moc = self.moc
-            babyDetailViewController?.baby = babies[((selectedIndexPath as NSIndexPath?)?.row)!]
+            babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
         }
     }
     
