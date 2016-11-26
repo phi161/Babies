@@ -150,11 +150,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.endUpdates()
     }
     
-    func pickAdultType() {
+    func pickAdultType(_ adultType: AdultType?) {
         if let adultTypePicker: AdultTypeTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AdultTypeViewControllerIdentifier") as? AdultTypeTableViewController {
             let navigationController = UINavigationController(rootViewController: adultTypePicker)
             adultTypePicker.delegate = self
             adultTypePicker.managedObjectContext = self.moc
+            adultTypePicker.adultType = adultType
             navigationController.transitioningDelegate = adultTypeTransitioningDelegate
             navigationController.modalPresentationStyle = .custom
             self.present(navigationController, animated: true, completion: nil)
@@ -607,7 +608,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     
     func adultCellDidTapTypeButton(_ adultCell: AdultCell) {
         selectedIndexPath = tableView.indexPath(for: adultCell)
-        self.pickAdultType()
+        
+        if let adult = baby?.adultsOrdered()?[(selectedIndexPath?.row)!] {
+            self.pickAdultType(adult.type)
+        }
     }
     
     func adultCellDidTapContactButton(_ adultCell: AdultCell) {

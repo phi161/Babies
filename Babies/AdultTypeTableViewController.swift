@@ -99,9 +99,14 @@ class AdultTypeTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AdultTypeCellIdentifier", for: indexPath)
         
-        if let currentAdultType = adultTypes?[(indexPath as NSIndexPath).row] {
-            if let title: String = currentAdultType.title {
-                cell.textLabel?.text = NSLocalizedString(title, comment: "")
+        if let currentAdultType = adultTypes?[indexPath.row] {
+            if let key = currentAdultType.title {
+                cell.textLabel?.text = NSLocalizedString(key, comment: "")
+                cell.accessoryType = .none
+                if let selectedAdultRow = self.adultType?.identifier?.intValue,
+                    indexPath.row == selectedAdultRow {
+                        cell.accessoryType = .checkmark
+                }
             }
         }
 
@@ -109,10 +114,19 @@ class AdultTypeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.adultType = self.adultTypes![(indexPath as NSIndexPath).row]
-        delegate?.adultTypePicker(self, didSelectType: self.adultType!)
-    }
+        
+        if let selectedAdultRow = self.adultType?.identifier?.intValue,
+            let selectedCell = tableView.cellForRow(at: IndexPath(row: selectedAdultRow, section: 0)) {
+                selectedCell.accessoryType = .none
+        }
 
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .checkmark
+        }
+        
+        delegate?.adultTypePicker(self, didSelectType: (adultTypes?[indexPath.row])!)
+    }
+    
     // MARK: Actions
     
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
