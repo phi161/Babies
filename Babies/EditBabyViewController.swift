@@ -135,8 +135,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func removeAdult(atIndexPath indexPath: IndexPath) {
-        // TODO: Take care of adultType as well
-        
         if let adult = self.baby?.adultsOrdered()?[indexPath.row] {
             self.baby?.removeAdultsObject(adult)
             adult.removeBabiesObject(self.baby!)
