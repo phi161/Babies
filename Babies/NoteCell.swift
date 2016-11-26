@@ -29,8 +29,14 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
         baby?.notes = self.textView.text
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isBlank() {
+            baby?.notes = nil
+        }
+    }
+    
     func updateInterface() {
-        if let text = self.baby?.notes {
+        if let text = self.baby?.notes, !text.isBlank() {
             self.textView.text = text
         } else {
             if editable {
