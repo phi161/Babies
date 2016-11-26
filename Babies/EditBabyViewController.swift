@@ -631,8 +631,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         selectedIndexPath = tableView.indexPath(for: adultCell)
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
+
+        contactPicker.transitioningDelegate = adultTypeTransitioningDelegate
+        contactPicker.modalPresentationStyle = .custom
+
         self.present(contactPicker, animated: true, completion: nil)
-    }
+}
     
 
     // MARK: - CNContactPickerDelegate
