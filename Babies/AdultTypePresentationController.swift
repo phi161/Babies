@@ -15,7 +15,7 @@ class AdultTypePresentationController: UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         if let frame = containerView?.bounds {
             let offset = frame.height/8
-            return frame.insetBy(dx: 0, dy: offset).offsetBy(dx: 0, dy: offset)
+            return frame.insetBy(dx: 10, dy: offset).offsetBy(dx: 0, dy: offset)
         } else {
             return super.frameOfPresentedViewInContainerView
         }

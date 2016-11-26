@@ -26,6 +26,9 @@ class AdultTypeTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         
         if isPresenting {
             toViewController.view.frame.origin.y = toViewController.view.frame.size.height
+            toViewController.view.layer.cornerRadius = 5.0
+            toViewController.view.clipsToBounds = true
+            
             containerView.addSubview(toViewController.view)
             
             UIView.animate(withDuration: animationDuration, animations: {
