@@ -22,8 +22,8 @@
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="adults" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Adult" inverseName="babies" inverseEntity="Adult" syncable="YES"/>
-        <relationship name="gifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gift" inverseName="baby" inverseEntity="Gift" syncable="YES"/>
+        <relationship name="adults" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Adult" inverseName="babies" inverseEntity="Adult" syncable="YES"/>
+        <relationship name="gifts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Gift" inverseName="baby" inverseEntity="Gift" syncable="YES"/>
     </entity>
     <entity name="Gift" representedClassName=".Gift" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
