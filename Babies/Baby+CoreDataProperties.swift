@@ -19,7 +19,6 @@ extension Baby {
     @NSManaged var sex: NSNumber?
     @NSManaged var imageName: String?
     @NSManaged var adults: NSSet?
-    @NSManaged var events: Event?
     @NSManaged var gifts: NSSet?
 
 }
