@@ -61,6 +61,27 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let baby = babies[indexPath.row]
+            self.moc?.delete(baby)
+            tableView.deleteRows(at: [indexPath], with: .middle)
+            
+            self.moc?.perform({
+                do {
+                    try self.moc?.save()
+                    print("Saved main context")
+                } catch {
+                    print("Error for main: \(error)")
+                }
+            })
+        }
+    }
+    
     // MARK: - EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
