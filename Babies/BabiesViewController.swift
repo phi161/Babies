@@ -67,18 +67,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let baby = babies[indexPath.row]
-            self.moc?.delete(baby)
-            tableView.deleteRows(at: [indexPath], with: .middle)
-            
-            self.moc?.perform({
-                do {
-                    try self.moc?.save()
-                    print("Saved main context")
-                } catch {
-                    print("Error for main: \(error)")
-                }
-            })
+            self.deleteBaby(atIndex: indexPath.row)
         }
     }
     
@@ -91,6 +80,34 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     // MARK: - Actions
+    
+    func deleteBaby(atIndex index: Int) {
+        let alertController = UIAlertController(title: NSLocalizedString("DELETE_BABY_TITLE", comment: "The title of the actionsheet when attempting to delete a baby"), message: NSLocalizedString("DELETE_BABY_MESSAGE", comment: "The message of the actionsheet when attempting to delete a baby"), preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("DELETE_BABY_CANCEL_BUTTON", comment: "The title of the button that cancels the deletion"), style: .cancel) { action in
+            self.tableView.setEditing(false, animated: true)
+        }
+        
+        let deleteAction = UIAlertAction(title: NSLocalizedString("DELETE_BABY_DELETE_BUTTON", comment: "The title of the button that actually deletes"), style: .destructive) { _ in
+            let baby = self.babies[index]
+            self.moc?.delete(baby)
+            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .middle)
+            
+            self.moc?.perform({
+                do {
+                    try self.moc?.save()
+                    print("Saved main context")
+                } catch {
+                    print("Error for main: \(error)")
+                }
+            })
+        }
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
