@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BabyCellIdentifier" rowHeight="100" id="KGk-i7-Jjw" customClass="BabyCell" customModule="Babies" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="First &amp; Last Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TsU-Hd-OcR">
+                        <rect key="frame" x="70" y="10" width="320" height="20.5"/>
+                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Birthday or Delivery Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SH-Vs-QSC">
+                        <rect key="frame" x="70" y="40.5" width="320" height="20.5"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Adults" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiE-qg-wd6">
+                        <rect key="frame" x="70" y="69" width="320" height="20.5"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SXP-lX-myH">
+                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="Ypp-6K-1vY"/>
+                            <constraint firstAttribute="height" constant="50" id="rhU-jQ-4g7"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yiE-qg-wd6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4SH-Vs-QSC" secondAttribute="bottom" constant="5" id="0tQ-Fe-QCy"/>
+                    <constraint firstItem="TsU-Hd-OcR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1Yp-0k-obH"/>
+                    <constraint firstItem="SXP-lX-myH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="AXD-nW-S8E"/>
+                    <constraint firstAttribute="bottom" secondItem="yiE-qg-wd6" secondAttribute="bottom" constant="10" id="C5V-Ej-HrG"/>
+                    <constraint firstItem="TsU-Hd-OcR" firstAttribute="leading" secondItem="SXP-lX-myH" secondAttribute="trailing" constant="10" id="FCJ-Ow-hRs"/>
+                    <constraint firstItem="4SH-Vs-QSC" firstAttribute="top" secondItem="TsU-Hd-OcR" secondAttribute="bottom" constant="10" id="L7s-t7-q0t"/>
+                    <constraint firstAttribute="trailing" secondItem="TsU-Hd-OcR" secondAttribute="trailing" constant="10" id="Oqa-Oz-VEU"/>
+                    <constraint firstItem="4SH-Vs-QSC" firstAttribute="trailing" secondItem="TsU-Hd-OcR" secondAttribute="trailing" id="PJ3-dn-QnS"/>
+                    <constraint firstItem="yiE-qg-wd6" firstAttribute="leading" secondItem="4SH-Vs-QSC" secondAttribute="leading" id="TCn-kl-Nby"/>
+                    <constraint firstItem="SXP-lX-myH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="hhF-2O-7as"/>
+                    <constraint firstItem="yiE-qg-wd6" firstAttribute="trailing" secondItem="4SH-Vs-QSC" secondAttribute="trailing" id="q0X-X9-2av"/>
+                    <constraint firstItem="4SH-Vs-QSC" firstAttribute="leading" secondItem="TsU-Hd-OcR" secondAttribute="leading" id="rqh-Ye-BSe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="adultsLabel" destination="yiE-qg-wd6" id="LT7-Ax-LIr"/>
+                <outlet property="dateLabel" destination="4SH-Vs-QSC" id="Z2F-PM-pRx"/>
+                <outlet property="nameLabel" destination="TsU-Hd-OcR" id="kst-zp-BY5"/>
+                <outlet property="thumbnail" destination="SXP-lX-myH" id="rkX-b4-YXG"/>
+            </connections>
+            <point key="canvasLocation" x="-43" y="-40.5"/>
+        </tableViewCell>
+    </objects>
+</document>
