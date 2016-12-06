@@ -38,9 +38,12 @@ class Baby: NSManagedObject {
     
     func fullName() -> String {
         var string: String = ""
-        string += self.familyName ?? "n/a"
-        string += ", "
-        string += self.givenName ?? "n/a"
+        string += self.givenName ?? ""
+        if !string.isEmpty {
+            string += " "
+        }
+        string += self.familyName ?? ""
+        
         return string
     }
     

@@ -32,6 +32,11 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.tableView.register(UINib.init(nibName: "BabyCell", bundle: nil), forCellReuseIdentifier: "BabyCellIdentifier")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,12 +58,16 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BabyListCell", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
+            cell.thumbnail.image = babies[indexPath.row].thumbnailImage
+            cell.nameLabel.text = babies[indexPath.row].fullName()
+            cell.dateLabel.text = babies[indexPath.row].birthdayString()
+            cell.adultsLabel.text = "adult one\nadult two"
+            
+            return cell
+        }
         
-        cell.imageView?.image = babies[(indexPath as NSIndexPath).row].thumbnailImage
-        cell.textLabel?.text = babies[(indexPath as NSIndexPath).row].stringRepresentation()
-        
-        return cell
+        return UITableViewCell(style: .default, reuseIdentifier: "default")
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
