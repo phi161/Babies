@@ -80,6 +80,16 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let babyDetailViewController = storyboard.instantiateViewController(withIdentifier: "BabyDetailViewControllerId") as? BabyDetailViewController {
+            selectedIndexPath = self.tableView.indexPathForSelectedRow
+            babyDetailViewController.moc = self.moc
+            babyDetailViewController.baby = babies[(selectedIndexPath?.row)!]
+            self.navigationController?.pushViewController(babyDetailViewController, animated: true)
+        }
+    }
+    
     // MARK: - EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
@@ -129,13 +139,6 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             editBabyViewController.moc = self.moc
             editBabyViewController.delegate = self
             editBabyViewController.isAddingNewEntity = true
-        } else if segue.identifier == "SegueShowBabyDetail" {
-            let babyDetailViewController = segue.destination as? BabyDetailViewController
-            
-            selectedIndexPath = self.tableView.indexPathForSelectedRow
-            babyDetailViewController?.moc = self.moc
-            babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
         }
     }
-    
 }
