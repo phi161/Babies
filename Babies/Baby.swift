@@ -30,6 +30,23 @@ class Baby: NSManagedObject {
         }
     }
     
+    var adultsStringRepresentation: String {
+        get {
+            guard let adults = adultsOrdered() else {
+                return ""
+            }
+            
+            var string = ""
+            for adult in adults {
+                string += adult.name()
+                if adult != adults.last {
+                    string += "\n"
+                }
+            }
+            return string
+        }
+    }
+    
     var thumbnailImage: UIImage? {
         get {
             if imageName != nil {

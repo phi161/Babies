@@ -62,7 +62,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.thumbnail.image = babies[indexPath.row].thumbnailImage
             cell.nameLabel.text = babies[indexPath.row].fullName()
             cell.dateLabel.text = babies[indexPath.row].significantDate
-            cell.adultsLabel.text = "adult one\nadult two"
+            cell.adultsLabel.text = babies[indexPath.row].adultsStringRepresentation
             
             return cell
         }
