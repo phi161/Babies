@@ -59,10 +59,12 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
-            cell.thumbnail.image = babies[indexPath.row].thumbnailImage
-            cell.nameLabel.text = babies[indexPath.row].fullName()
-            cell.dateLabel.attributedText = babies[indexPath.row].iconDateStringRepresentation
-            cell.adultsLabel.text = babies[indexPath.row].adultsStringRepresentation
+            let baby = babies[indexPath.row]
+            cell.thumbnailBackground.backgroundColor = baby.color
+            cell.thumbnail.image = baby.thumbnailImage
+            cell.nameLabel.text = baby.fullName()
+            cell.dateLabel.attributedText = baby.iconDateStringRepresentation
+            cell.adultsLabel.text = baby.adultsStringRepresentation
             
             return cell
         }

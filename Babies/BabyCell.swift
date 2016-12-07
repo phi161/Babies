@@ -10,6 +10,7 @@ import UIKit
 
 class BabyCell: UITableViewCell {
 
+    @IBOutlet var thumbnailBackground: UIView!
     @IBOutlet var thumbnail: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!

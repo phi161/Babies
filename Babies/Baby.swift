@@ -17,6 +17,22 @@ class Baby: NSManagedObject {
     @NSManaged func addGiftsObject(_ value:Gift)
     @NSManaged func removeGiftsObject(_ value:Gift)
 
+    var color: UIColor {
+        get {
+            if let s = self.sex?.intValue {
+                switch s {
+                case 1:
+                    return UIColor.cyan
+                case 2:
+                    return UIColor.magenta
+                default:
+                    return UIColor.clear
+                }
+            } else {
+                return UIColor.clear
+            }
+        }
+    }
     var iconDateStringRepresentation: NSAttributedString {
         get {
             var dateString = ""
