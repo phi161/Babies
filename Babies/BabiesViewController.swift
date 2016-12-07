@@ -12,6 +12,7 @@ import CoreData
 class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var emptyLabel: UILabel!
     
     var selectedIndexPath: IndexPath?
     var moc: NSManagedObjectContext?
@@ -33,14 +34,18 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        emptyLabel.text = NSLocalizedString("NO_BABIES", comment: "The text that replaces an empty list")
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
         self.tableView.register(UINib.init(nibName: "BabyCell", bundle: nil), forCellReuseIdentifier: "BabyCellIdentifier")
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        checkEmpty()
         
         if let indexPath = selectedIndexPath {
             self.tableView.reloadRows(at: [indexPath], with: .fade)
@@ -95,6 +100,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        checkEmpty()
         self.dismiss(animated: true) { 
             self.tableView.reloadData()
         }
@@ -122,6 +128,8 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     print("Error for main: \(error)")
                 }
             })
+            
+            self.checkEmpty()
         }
         
         alertController.addAction(deleteAction)
@@ -143,4 +151,15 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             editBabyViewController.isAddingNewEntity = true
         }
     }
+    
+    func checkEmpty() {
+        if babies.count == 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.alpha = 0
+            })
+        } else {
+            tableView.alpha = 1.0
+        }
+    }
+    
 }
