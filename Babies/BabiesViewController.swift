@@ -12,6 +12,7 @@ import CoreData
 class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var emptyLabel: UILabel!
     
     var selectedIndexPath: IndexPath?
     var moc: NSManagedObjectContext?
@@ -32,10 +33,19 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emptyLabel.text = NSLocalizedString("NO_BABIES", comment: "The text that replaces an empty list")
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.tableView.register(UINib.init(nibName: "BabyCell", bundle: nil), forCellReuseIdentifier: "BabyCellIdentifier")
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        checkEmpty()
         
         if let indexPath = selectedIndexPath {
             self.tableView.reloadRows(at: [indexPath], with: .fade)
@@ -53,12 +63,18 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BabyListCell", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
+            let baby = babies[indexPath.row]
+            cell.thumbnailBackground.backgroundColor = baby.color
+            cell.thumbnail.image = baby.thumbnailImage
+            cell.nameLabel.text = baby.fullName()
+            cell.dateLabel.attributedText = baby.iconDateStringRepresentation
+            cell.adultsLabel.text = baby.adultsStringRepresentation
+            
+            return cell
+        }
         
-        cell.imageView?.image = babies[(indexPath as NSIndexPath).row].thumbnailImage
-        cell.textLabel?.text = babies[(indexPath as NSIndexPath).row].stringRepresentation()
-        
-        return cell
+        return UITableViewCell(style: .default, reuseIdentifier: "default")
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -71,9 +87,20 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let babyDetailViewController = storyboard.instantiateViewController(withIdentifier: "BabyDetailViewControllerId") as? BabyDetailViewController {
+            selectedIndexPath = self.tableView.indexPathForSelectedRow
+            babyDetailViewController.moc = self.moc
+            babyDetailViewController.baby = babies[(selectedIndexPath?.row)!]
+            self.navigationController?.pushViewController(babyDetailViewController, animated: true)
+        }
+    }
+    
     // MARK: - EditBabyViewControllerDelegate
     
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        checkEmpty()
         self.dismiss(animated: true) { 
             self.tableView.reloadData()
         }
@@ -101,6 +128,8 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     print("Error for main: \(error)")
                 }
             })
+            
+            self.checkEmpty()
         }
         
         alertController.addAction(deleteAction)
@@ -120,12 +149,16 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             editBabyViewController.moc = self.moc
             editBabyViewController.delegate = self
             editBabyViewController.isAddingNewEntity = true
-        } else if segue.identifier == "SegueShowBabyDetail" {
-            let babyDetailViewController = segue.destination as? BabyDetailViewController
-            
-            selectedIndexPath = self.tableView.indexPathForSelectedRow
-            babyDetailViewController?.moc = self.moc
-            babyDetailViewController?.baby = babies[(selectedIndexPath?.row)!]
+        }
+    }
+    
+    func checkEmpty() {
+        if babies.count == 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.alpha = 0
+            })
+        } else {
+            tableView.alpha = 1.0
         }
     }
     

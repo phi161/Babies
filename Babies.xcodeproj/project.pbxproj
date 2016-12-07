@@ -17,6 +17,8 @@
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
 		CF0394451DB92557006D3CB6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0394441DB92557006D3CB6 /* CellData.swift */; };
+		CF083E241DEB8C9400EA0BF8 /* BabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF083E221DEB8C9400EA0BF8 /* BabyCell.swift */; };
+		CF083E251DEB8C9400EA0BF8 /* BabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */; };
 		CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1CD7F31DB7B396000F863D /* NoteCell.swift */; };
 		CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */; };
 		CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */; };
@@ -56,6 +58,8 @@
 		72915EEB1CF858E10051D671 /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		72915EEE1CF890EF0051D671 /* GiftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftCell.swift; sourceTree = "<group>"; };
 		CF0394441DB92557006D3CB6 /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
+		CF083E221DEB8C9400EA0BF8 /* BabyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyCell.swift; sourceTree = "<group>"; };
+		CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyCell.xib; sourceTree = "<group>"; };
 		CF1CD7F31DB7B396000F863D /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		CF3C87C61CCD680E00FAA5FE /* DatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				CF4817F21DE46E100093B0F6 /* AdultTypeTransitioningDelegate.swift */,
 				7281D4611CB69A5A00713321 /* AppDelegate.swift */,
 				7281D4631CB69A5A00713321 /* BabiesViewController.swift */,
+				CF083E221DEB8C9400EA0BF8 /* BabyCell.swift */,
 				CFFFBCBA1CD40BC4000EDF12 /* BabyDetailViewController.swift */,
 				CF0394441DB92557006D3CB6 /* CellData.swift */,
 				CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */,
@@ -130,12 +135,13 @@
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				CF1CD7F31DB7B396000F863D /* NoteCell.swift */,
 				CF84F6D51DB3A065007C84BE /* Scrolling.swift */,
-				CF9317AF1DEA2E1500DC5879 /* Extensions */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
+				CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */,
 				CF8E73C31DA8F45000F52CD7 /* GiftCell.xib */,
 				72915EEB1CF858E10051D671 /* GiftViewController.xib */,
 				CF1CD7F51DB7E2FA000F863D /* NoteCell.xib */,
 				72766E741CBBC0C10044F7BC /* Babies.xcdatamodeld */,
+				CF9317AF1DEA2E1500DC5879 /* Extensions */,
 				7281D46A1CB69A5A00713321 /* LaunchScreen.storyboard */,
 				7281D4651CB69A5A00713321 /* Main.storyboard */,
 				CF4845931CC02711000BED2A /* Model Classes */,
@@ -229,6 +235,7 @@
 				CF1CD7F61DB7E2FA000F863D /* NoteCell.xib in Resources */,
 				7281D46C1CB69A5A00713321 /* LaunchScreen.storyboard in Resources */,
 				7281D4691CB69A5A00713321 /* Assets.xcassets in Resources */,
+				CF083E251DEB8C9400EA0BF8 /* BabyCell.xib in Resources */,
 				72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */,
 				CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */,
 				7281D4671CB69A5A00713321 /* Main.storyboard in Resources */,
@@ -270,6 +277,7 @@
 				CF4845A01CC0272F000BED2A /* Adult+CoreDataProperties.swift in Sources */,
 				72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */,
 				72766E761CBBC0C10044F7BC /* Babies.xcdatamodeld in Sources */,
+				CF083E241DEB8C9400EA0BF8 /* BabyCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
