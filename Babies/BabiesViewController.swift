@@ -61,7 +61,7 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
             cell.thumbnail.image = babies[indexPath.row].thumbnailImage
             cell.nameLabel.text = babies[indexPath.row].fullName()
-            cell.dateLabel.text = babies[indexPath.row].significantDate
+            cell.dateLabel.attributedText = babies[indexPath.row].iconDateStringRepresentation
             cell.adultsLabel.text = babies[indexPath.row].adultsStringRepresentation
             
             return cell

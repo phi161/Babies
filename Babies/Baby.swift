@@ -16,17 +16,31 @@ class Baby: NSManagedObject {
     @NSManaged func removeAdultsObject(_ value:Adult)
     @NSManaged func addGiftsObject(_ value:Gift)
     @NSManaged func removeGiftsObject(_ value:Gift)
-    
-    var significantDate: String {
+
+    var iconDateStringRepresentation: NSAttributedString {
         get {
+            var dateString = ""
+            var imageName = ""
             // Prioritize birthday over delivery date
             if birthday != nil {
-                return DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
+                dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
+                imageName = "icon_birthday"
+            } else if delivery != nil {
+                dateString = DateFormatter.localizedString(from: delivery!, dateStyle: .long, timeStyle: .none)
+                imageName = "icon_delivery"
+            } else {
+                return NSAttributedString(string: "")
             }
-            if delivery != nil {
-                return DateFormatter.localizedString(from: delivery!, dateStyle: .long, timeStyle: .none)
-            }
-            return ""
+
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: imageName)
+            attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
+            let imageString = NSAttributedString(attachment: attachment)
+            
+            let mutableString = NSMutableAttributedString(attributedString: imageString)
+            mutableString.append(NSAttributedString(string: " \(dateString)"))
+
+            return mutableString
         }
     }
     
