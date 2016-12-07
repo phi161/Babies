@@ -17,6 +17,19 @@ class Baby: NSManagedObject {
     @NSManaged func addGiftsObject(_ value:Gift)
     @NSManaged func removeGiftsObject(_ value:Gift)
     
+    var significantDate: String {
+        get {
+            // Prioritize birthday over delivery date
+            if birthday != nil {
+                return DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
+            }
+            if delivery != nil {
+                return DateFormatter.localizedString(from: delivery!, dateStyle: .long, timeStyle: .none)
+            }
+            return ""
+        }
+    }
+    
     var thumbnailImage: UIImage? {
         get {
             if imageName != nil {
