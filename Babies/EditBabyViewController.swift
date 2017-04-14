@@ -52,7 +52,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     enum DateRow: Int {
-        case delivery, birthday
+        case dueDate, birthday
     }
     
     let sectionHeaderTitles = [
@@ -338,8 +338,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 }, willDisplayConfiguration: { cell in
                     if let dateCell = cell as? DatePickerCell {
                         dateCell.delegate = self
-                        if indexPath.row == DateRow.delivery.rawValue {
-                            dateCell.configure(withTitle: NSLocalizedString("DELIVERY_DATE", comment: "The title of the delivery date cell"), date: self.baby?.delivery, mode: .date)
+                        if indexPath.row == DateRow.dueDate.rawValue {
+                            dateCell.configure(withTitle: NSLocalizedString("DUE_DATE", comment: "The title of the due date cell"), date: self.baby?.dueDate, mode: .date)
                         } else {
                             dateCell.configure(withTitle: NSLocalizedString("BIRTHDAY_DATE", comment: "The title of the birthday date cell"), date: self.baby?.birthday, mode: .dateAndTime)
                         }
@@ -601,16 +601,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - DatePickerCellDelegate
     
     func datePickerCell(_ datePickerCell: DatePickerCell, didSelectDate date: Date) {
-        if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.delivery.rawValue {
-            self.baby?.delivery = date
+        if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.dueDate.rawValue {
+            self.baby?.dueDate = date
         } else if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.birthday.rawValue {
             self.baby?.birthday = date
         }
     }
     
     func datePickerCellDidClear(_ datePickerCell: DatePickerCell) {
-        if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.delivery.rawValue {
-            self.baby?.delivery = nil
+        if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.dueDate.rawValue {
+            self.baby?.dueDate = nil
         } else if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.birthday.rawValue {
             self.baby?.birthday = nil
         }

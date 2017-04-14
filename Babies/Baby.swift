@@ -37,13 +37,13 @@ class Baby: NSManagedObject {
         get {
             var dateString = ""
             var imageName = ""
-            // Prioritize birthday over delivery date
+            // Prioritize birthday over due date
             if birthday != nil {
                 dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
                 imageName = "icon_birthday"
-            } else if delivery != nil {
-                dateString = DateFormatter.localizedString(from: delivery!, dateStyle: .long, timeStyle: .none)
-                imageName = "icon_delivery"
+            } else if dueDate != nil {
+                dateString = DateFormatter.localizedString(from: dueDate!, dateStyle: .long, timeStyle: .none)
+                imageName = "icon_duedate"
             } else {
                 return NSAttributedString(string: "")
             }
@@ -166,10 +166,10 @@ class Baby: NSManagedObject {
         // Sex
         string += " [\(self.sexString())]"
         
-        // Delivery date
-        string += "\ndelivery: "
-        if self.delivery != nil {
-            string += DateFormatter.localizedString(from: self.delivery! as Date, dateStyle: .short, timeStyle: .short)
+        // Due date
+        string += "\ndue date: "
+        if self.dueDate != nil {
+            string += DateFormatter.localizedString(from: self.dueDate! as Date, dateStyle: .short, timeStyle: .short)
         } else {
             string += "n/a"
         }

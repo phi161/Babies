@@ -12,7 +12,7 @@ import CoreData
 extension Baby {
 
     @NSManaged var birthday: Date?
-    @NSManaged var delivery: Date?
+    @NSManaged var dueDate: Date?
     @NSManaged var familyName: String?
     @NSManaged var givenName: String?
     @NSManaged var notes: String?
