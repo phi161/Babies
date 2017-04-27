@@ -96,6 +96,16 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == Section.gifts.rawValue {
+            if (baby?.gifts?.count)! > 0 {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .currency
+                formatter.locale = Locale.current
+                if let price = baby?.giftsTotalPrice(), let currencyPrice = formatter.string(from: price) {
+                    return "\(NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts")) \(currencyPrice)"
+                }
+            }
+        }
         return sectionHeaderTitles[section]
     }
     
