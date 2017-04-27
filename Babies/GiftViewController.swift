@@ -19,7 +19,7 @@ class GiftViewController: UIViewController {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var currencyLabel: UILabel!
     @IBOutlet var priceTextField: UITextField!
-
+    
     var gift: Gift
     weak var delegate: GiftViewControllerDelegate?
     
@@ -33,7 +33,7 @@ class GiftViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,7 +62,7 @@ class GiftViewController: UIViewController {
         priceTextField.inputAccessoryView = toolbar
         detailsTextView.inputAccessoryView = toolbar
     }
-
+    
     
     // MARK: - Actions
     
@@ -75,12 +75,11 @@ class GiftViewController: UIViewController {
         
         gift.date = self.datePicker.date
         gift.details = self.detailsTextView.text
-        if let priceString = priceTextField.text,
-            let price = Float(priceString) {
-            gift.price = NSNumber(value: price)
+        if let priceString = priceTextField.text {
+            gift.price = NSNumber(value: priceString.doubleValue)
         }
         
         self.delegate?.giftViewController(self, didFinishWithGift: gift)
     }
-
+    
 }

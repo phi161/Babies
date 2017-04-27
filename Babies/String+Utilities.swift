@@ -18,4 +18,19 @@ extension String {
         return nonBlankText.isEmpty
     }
     
+    /// Converts a string to a Double with respect to the decimal separator per region ("." or ",")
+    var doubleValue: Double {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.decimalSeparator = "."
+        if let result = numberFormatter.number(from: self) {
+            return result.doubleValue
+        } else {
+            numberFormatter.decimalSeparator = ","
+            if let result = numberFormatter.number(from: self) {
+                return result.doubleValue
+            }
+        }
+        return 0
+    }
+    
 }
