@@ -35,16 +35,16 @@ class AdultTypeTableViewController: UITableViewController {
             }
         }
     }
-
+    
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped(_:)))
         
         if adultTypes?.count == 0 {
-            self.importFromJSON()
+            importFromJSON()
             tableView.reloadData()
         }
         
@@ -74,13 +74,13 @@ class AdultTypeTableViewController: UITableViewController {
                 } catch {
                     print("Error for main: \(error)")
                 }
-
+                
             } catch {
                 print(error)
             }
         }
     }
-
+    
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,17 +99,15 @@ class AdultTypeTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AdultTypeCellIdentifier", for: indexPath)
         
-        if let currentAdultType = adultTypes?[indexPath.row] {
-            if let key = currentAdultType.title {
-                cell.textLabel?.text = NSLocalizedString(key, comment: "")
-                cell.accessoryType = .none
-                if let selectedAdultRow = self.adultType?.identifier?.intValue,
-                    indexPath.row == selectedAdultRow {
-                        cell.accessoryType = .checkmark
-                }
+        if let currentAdultType = adultTypes?[indexPath.row], let key = currentAdultType.title {
+            cell.textLabel?.text = NSLocalizedString(key, comment: "")
+            cell.accessoryType = .none
+            if let selectedAdultRow = self.adultType?.identifier?.intValue,
+                indexPath.row == selectedAdultRow {
+                cell.accessoryType = .checkmark
             }
         }
-
+        
         return cell
     }
     
@@ -117,9 +115,9 @@ class AdultTypeTableViewController: UITableViewController {
         
         if let selectedAdultRow = self.adultType?.identifier?.intValue,
             let selectedCell = tableView.cellForRow(at: IndexPath(row: selectedAdultRow, section: 0)) {
-                selectedCell.accessoryType = .none
+            selectedCell.accessoryType = .none
         }
-
+        
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
         }
@@ -132,5 +130,5 @@ class AdultTypeTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         delegate?.adultTypePickerDidCancel(self)
     }
-
+    
 }
