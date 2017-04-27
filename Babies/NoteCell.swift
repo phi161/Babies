@@ -14,19 +14,19 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
     
     var editable: Bool = true {
         didSet {
-            self.textView.isEditable = editable
-            self.textView.isScrollEnabled = editable
+            textView.isEditable = editable
+            textView.isScrollEnabled = editable
         }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.baby?.notes == nil {
-            self.textView.text = ""
+        if baby?.notes == nil {
+            textView.text = ""
         }
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        baby?.notes = self.textView.text
+        baby?.notes = textView.text
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -36,13 +36,13 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
     }
     
     func updateInterface() {
-        if let text = self.baby?.notes, !text.isBlank() {
-            self.textView.text = text
+        if let text = baby?.notes, !text.isBlank() {
+            textView.text = text
         } else {
             if editable {
-                self.textView.text = "EMPTY_NOTE_EDITABLE"
+                textView.text = "EMPTY_NOTE_EDITABLE"
             } else {
-                self.textView.text = "EMPTY_NOTE_READ_ONLY"
+                textView.text = "EMPTY_NOTE_READ_ONLY"
             }
         }
     }

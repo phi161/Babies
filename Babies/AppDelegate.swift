@@ -22,10 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let modelURL = Bundle.main.url(forResource: "Babies", withExtension: "momd")!
         let coreDataStack = CoreDataStack(storeURL: storeURL, modelURL: modelURL)
 
-        let navigationController = self.window!.rootViewController as? UINavigationController
-        let viewController = navigationController?.viewControllers[0] as? BabiesViewController
-        viewController?.moc = coreDataStack.managedObjectContext
-        
+        if let navigationController = self.window?.rootViewController as? UINavigationController,
+           let viewController = navigationController.viewControllers.first as? BabiesViewController {
+                viewController.moc = coreDataStack.managedObjectContext
+        }
+
         return true
     }
     

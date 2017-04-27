@@ -28,10 +28,10 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.clearButton.setTitle(NSLocalizedString("CLEAR_BUTTON", comment: "The title of the clear button"), for: UIControlState())
+        clearButton.setTitle(NSLocalizedString("CLEAR_BUTTON", comment: "The title of the clear button"), for: .normal)
         
-        self.clearButtonTrailingConstraint.constant = -64
-        self.dateLabel.textColor = UIColor.blue
+        clearButtonTrailingConstraint.constant = -64
+        dateLabel.textColor = .blue
     }
     
     func setExpanded(_ expanded: Bool, animated: Bool) {
@@ -46,7 +46,7 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
                 // do nothing
             } else {
                 // expand
-                self.clearButtonTrailingConstraint.constant = 0
+                clearButtonTrailingConstraint.constant = 0
                 
                 UIView.animate(withDuration: duration, animations: {
                     self.contentView.layoutIfNeeded()
@@ -58,8 +58,8 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
         } else {
             if isExpanded {
                 // collapse
-                self.clearButtonTrailingConstraint.constant = -64
-                self.dateLabel.textColor = UIColor.blue
+                clearButtonTrailingConstraint.constant = -64
+                dateLabel.textColor = UIColor.blue
                 
                 UIView.animate(withDuration: duration, animations: {
                     self.contentView.layoutIfNeeded()
@@ -75,24 +75,24 @@ class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
     
     func configure(withTitle title: String, date: Date?, mode: UIDatePickerMode) {
         
-        self.titleLabel.text = title
+        titleLabel.text = title
         
-        self.datePicker.datePickerMode = mode
+        datePicker.datePickerMode = mode
         
         if date != nil {
-            self.dateLabel.text = DateFormatter.localizedString(from: date!, dateStyle: .medium, timeStyle: .short)
+            dateLabel.text = DateFormatter.localizedString(from: date!, dateStyle: .medium, timeStyle: .short)
         } else {
-            self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
+            dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         }
     }
 
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        self.dateLabel.text = DateFormatter.localizedString(from: sender.date, dateStyle: .medium, timeStyle: .short)
+        dateLabel.text = DateFormatter.localizedString(from: sender.date, dateStyle: .medium, timeStyle: .short)
         delegate?.datePickerCell(self, didSelectDate: sender.date)
     }
     
     @IBAction func clearButtonTapped(_ sender: AnyObject) {
-        self.dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
+        dateLabel.text = NSLocalizedString("EMPTY_DATE", comment: "The text of the date label when no date is selected")
         delegate?.datePickerCellDidClear(self)
     }
     
