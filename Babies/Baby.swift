@@ -119,6 +119,18 @@ class Baby: NSManagedObject {
         }
     }
     
+    func giftsTotalPrice() -> NSNumber {
+        var totalPrice = 0.0
+        if let gifts = giftsOrdered() {
+            for gift in gifts {
+                if let price = gift.price {
+                    totalPrice += price.doubleValue
+                }
+            }
+        }
+        return NSNumber(value: totalPrice)
+    }
+    
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
             if adultsCount > 0 {
