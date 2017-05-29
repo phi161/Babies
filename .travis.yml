@@ -3,5 +3,5 @@ osx_image: xcode8.3
 xcode_project: Babies.xcodeproj
 xcode_scheme: Babies
 script:
-  - xcodebuild clean build -sdk iphonesimulator -project Babies.xcodeproj -scheme Babies CODE_SIGNING_REQUIRED=NO
+  - xcodebuild clean test -sdk iphonesimulator -project Babies.xcodeproj -scheme Babies CODE_SIGNING_REQUIRED=NO
   
