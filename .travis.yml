@@ -1,0 +1,7 @@
+language: objective-c
+osx_image: xcode8.3
+xcode_project: Babies.xcodeproj
+xcode_scheme: Babies
+script:
+  - xcodebuild clean test -project Babies.xcodeproj -scheme Babies -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
+  
