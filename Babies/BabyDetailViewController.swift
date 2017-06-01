@@ -141,12 +141,36 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     print("adult \(indexPath.row)")
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
-                        let adult = self.baby?.adultsOrdered()?[indexPath.row]
-                        let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
-                        let viewController = CNContactViewController(for: contact!)
-                        viewController.contactStore = store
-                        DispatchQueue.main.async {
-                            self.navigationController?.pushViewController(viewController, animated: true)
+                        if (CNContactStore.authorizationStatus(for: .contacts) == .authorized) {
+                            let adult = self.baby?.adultsOrdered()?[indexPath.row]
+                            let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+                            let viewController = CNContactViewController(for: contact!)
+                            viewController.contactStore = store
+                            DispatchQueue.main.async {
+                                self.navigationController?.pushViewController(viewController, animated: true)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.tableView.deselectRow(at: indexPath, animated: true)
+                                
+                                // Alert to open app settings
+                                let alertController = UIAlertController (title: "Title", message: "Go to Settings?", preferredStyle: .alert)
+                                
+                                let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                                    guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                                        return
+                                    }
+                                    
+                                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                                        UIApplication.shared.openURL(settingsUrl)
+                                    }
+                                }
+                                alertController.addAction(settingsAction)
+                                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+                                alertController.addAction(cancelAction)
+                                
+                                self.present(alertController, animated: true, completion: nil)
+                            }
                         }
                     }
                     }, willDisplayConfiguration: { cell in
