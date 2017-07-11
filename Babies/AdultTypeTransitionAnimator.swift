@@ -39,7 +39,7 @@ class AdultTypeTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         } else {
             UIView.animate(withDuration: animationDuration, animations: {
                 fromViewController.view.frame.origin.y = toViewController.view.frame.size.height
-            }) { (finished) in
+            }) { _ in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
         }

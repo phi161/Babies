@@ -17,8 +17,8 @@ class BabiesViewController: UIViewController {
     var selectedIndexPath: IndexPath?
     var moc: NSManagedObjectContext?
     var babies: [Baby] {
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Baby")
-        var result:[Baby]
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Baby")
+        var result: [Baby]
         do {
             try result = self.moc?.fetch(fetchRequest) as! [Baby]
         } catch {
@@ -57,7 +57,7 @@ class BabiesViewController: UIViewController {
     func deleteBaby(atIndex index: Int) {
         let alertController = UIAlertController(title: NSLocalizedString("DELETE_BABY_TITLE", comment: "The title of the actionsheet when attempting to delete a baby"), message: NSLocalizedString("DELETE_BABY_MESSAGE", comment: "The message of the actionsheet when attempting to delete a baby"), preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("DELETE_BABY_CANCEL_BUTTON", comment: "The title of the button that cancels the deletion"), style: .cancel) { action in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("DELETE_BABY_CANCEL_BUTTON", comment: "The title of the button that cancels the deletion"), style: .cancel) { _ in
             self.tableView.setEditing(false, animated: true)
         }
         
@@ -90,8 +90,9 @@ class BabiesViewController: UIViewController {
             selectedIndexPath = nil
             
             let navigationController = segue.destination as? UINavigationController
-            let editBabyViewController: EditBabyViewController = navigationController?.viewControllers.first as! EditBabyViewController
-            
+            guard let editBabyViewController = navigationController?.viewControllers.first as? EditBabyViewController else {
+                fatalError("Got the wrong view controller")
+            }
             editBabyViewController.moc = self.moc
             editBabyViewController.delegate = self
             editBabyViewController.isAddingNewEntity = true

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol AdultTypePickerDelegate: class {
-    func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type:AdultType)
+    func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType)
     func adultTypePickerDidCancel(_ adultTypePicker: AdultTypeTableViewController)
 }
 
@@ -23,7 +23,7 @@ class AdultTypeTableViewController: UITableViewController {
     var adultTypes: [AdultType]? {
         get {
             do {
-                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AdultType")
+                let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AdultType")
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: true)]
                 var result: [AdultType]?
                 result = try self.managedObjectContext?.fetch(fetchRequest) as? [AdultType]
@@ -56,7 +56,7 @@ class AdultTypeTableViewController: UITableViewController {
         
         if let jsonData = try? Data(contentsOf: jsonFileURL!) {
             do {
-                let jsonArray: Array! = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? Array<[String:AnyObject]>
+                let jsonArray: Array! = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [[String:AnyObject]]
                 for item in jsonArray {
                     
                     guard let title = item["key"] as? String, let identifier = item["identifier"] as? Int else {

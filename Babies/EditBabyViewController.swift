@@ -96,7 +96,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         if isAddingNewEntity {
             // Create a new baby, empty interface
-            let newBaby: Baby = NSEntityDescription.insertNewObject(forEntityName: "Baby", into: temporaryMoc!) as! Baby
+            guard let newBaby = NSEntityDescription.insertNewObject(forEntityName: "Baby", into: temporaryMoc!) as? Baby else {
+                fatalError("Got wrong entity type")
+            }
             newBaby.sex = 0
             newBaby.imageName = UUID().uuidString
             
@@ -124,7 +126,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Adults Section
     
     func insertAdult() {
-        let newAdult: Adult = NSEntityDescription.insertNewObject(forEntityName: "Adult", into: self.temporaryMoc!) as! Adult
+        guard let newAdult = NSEntityDescription.insertNewObject(forEntityName: "Adult", into: self.temporaryMoc!) as? Adult else {
+            fatalError("Could not convert to Adult")
+        }
         newAdult.displayOrder = self.baby?.adults?.count as NSNumber?
         newAdult.addBabiesObject(self.baby!)
         self.baby?.addAdultsObject(newAdult)
@@ -164,7 +168,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Gifts Section
     
     func insertGift() {
-        let newGift: Gift = NSEntityDescription.insertNewObject(forEntityName: "Gift", into: self.temporaryMoc!) as! Gift
+        guard let newGift = NSEntityDescription.insertNewObject(forEntityName: "Gift", into: self.temporaryMoc!) as? Gift else {
+            fatalError("Could not convert to Gift")
+        }
         newGift.date = Date()
         newGift.price = 0
         newGift.baby = self.baby
@@ -299,7 +305,9 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.dismissKeyboard()
         
         if visiblePickerIndexPath != nil {
-            let dateCell: DatePickerCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
+            guard let dateCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as? DatePickerCell else {
+                fatalError("Got wrong cell type")
+            }
             dateCell.setExpanded(false, animated: true)
             visiblePickerIndexPath = nil
             tableView.beginUpdates()
@@ -320,14 +328,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             cellData = CellData(identifier: "DatePickerCellIdentifier", rows: 2, rowHeight: dateRowHeight, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                 self.view.endEditing(true)
                 
-                let dateCell: DatePickerCell = self.tableView.cellForRow(at: indexPath) as! DatePickerCell
+                guard let dateCell = self.tableView.cellForRow(at: indexPath) as? DatePickerCell else {
+                    fatalError("Got the wrong cell type")
+                }
                 if self.visiblePickerIndexPath == indexPath {
                     self.visiblePickerIndexPath = nil
                     dateCell.setExpanded(false, animated: true)
                 } else {
                     // Collapse the other cell
                     if  self.visiblePickerIndexPath != nil {
-                        let expandedCell: DatePickerCell = self.tableView.cellForRow(at: self.visiblePickerIndexPath!) as! DatePickerCell
+                        guard let expandedCell = self.tableView.cellForRow(at: self.visiblePickerIndexPath!) as? DatePickerCell else {
+                            fatalError("Got the wrong cell type")
+                        }
                         expandedCell.setExpanded(false, animated: true)
                     }
                     self.visiblePickerIndexPath = indexPath
@@ -412,7 +424,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         let mediaType = AVMediaType.video
         let status = AVCaptureDevice.authorizationStatus(for: mediaType)
         
-        if (status == .denied || status == .restricted) {
+        if status == .denied || status == .restricted {
             return false
         }
         
@@ -422,7 +434,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func canAccessPhotos() -> Bool {
         let status = PHPhotoLibrary.authorizationStatus()
         
-        if (status == .denied || status == .restricted) {
+        if status == .denied || status == .restricted {
             return false
         }
         
@@ -443,18 +455,16 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.endEditing(true)
     }
 
-    @objc func thumbnailTapped(_ tap:UITapGestureRecognizer) {
+    @objc func thumbnailTapped(_ tap: UITapGestureRecognizer) {
         self.view.endEditing(true)
         
         let alertController = UIAlertController(
             title: NSLocalizedString("PHOTO_TITLE", comment: "The title of the alert message when tapping the image thumbnail"),
             message: NSLocalizedString("PHOTO_MESSAGE", comment: "The message of the alert message when tapping the image thumbnail"), preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel) { (action) in
-            //
-        }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: nil)
         
-        let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .default) { (action) in
+        let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .default) { _ in
             if self.canAccessCamera() {
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
@@ -466,7 +476,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .default) { (action) in
+        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .default) { _ in
             if self.canAccessPhotos() {
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
@@ -478,21 +488,21 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .default) { (action) in
+        let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .default) { _ in
             
             let deleteController = UIAlertController(
                 title: NSLocalizedString("DELETE_PHOTO_TITLE", comment: "The title of the alert for deleting a photo"),
                 message: NSLocalizedString("DELETE_PHOTO_MESSAGE", comment: "The message of the alert for deleting a photo"),
                 preferredStyle: .actionSheet)
             
-            let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .destructive, handler: { (action) in
+            let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .destructive, handler: { _ in
                 self.shouldDeleteImage = true
 
                 // TODO: Use default image instead
                 self.thumbnailImageView.image = nil
             })
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: { (action) in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: { _ in
                 //
             })
             deleteController.addAction(deleteAction)
@@ -539,10 +549,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Delete adult entries without an assigned contact
         if let adults = baby?.adultsOrdered() {
-            for adult in adults {
-                if adult.contactIdentifier == nil {
-                    baby?.removeAdultsObject(adult)
-                }
+            for adult in adults where adult.contactIdentifier == nil {
+                baby?.removeAdultsObject(adult)
             }
         }
         

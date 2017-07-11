@@ -12,10 +12,10 @@ import UIKit
 
 class Baby: NSManagedObject {
     
-    @NSManaged func addAdultsObject(_ value:Adult)
-    @NSManaged func removeAdultsObject(_ value:Adult)
-    @NSManaged func addGiftsObject(_ value:Gift)
-    @NSManaged func removeGiftsObject(_ value:Gift)
+    @NSManaged func addAdultsObject(_ value: Adult)
+    @NSManaged func removeAdultsObject(_ value: Adult)
+    @NSManaged func addGiftsObject(_ value: Gift)
+    @NSManaged func removeGiftsObject(_ value: Gift)
 
     var color: UIColor {
         get {
@@ -79,20 +79,16 @@ class Baby: NSManagedObject {
     
     var thumbnailImage: UIImage? {
         get {
-            if imageName != nil {
-                // if image exists return it, or else return nil
-                let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                let url = urls[urls.count-1].appendingPathComponent(imageName!)
-                let imageData = try? Data(contentsOf: url)
-                if let _ = imageData {
-                    return UIImage(data: imageData!)
-                } else {
-                    return nil
-                }
-
-            } else {
+            guard let imageName = imageName else {
                 return nil
             }
+            // if image exists return it, or else return nil
+            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let url = urls[urls.count-1].appendingPathComponent(imageName)
+            guard let imageData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            return UIImage(data: imageData)
         }
     }
     

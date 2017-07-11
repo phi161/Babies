@@ -10,7 +10,7 @@ import UIKit
 
 protocol DatePickerCellDelegate: class {
     func datePickerCellDidClear(_ datePickerCell: DatePickerCell)
-    func datePickerCell(_ datePickerCell: DatePickerCell, didSelectDate date:Date)
+    func datePickerCell(_ datePickerCell: DatePickerCell, didSelectDate date: Date)
 }
 
 class DatePickerCell: UITableViewCell, UIPickerViewDelegate {
