@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    
+
     /// Checks if a string is blank (containing whitespaces)
     ///
     /// - Returns: true if the string only contains spaces and/or new lines
@@ -17,7 +17,7 @@ extension String {
         let nonBlankText = self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         return nonBlankText.isEmpty
     }
-    
+
     /// Converts a string to a Double with respect to the decimal separator per region ("." or ",")
     var doubleValue: Double {
         let numberFormatter = NumberFormatter()
@@ -32,5 +32,5 @@ extension String {
         }
         return 0
     }
-    
+
 }

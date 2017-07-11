@@ -16,16 +16,16 @@ protocol EditBabyViewControllerDelegate: class {
 }
 
 extension EditBabyViewController: Scrollable {
-    
+
     internal var scrollView: UIScrollView {
         return self.tableView
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.startObservingKeyboardNotifications()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.stopObservingKeyboardNotifications()
@@ -40,44 +40,44 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     var moc: NSManagedObjectContext?
     var babyObjectId: NSManagedObjectID?
     weak var delegate: EditBabyViewControllerDelegate?
-    
+
     fileprivate var temporaryMoc: NSManagedObjectContext?
     fileprivate var baby: Baby?
     fileprivate var visiblePickerIndexPath: IndexPath?
     fileprivate var selectedIndexPath: IndexPath?
     fileprivate var shouldDeleteImage = false // Used to delete/restore images during save/cancel
-    
+
     enum Section: Int {
         case dates, adults, gifts, notes
     }
-    
+
     enum DateRow: Int {
         case dueDate, birthday
     }
-    
+
     let sectionHeaderTitles = [
         NSLocalizedString("SECTION_TITLE_DATES", comment: "The section title for dates"),
         NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
         NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
         NSLocalizedString("SECTION_TITLE_NOTES", comment: "The section title for notes")
     ]
-    
+
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var familyNameTextField: UITextField!
     @IBOutlet var givenNameTextField: UITextField!
     @IBOutlet var sexSegmentedControl: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
-    
+
 
     // MARK: - Setup
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.backgroundColor = UIColor.red
-        
+
         self.title = NSLocalizedString("NEW_BABY_TITLE", comment: "The title of the new baby view controller")
-        
+
         // Thumbnail Image
         self.thumbnailImageView.isUserInteractionEnabled = true
         self.thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(thumbnailTapped(_:))))
@@ -86,14 +86,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.allowsSelectionDuringEditing = true
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
         self.tableView.register(UINib.init(nibName: "NoteCell", bundle: nil), forCellReuseIdentifier: "NoteCellIdentifier")
-        
+
         self.populateWithBabyProperties()
     }
-    
+
     func populateWithBabyProperties() {
         temporaryMoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         temporaryMoc?.parent = self.moc
-        
+
         if isAddingNewEntity {
             // Create a new baby, empty interface
             guard let newBaby = NSEntityDescription.insertNewObject(forEntityName: "Baby", into: temporaryMoc!) as? Baby else {
@@ -101,30 +101,30 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
             newBaby.sex = 0
             newBaby.imageName = UUID().uuidString
-            
+
             self.baby = newBaby
         } else {
             if let objectId = self.babyObjectId {
                 self.baby = temporaryMoc?.object(with: objectId) as? Baby
             }
         }
-        
+
         // Populate GUI for this baby
         self.familyNameTextField.text = self.baby?.familyName
         self.givenNameTextField.text = self.baby?.givenName
-        
+
         self.thumbnailImageView.image = self.baby?.thumbnailImage
-        
+
         if let sex = self.baby?.sex?.intValue {
             self.sexSegmentedControl.selectedSegmentIndex = sex
         } else {
             self.sexSegmentedControl.selectedSegmentIndex = 0
         }
     }
-    
+
 
     // MARK: - Adults Section
-    
+
     func insertAdult() {
         guard let newAdult = NSEntityDescription.insertNewObject(forEntityName: "Adult", into: self.temporaryMoc!) as? Adult else {
             fatalError("Could not convert to Adult")
@@ -137,7 +137,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.insertRows(at: [IndexPath(row: (self.baby?.adults?.count)!-1, section: Section.adults.rawValue)], with: .fade)
         self.tableView.endUpdates()
     }
-    
+
     func removeAdult(atIndexPath indexPath: IndexPath) {
         if let adult = self.baby?.adultsOrdered()?[indexPath.row] {
             self.baby?.removeAdultsObject(adult)
@@ -146,12 +146,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             print("Attempt to delete the wrong Adult entity")
         }
-        
+
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .automatic)
         self.tableView.endUpdates()
     }
-    
+
     func pickAdultType(_ adultType: AdultType?) {
         if let adultTypePicker: AdultTypeTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AdultTypeViewControllerIdentifier") as? AdultTypeTableViewController {
             let navigationController = UINavigationController(rootViewController: adultTypePicker)
@@ -163,10 +163,10 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.present(navigationController, animated: true, completion: nil)
         }
     }
-    
+
 
     // MARK: - Gifts Section
-    
+
     func insertGift() {
         guard let newGift = NSEntityDescription.insertNewObject(forEntityName: "Gift", into: self.temporaryMoc!) as? Gift else {
             fatalError("Could not convert to Gift")
@@ -181,7 +181,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.insertRows(at: [IndexPath(row: (self.baby?.gifts?.count)!-1, section: Section.gifts.rawValue)], with: .fade)
         self.tableView.endUpdates()
     }
-    
+
     func removeGift(atIndexPath indexPath: IndexPath) {
         if let gift = self.baby?.giftsOrdered()?[indexPath.row] {
             self.baby?.removeGiftsObject(gift)
@@ -189,7 +189,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             print("Attempt to delete the wrong Gift entity")
         }
-        
+
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .automatic)
         self.tableView.endUpdates()
@@ -197,38 +197,38 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     func giftViewController(_ giftViewController: GiftViewController, didFinishWithGift gift: Gift) {
         self.dismiss(animated: true, completion: nil)
-        
+
         self.tableView.reloadSections(IndexSet(integer: Section.gifts.rawValue), with: .automatic)
     }
-    
+
 
     // MARK: - UITableViewDataSource
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionHeaderTitles.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cellData(indexPath: IndexPath(row: 0, section: section)).rows
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionHeaderTitles[section]
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = self.cellData(indexPath: indexPath).identifier
         return tableView.dequeueReusableCell(withIdentifier: identifier)!
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.cellData(indexPath: indexPath).willDisplayConfiguration(cell)
     }
-    
+
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return self.cellData(indexPath: indexPath).canMove
     }
- 
+
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // Set the displayOrder property
         if let adults = self.baby?.adultsOrdered() {
@@ -236,17 +236,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             var adult = updatedOrderedAdults[sourceIndexPath.row]
             updatedOrderedAdults.remove(at: sourceIndexPath.row)
             updatedOrderedAdults.insert(adult, at: destinationIndexPath.row)
-            
+
             var start = sourceIndexPath.row
             if destinationIndexPath.row < start { // moving up
                 start = destinationIndexPath.row
             }
-            
+
             var end = destinationIndexPath.row
             if sourceIndexPath.row > end { // moving down
                 end = sourceIndexPath.row
             }
-            
+
             for index in start...end {
                 adult = updatedOrderedAdults[index]
                 adult.displayOrder = index as NSNumber?
@@ -265,14 +265,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
-    
+
 
     // MARK: - UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(self.cellData(indexPath: indexPath).rowHeight)
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.cellData(indexPath: indexPath).action()
@@ -298,12 +298,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         return self.cellData(indexPath: indexPath).editingStyle
     }
 
-    
+
     // MARK: - UIScrollViewDelegate
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.dismissKeyboard()
-        
+
         if visiblePickerIndexPath != nil {
             guard let dateCell = tableView.cellForRow(at: self.visiblePickerIndexPath!) as? DatePickerCell else {
                 fatalError("Got wrong cell type")
@@ -317,17 +317,17 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     // MARK: - Helpers
-    
+
     func cellData(indexPath: IndexPath) -> CellData {
         var cellData = CellData()
-        
+
         switch indexPath.section {
         case Section.dates.rawValue:
             let dateRowHeight: CGFloat = indexPath == self.visiblePickerIndexPath ? 260 : 44
-            
+
             cellData = CellData(identifier: "DatePickerCellIdentifier", rows: 2, rowHeight: dateRowHeight, selectable: false, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
                 self.view.endEditing(true)
-                
+
                 guard let dateCell = self.tableView.cellForRow(at: indexPath) as? DatePickerCell else {
                     fatalError("Got the wrong cell type")
                 }
@@ -416,31 +416,31 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             break
         }
-        
+
         return cellData
     }
-    
+
     func canAccessCamera() -> Bool {
         let mediaType = AVMediaType.video
         let status = AVCaptureDevice.authorizationStatus(for: mediaType)
-        
+
         if status == .denied || status == .restricted {
             return false
         }
-        
+
         return true
     }
 
     func canAccessPhotos() -> Bool {
         let status = PHPhotoLibrary.authorizationStatus()
-        
+
         if status == .denied || status == .restricted {
             return false
         }
-        
+
         return true
     }
-    
+
     func dismissKeyboard() {
         // Dismiss the keyboard if in note cell
         if let noteCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.notes.rawValue)) as? NoteCell {
@@ -450,20 +450,20 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     // MARK: - Actions
-    
+
     @IBAction func sexChanged(_ sender: AnyObject) {
         self.view.endEditing(true)
     }
 
     @objc func thumbnailTapped(_ tap: UITapGestureRecognizer) {
         self.view.endEditing(true)
-        
+
         let alertController = UIAlertController(
             title: NSLocalizedString("PHOTO_TITLE", comment: "The title of the alert message when tapping the image thumbnail"),
             message: NSLocalizedString("PHOTO_MESSAGE", comment: "The message of the alert message when tapping the image thumbnail"), preferredStyle: .actionSheet)
-        
+
         let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: nil)
-        
+
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .default) { _ in
             if self.canAccessCamera() {
                 let imagePicker = UIImagePickerController()
@@ -475,7 +475,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 print("no camera access")
             }
         }
-        
+
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .default) { _ in
             if self.canAccessPhotos() {
                 let imagePicker = UIImagePickerController()
@@ -487,40 +487,40 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 print("no photos access")
             }
         }
-        
+
         let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .default) { _ in
-            
+
             let deleteController = UIAlertController(
                 title: NSLocalizedString("DELETE_PHOTO_TITLE", comment: "The title of the alert for deleting a photo"),
                 message: NSLocalizedString("DELETE_PHOTO_MESSAGE", comment: "The message of the alert for deleting a photo"),
                 preferredStyle: .actionSheet)
-            
+
             let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .destructive, handler: { _ in
                 self.shouldDeleteImage = true
 
                 // TODO: Use default image instead
                 self.thumbnailImageView.image = nil
             })
-            
+
             let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: { _ in
                 //
             })
             deleteController.addAction(deleteAction)
             deleteController.addAction(cancelAction)
-            
+
             self.present(deleteController, animated: true, completion: nil)
         }
-        
+
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             alertController.addAction(takePhotoAction)
         }
-        
+
         alertController.addAction(choosePhotoAction)
-        
+
         if self.baby?.thumbnailImage != nil || !self.shouldDeleteImage {
             alertController.addAction(deletePhotoAction)
         }
-        
+
         alertController.addAction(cancelAction)
 
         self.present(alertController, animated: true, completion: nil)
@@ -529,7 +529,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         self.dismissKeyboard()
         self.delegate?.editBabyViewController(self, didFinishWithBaby: nil)
-        
+
         // Delete temp image if any
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let tempUrl = urls[urls.count-1].appendingPathComponent("temp.jpg")
@@ -542,18 +542,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
         self.dismissKeyboard()
-        
+
         self.baby?.givenName = self.givenNameTextField.text
         self.baby?.familyName = self.familyNameTextField.text
         self.baby?.sex = self.sexSegmentedControl.selectedSegmentIndex as NSNumber?
-        
+
         // Delete adult entries without an assigned contact
         if let adults = baby?.adultsOrdered() {
             for adult in adults where adult.contactIdentifier == nil {
                 baby?.removeAdultsObject(adult)
             }
         }
-        
+
         if self.shouldDeleteImage { // Delete both temp & original images
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
@@ -576,7 +576,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 } catch {
                     print("could not remove \(url.path)")
                 }
-                
+
                 do {
                     try FileManager.default.moveItem(at: tempUrl, to: url)
                 } catch {
@@ -584,7 +584,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-        
+
         temporaryMoc?.perform({
             do {
                 try self.temporaryMoc?.save()
@@ -601,13 +601,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
                 print("Error for child: \(error)")
             }
         })
-        
+
         self.delegate?.editBabyViewController(self, didFinishWithBaby: self.baby)
     }
-    
+
 
     // MARK: - DatePickerCellDelegate
-    
+
     func datePickerCell(_ datePickerCell: DatePickerCell, didSelectDate date: Date) {
         if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.dueDate.rawValue {
             self.baby?.dueDate = date
@@ -615,14 +615,14 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.baby?.birthday = date
         }
     }
-    
+
     func datePickerCellDidClear(_ datePickerCell: DatePickerCell) {
         if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.dueDate.rawValue {
             self.baby?.dueDate = nil
         } else if (self.visiblePickerIndexPath as NSIndexPath?)?.row == DateRow.birthday.rawValue {
             self.baby?.birthday = nil
         }
-        
+
         if visiblePickerIndexPath != nil {
             datePickerCell.setExpanded(false, animated: true)
             visiblePickerIndexPath = nil
@@ -630,18 +630,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.endUpdates()
         }
     }
-    
+
 
     // MARK: - AdultCellDelegate
-    
+
     func adultCellDidTapTypeButton(_ adultCell: AdultCell) {
         selectedIndexPath = tableView.indexPath(for: adultCell)
-        
+
         if let adult = baby?.adultsOrdered()?[(selectedIndexPath?.row)!] {
             self.pickAdultType(adult.type)
         }
     }
-    
+
     func adultCellDidTapContactButton(_ adultCell: AdultCell) {
         selectedIndexPath = tableView.indexPath(for: adultCell)
         let contactPicker = CNContactPickerViewController()
@@ -652,27 +652,27 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.present(contactPicker, animated: true, completion: nil)
 }
-    
+
 
     // MARK: - CNContactPickerDelegate
-    
+
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         if let indexPath = selectedIndexPath, let adult = baby?.adultsOrdered()?[indexPath.row] {
             adult.familyName = contact.familyName
             adult.givenName = contact.givenName
             adult.contactIdentifier = contact.identifier
-            
+
             self.tableView.reloadSections(IndexSet(integer: Section.adults.rawValue), with: .automatic)
         }
     }
 
-    
+
     // MARK: - AdultTypePickerDelegate
-    
+
     func adultTypePickerDidCancel(_ adultTypePicker: AdultTypeTableViewController) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func adultTypePicker(_ adultTypePicker: AdultTypeTableViewController, didSelectType type: AdultType) {
         self.dismiss(animated: true, completion: nil)
 
@@ -683,13 +683,13 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             self.tableView.reloadSections(IndexSet(integer: Section.adults.rawValue), with: .automatic)
         }
     }
-    
+
 
     // MARK: - UIImagePickerControllerDelegate
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-            
+
             self.shouldDeleteImage = false
 
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -698,8 +698,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
             self.thumbnailImageView.alpha = 0
             self.thumbnailImageView.image = image
-            self.dismiss(animated: true, completion: { 
-                UIView.animate(withDuration: 0.3, animations: { 
+            self.dismiss(animated: true, completion: {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.thumbnailImageView.alpha = 1
                 })
             })

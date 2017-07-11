@@ -1,5 +1,5 @@
-disabled_rules: # rule identifiers to exclude from running
-  - trailing_whitespace
+ # rule identifiers to exclude from running
+ disabled_rules:
   - vertical_whitespace
   - line_length
   - todo

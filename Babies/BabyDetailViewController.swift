@@ -12,50 +12,50 @@ import Contacts
 import ContactsUI
 
 class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
-    
+
     enum Section: Int {
         case adults, gifts, notes
     }
-    
+
     let sectionHeaderTitles = [
         NSLocalizedString("SECTION_TITLE_ADULTS", comment: "The section title for adults"),
         NSLocalizedString("SECTION_TITLE_GIFTS", comment: "The section title for gifts"),
         NSLocalizedString("SECTION_TITLE_NOTES", comment: "The section title for notes")
     ]
-    
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
-    
+
     var baby: Baby?
     var moc: NSManagedObjectContext?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
-        
+
         self.tableView.register(UINib.init(nibName: "GiftCell", bundle: nil), forCellReuseIdentifier: "GiftCellIdentifier")
         self.tableView.register(UINib.init(nibName: "NoteCell", bundle: nil), forCellReuseIdentifier: "NoteCellIdentifier")
-        
+
         tableView.estimatedRowHeight = 100 // Needed for calculating automatically the textView's height
         tableView.tableFooterView = UIView()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else { return }
         self.tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
-    
+
     override func viewDidLayoutSubviews() {
         if baby != nil {
             self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
             self.imageView.image = self.baby!.thumbnailImage
         }
     }
-    
+
     @objc func editButtonTapped(_ sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let editBabyViewController = storyboard.instantiateViewController(withIdentifier: "EditBabyViewControllerId") as? EditBabyViewController {
@@ -67,7 +67,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             editBabyViewController.babyObjectId = self.baby?.objectID
         }
     }
-    
+
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
         self.dismiss(animated: true) {
             DispatchQueue.main.async(execute: {
@@ -80,21 +80,21 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             })
         }
     }
-    
+
     // MARK: - UITableViewDataSource
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionHeaderTitles.count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(self.cellData(indexPath: indexPath).rowHeight)
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cellData(indexPath: IndexPath(row: 0, section: section)).rows
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == Section.gifts.rawValue {
             if (baby?.gifts?.count)! > 0 {
@@ -108,32 +108,32 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return sectionHeaderTitles[section]
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let identifier = self.cellData(indexPath: indexPath).identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.selectionStyle = self.cellData(indexPath: indexPath).selectable == true ? .blue : .none
         cell.accessoryType = self.cellData(indexPath: indexPath).selectable == true ? .disclosureIndicator : .none
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.cellData(indexPath: indexPath).willDisplayConfiguration(cell)
     }
-    
+
     // MARK: - UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.cellData(indexPath: indexPath).action()
     }
-    
+
     // MARK: - Helpers
-    
+
     func cellData(indexPath: IndexPath) -> CellData {
         var cellData = CellData()
-        
+
         switch indexPath.section {
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
@@ -195,7 +195,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         default:
             break
         }
-        
+
         return cellData
     }
 }

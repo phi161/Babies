@@ -15,11 +15,11 @@ extension UIView {
     ///
     /// - Parameter inset: The (equal) inset from the superview's edges
     func pinEdgesToSuperViewEdges(withInset inset: Float = 0) {
-        
+
         guard let superview = self.superview else {
             return
         }
-        
+
         self.translatesAutoresizingMaskIntoConstraints = false
 
         let horizontalVisualFormat = "H:|-\(inset)-[subview]-\(inset)-|"

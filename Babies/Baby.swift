@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 class Baby: NSManagedObject {
-    
+
     @NSManaged func addAdultsObject(_ value: Adult)
     @NSManaged func removeAdultsObject(_ value: Adult)
     @NSManaged func addGiftsObject(_ value: Gift)
@@ -52,20 +52,20 @@ class Baby: NSManagedObject {
             attachment.image = UIImage(named: imageName)
             attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
             let imageString = NSAttributedString(attachment: attachment)
-            
+
             let mutableString = NSMutableAttributedString(attributedString: imageString)
             mutableString.append(NSAttributedString(string: " \(dateString)"))
 
             return mutableString
         }
     }
-    
+
     var adultsStringRepresentation: String {
         get {
             guard let adults = adultsOrdered() else {
                 return ""
             }
-            
+
             var string = ""
             for adult in adults {
                 string += adult.name()
@@ -76,7 +76,7 @@ class Baby: NSManagedObject {
             return string
         }
     }
-    
+
     var thumbnailImage: UIImage? {
         get {
             guard let imageName = imageName else {
@@ -91,7 +91,7 @@ class Baby: NSManagedObject {
             return UIImage(data: imageData)
         }
     }
-    
+
     func fullName() -> String {
         var string: String = ""
         string += self.givenName ?? ""
@@ -99,10 +99,10 @@ class Baby: NSManagedObject {
             string += " "
         }
         string += self.familyName ?? ""
-        
+
         return string
     }
-    
+
     func giftsOrdered() -> [Gift]? {
         if let giftsCount = gifts?.count {
             if giftsCount > 0 {
@@ -114,7 +114,7 @@ class Baby: NSManagedObject {
             return nil
         }
     }
-    
+
     func giftsTotalPrice() -> NSNumber {
         var totalPrice = 0.0
         if let gifts = giftsOrdered() {
@@ -126,7 +126,7 @@ class Baby: NSManagedObject {
         }
         return NSNumber(value: totalPrice)
     }
-    
+
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
             if adultsCount > 0 {
@@ -146,9 +146,9 @@ class Baby: NSManagedObject {
             return "n/a"
         }
     }
-    
+
     func sexString() -> String {
-        
+
         if let s = self.sex?.intValue {
             switch s {
             case 0:
@@ -164,16 +164,16 @@ class Baby: NSManagedObject {
     }
 
     func stringRepresentation() -> String {
-        
+
         // Name
         var string: String = ""
         string += self.familyName ?? "n/a"
         string += ", "
         string += self.givenName ?? "n/a"
-        
+
         // Sex
         string += " [\(self.sexString())]"
-        
+
         // Due date
         string += "\ndue date: "
         if self.dueDate != nil {
@@ -181,7 +181,7 @@ class Baby: NSManagedObject {
         } else {
             string += "n/a"
         }
-        
+
         // Birthday
         string += "\nbirthday: "
         if self.birthday != nil {
@@ -189,7 +189,7 @@ class Baby: NSManagedObject {
         } else {
             string += "n/a"
         }
-        
+
         // Adults
         string += "\n"
         string += "\nadults:\n"
@@ -200,7 +200,7 @@ class Baby: NSManagedObject {
         } else {
             string += "no adults yet"
         }
-        
+
         // Gifts
         string += "\n"
         string += "\nGifts:\n"
@@ -211,7 +211,7 @@ class Baby: NSManagedObject {
         } else {
             string += "no gifts yet"
         }
-        
+
         return string
     }
 
