@@ -6,7 +6,6 @@
   - force_cast
   - type_body_length
   - file_length
-  - implicit_getter
   - function_body_length
   - cyclomatic_complexity
   - discarded_notification_center_observer

@@ -18,78 +18,71 @@ class Baby: NSManagedObject {
     @NSManaged func removeGiftsObject(_ value: Gift)
 
     var color: UIColor {
-        get {
-            if let s = self.sex?.intValue {
-                switch s {
-                case 1:
-                    return UIColor.cyan
-                case 2:
-                    return UIColor.magenta
-                default:
-                    return UIColor.clear
-                }
-            } else {
+        if let s = self.sex?.intValue {
+            switch s {
+            case 1:
+                return UIColor.cyan
+            case 2:
+                return UIColor.magenta
+            default:
                 return UIColor.clear
             }
+        } else {
+            return UIColor.clear
         }
     }
+
     var iconDateStringRepresentation: NSAttributedString {
-        get {
-            var dateString = ""
-            var imageName = ""
-            // Prioritize birthday over due date
-            if birthday != nil {
-                dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
-                imageName = "icon_birthday"
-            } else if dueDate != nil {
-                dateString = DateFormatter.localizedString(from: dueDate!, dateStyle: .long, timeStyle: .none)
-                imageName = "icon_duedate"
-            } else {
-                return NSAttributedString(string: "")
-            }
-
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: imageName)
-            attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
-            let imageString = NSAttributedString(attachment: attachment)
-
-            let mutableString = NSMutableAttributedString(attributedString: imageString)
-            mutableString.append(NSAttributedString(string: " \(dateString)"))
-
-            return mutableString
+        var dateString = ""
+        var imageName = ""
+        // Prioritize birthday over due date
+        if birthday != nil {
+            dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
+            imageName = "icon_birthday"
+        } else if dueDate != nil {
+            dateString = DateFormatter.localizedString(from: dueDate!, dateStyle: .long, timeStyle: .none)
+            imageName = "icon_duedate"
+        } else {
+            return NSAttributedString(string: "")
         }
+
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: imageName)
+        attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
+        let imageString = NSAttributedString(attachment: attachment)
+
+        let mutableString = NSMutableAttributedString(attributedString: imageString)
+        mutableString.append(NSAttributedString(string: " \(dateString)"))
+
+        return mutableString
     }
 
     var adultsStringRepresentation: String {
-        get {
-            guard let adults = adultsOrdered() else {
-                return ""
-            }
-
-            var string = ""
-            for adult in adults {
-                string += adult.name()
-                if adult != adults.last {
-                    string += "\n"
-                }
-            }
-            return string
+        guard let adults = adultsOrdered() else {
+            return ""
         }
+
+        var string = ""
+        for adult in adults {
+            string += adult.name()
+            if adult != adults.last {
+                string += "\n"
+            }
+        }
+        return string
     }
 
     var thumbnailImage: UIImage? {
-        get {
-            guard let imageName = imageName else {
-                return nil
-            }
-            // if image exists return it, or else return nil
-            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let url = urls[urls.count-1].appendingPathComponent(imageName)
-            guard let imageData = try? Data(contentsOf: url) else {
-                return nil
-            }
-            return UIImage(data: imageData)
+        guard let imageName = imageName else {
+            return nil
         }
+        // if image exists return it, or else return nil
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let url = urls[urls.count-1].appendingPathComponent(imageName)
+        guard let imageData = try? Data(contentsOf: url) else {
+            return nil
+        }
+        return UIImage(data: imageData)
     }
 
     func fullName() -> String {

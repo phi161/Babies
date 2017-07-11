@@ -21,18 +21,16 @@ class AdultTypeTableViewController: UITableViewController {
     var managedObjectContext: NSManagedObjectContext?
 
     var adultTypes: [AdultType]? {
-        get {
-            do {
-                let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AdultType")
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: true)]
-                var result: [AdultType]?
-                result = try self.managedObjectContext?.fetch(fetchRequest) as? [AdultType]
-                return result
-            } catch {
-                let fetchError = error as NSError
-                print(fetchError)
-                return nil
-            }
+        do {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AdultType")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: true)]
+            var result: [AdultType]?
+            result = try self.managedObjectContext?.fetch(fetchRequest) as? [AdultType]
+            return result
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+            return nil
         }
     }
 
