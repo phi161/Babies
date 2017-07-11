@@ -35,7 +35,7 @@ extension Scrollable where Self: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
             self.scrollView.contentInset = contentInsets
-            self.scrollView.scrollIndicatorInsets = contentInsets;
+            self.scrollView.scrollIndicatorInsets = contentInsets
 
             guard let tappedView = self.scrollView.hitTest(self.scrollView.panGestureRecognizer.location(in: self.scrollView), with: nil) else {
                 return

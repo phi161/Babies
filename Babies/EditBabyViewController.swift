@@ -35,7 +35,7 @@ extension EditBabyViewController: Scrollable {
 
 class EditBabyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatePickerCellDelegate, AdultCellDelegate, CNContactPickerDelegate, AdultTypePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GiftViewControllerDelegate {
 
-    var adultTypeTransitioningDelegate = AdultTypeTransitioningDelegate()
+    weak var adultTypeTransitioningDelegate = AdultTypeTransitioningDelegate()
     var isAddingNewEntity: Bool = false
     var moc: NSManagedObjectContext?
     var babyObjectId: NSManagedObjectID?

@@ -27,7 +27,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     
-    var baby:Baby? = nil
+    var baby:Baby?
     var moc: NSManagedObjectContext?
     
     override func viewDidLoad() {

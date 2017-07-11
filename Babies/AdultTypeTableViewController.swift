@@ -60,7 +60,7 @@ class AdultTypeTableViewController: UITableViewController {
                 for item in jsonArray {
                     
                     guard let title = item["key"] as? String, let identifier = item["identifier"] as? Int else {
-                        return;
+                        return
                     }
                     
                     let adultType = AdultType(title: title, identifier: identifier, userDefined: false, context: managedObjectContext!)
