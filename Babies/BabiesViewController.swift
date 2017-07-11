@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditBabyViewControllerDelegate {
+class BabiesViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var emptyLabel: UILabel!
@@ -49,60 +49,6 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let indexPath = selectedIndexPath {
             self.tableView.reloadRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    // MARK: - UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return babies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
-            let baby = babies[indexPath.row]
-            cell.thumbnailBackground.backgroundColor = baby.color
-            cell.thumbnail.image = baby.thumbnailImage
-            cell.nameLabel.text = baby.fullName()
-            cell.dateLabel.attributedText = baby.iconDateStringRepresentation
-            cell.adultsLabel.text = baby.adultsStringRepresentation
-            
-            return cell
-        }
-        
-        return UITableViewCell(style: .default, reuseIdentifier: "default")
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.deleteBaby(atIndex: indexPath.row)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let babyDetailViewController = storyboard.instantiateViewController(withIdentifier: "BabyDetailViewControllerId") as? BabyDetailViewController {
-            selectedIndexPath = self.tableView.indexPathForSelectedRow
-            babyDetailViewController.moc = self.moc
-            babyDetailViewController.baby = babies[(selectedIndexPath?.row)!]
-            self.navigationController?.pushViewController(babyDetailViewController, animated: true)
-        }
-    }
-    
-    // MARK: - EditBabyViewControllerDelegate
-    
-    func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
-        checkEmpty()
-        self.dismiss(animated: true) { 
-            self.tableView.reloadData()
         }
     }
     
@@ -162,4 +108,51 @@ class BabiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+}
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension BabiesViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return babies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "BabyCellIdentifier", for: indexPath) as? BabyCell {
+            let baby = babies[indexPath.row]
+            cell.configure(for: baby)
+            return cell
+        }
+        
+        return UITableViewCell(style: .default, reuseIdentifier: "default")
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.deleteBaby(atIndex: indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let babyDetailViewController = storyboard.instantiateViewController(withIdentifier: "BabyDetailViewControllerId") as? BabyDetailViewController {
+            selectedIndexPath = self.tableView.indexPathForSelectedRow
+            babyDetailViewController.moc = self.moc
+            babyDetailViewController.baby = babies[(selectedIndexPath?.row)!]
+            self.navigationController?.pushViewController(babyDetailViewController, animated: true)
+        }
+    }
+}
+
+// MARK: - EditBabyViewControllerDelegate
+extension BabiesViewController: EditBabyViewControllerDelegate {
+    func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?) {
+        checkEmpty()
+        self.dismiss(animated: true) {
+            self.tableView.reloadData()
+        }
+    }
 }
