@@ -152,24 +152,11 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                         } else {
                             DispatchQueue.main.async {
                                 self.tableView.deselectRow(at: indexPath, animated: true)
-                                
-                                // Alert to open app settings
-                                let alertController = UIAlertController (title: "Title", message: "Go to Settings?", preferredStyle: .alert)
-                                
-                                let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
-                                    guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                                        return
-                                    }
-                                    
-                                    if UIApplication.shared.canOpenURL(settingsUrl) {
-                                        UIApplication.shared.openURL(settingsUrl)
-                                    }
-                                }
-                                alertController.addAction(settingsAction)
-                                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-                                alertController.addAction(cancelAction)
-                                
-                                self.present(alertController, animated: true, completion: nil)
+                                let title = NSLocalizedString("OPEN_SETTINGS_TITLE", comment: "The title of the alert for opening settings")
+                                let message = NSLocalizedString("OPEN_SETTINGS_MESSAGE", comment: "The message of the alert for opening settings")
+                                let settingsButton = NSLocalizedString("OPEN_SETTINGS_BUTTON", comment: "The title of the alert button for opening settings")
+                                let cancelButton = NSLocalizedString("OPEN_SETTINGS_CANCEL", comment: "The title of the alert but for cancelling settings")
+                                self.promptToOpenSettings(withTitle: title, message: message, settingsButton: settingsButton, cancelButton: cancelButton)
                             }
                         }
                     }

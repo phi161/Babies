@@ -40,6 +40,7 @@
 		CF9317AA1DE9A8BD00DC5879 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */; };
 		CF9317AE1DEA249200DC5879 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9317AD1DEA249200DC5879 /* String+Utilities.swift */; };
 		CFB098AA1CEAFAFA008C48CF /* AdultTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */; };
+		CFBCC29B1EE0B7710099305C /* UIViewController+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBCC29A1EE0B7710099305C /* UIViewController+Utilities.swift */; };
 		CFD9C56C1CEBC16A00EE3B11 /* adult_types.json in Resources */ = {isa = PBXBuildFile; fileRef = CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */; };
 		CFF6AAE21CC6D100001914BE /* EditBabyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */; };
 		CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */; };
@@ -94,6 +95,7 @@
 		CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		CF9317AD1DEA249200DC5879 /* String+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		CFB098A91CEAFAFA008C48CF /* AdultTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdultTypeTableViewController.swift; sourceTree = "<group>"; };
+		CFBCC29A1EE0B7710099305C /* UIViewController+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utilities.swift"; sourceTree = "<group>"; };
 		CFD9C56B1CEBC16A00EE3B11 /* adult_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adult_types.json; sourceTree = "<group>"; };
 		CFF6AAE11CC6D100001914BE /* EditBabyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBabyViewController.swift; sourceTree = "<group>"; };
 		CFFFBCB81CD2B4EA000EDF12 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				CF9317AD1DEA249200DC5879 /* String+Utilities.swift */,
 				CF9317A91DE9A8BD00DC5879 /* UIView+Autolayout.swift */,
+				CFBCC29A1EE0B7710099305C /* UIViewController+Utilities.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFBCC29B1EE0B7710099305C /* UIViewController+Utilities.swift in Sources */,
 				CFFFBCB91CD2B4EA000EDF12 /* CoreDataStack.swift in Sources */,
 				CF9317AA1DE9A8BD00DC5879 /* UIView+Autolayout.swift in Sources */,
 				CF761AB41CE29D9000CDA9DF /* AdultType.swift in Sources */,
