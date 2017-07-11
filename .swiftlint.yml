@@ -1,0 +1,19 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+  - vertical_whitespace
+  - line_length
+  - todo
+  - force_cast
+  - type_body_length
+  - file_length
+  - colon
+  - implicit_getter
+  - unused_optional_binding
+  - unused_closure_parameter
+  - function_body_length
+  - control_statement
+  - for_where
+  - cyclomatic_complexity
+  - discarded_notification_center_observer
+  - syntactic_sugar
+  
