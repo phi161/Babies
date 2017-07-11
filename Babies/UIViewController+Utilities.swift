@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     func promptToOpenSettings(withTitle title: String, message: String, settingsButton: String, cancelButton: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         let settingsAction = UIAlertAction(title: settingsButton, style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
@@ -22,10 +22,10 @@ extension UIViewController {
             }
         }
         alertController.addAction(settingsAction)
-        
+
         let cancelAction = UIAlertAction(title: cancelButton, style: .default, handler: nil)
         alertController.addAction(cancelAction)
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
 }

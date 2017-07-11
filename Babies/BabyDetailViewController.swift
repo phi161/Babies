@@ -141,7 +141,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     print("adult \(indexPath.row)")
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
-                        
+
                         switch (CNContactStore.authorizationStatus(for: .contacts)) {
                         case .authorized:
                             let adult = self.baby?.adultsOrdered()?[indexPath.row]
@@ -151,9 +151,9 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                             DispatchQueue.main.async {
                                 self.navigationController?.pushViewController(viewController, animated: true)
                             }
-                            break;
+                            break
                         case .notDetermined:
-                            store.requestAccess(for: .contacts, completionHandler: { (granted, error) in
+                            store.requestAccess(for: .contacts, completionHandler: { (granted, _) in
                                 if (granted) {
                                     let adult = self.baby?.adultsOrdered()?[indexPath.row]
                                     let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
@@ -166,8 +166,8 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                                     self.tableView.deselectRow(at: indexPath, animated: true)
                                 }
                             })
-                            break;
-                            
+                            break
+
                         default:
                             DispatchQueue.main.async {
                                 self.tableView.deselectRow(at: indexPath, animated: true)
@@ -177,9 +177,9 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                                 let cancelButton = NSLocalizedString("OPEN_SETTINGS_CANCEL", comment: "The title of the alert but for cancelling settings")
                                 self.promptToOpenSettings(withTitle: title, message: message, settingsButton: settingsButton, cancelButton: cancelButton)
                             }
-                            break;
+                            break
                         }
-                        
+
                     }
                     }, willDisplayConfiguration: { cell in
                         if let adult = self.baby?.adultsOrdered()![indexPath.row] {
