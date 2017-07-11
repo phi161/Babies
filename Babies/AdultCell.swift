@@ -23,9 +23,9 @@ class AdultCell: UITableViewCell {
     @IBAction func typeButtonTapped(_ sender: AnyObject) {
         delegate?.adultCellDidTapTypeButton(self)
     }
-    
+
     @IBAction func contactButtonTapped(_ sender: AnyObject) {
         delegate?.adultCellDidTapContactButton(self)
     }
-    
+
 }

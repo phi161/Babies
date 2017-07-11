@@ -9,23 +9,23 @@
 import UIKit
 
 class AdultTypeTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    
+
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return AdultTypePresentationController(presentedViewController: presented, presenting: presenting)
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return AdultTypeTransitionAnimator()
     }
-    
+
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return AdultTypeTransitionAnimator()
     }
-    
+
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return nil
     }
-    
+
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return nil
     }

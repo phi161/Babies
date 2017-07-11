@@ -11,91 +11,80 @@ import CoreData
 import UIKit
 
 class Baby: NSManagedObject {
-    
-    @NSManaged func addAdultsObject(_ value:Adult)
-    @NSManaged func removeAdultsObject(_ value:Adult)
-    @NSManaged func addGiftsObject(_ value:Gift)
-    @NSManaged func removeGiftsObject(_ value:Gift)
+
+    @NSManaged func addAdultsObject(_ value: Adult)
+    @NSManaged func removeAdultsObject(_ value: Adult)
+    @NSManaged func addGiftsObject(_ value: Gift)
+    @NSManaged func removeGiftsObject(_ value: Gift)
 
     var color: UIColor {
-        get {
-            if let s = self.sex?.intValue {
-                switch s {
-                case 1:
-                    return UIColor.cyan
-                case 2:
-                    return UIColor.magenta
-                default:
-                    return UIColor.clear
-                }
-            } else {
+        if let s = self.sex?.intValue {
+            switch s {
+            case 1:
+                return UIColor.cyan
+            case 2:
+                return UIColor.magenta
+            default:
                 return UIColor.clear
             }
+        } else {
+            return UIColor.clear
         }
     }
+
     var iconDateStringRepresentation: NSAttributedString {
-        get {
-            var dateString = ""
-            var imageName = ""
-            // Prioritize birthday over due date
-            if birthday != nil {
-                dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
-                imageName = "icon_birthday"
-            } else if dueDate != nil {
-                dateString = DateFormatter.localizedString(from: dueDate!, dateStyle: .long, timeStyle: .none)
-                imageName = "icon_duedate"
-            } else {
-                return NSAttributedString(string: "")
-            }
-
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: imageName)
-            attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
-            let imageString = NSAttributedString(attachment: attachment)
-            
-            let mutableString = NSMutableAttributedString(attributedString: imageString)
-            mutableString.append(NSAttributedString(string: " \(dateString)"))
-
-            return mutableString
+        var dateString = ""
+        var imageName = ""
+        // Prioritize birthday over due date
+        if birthday != nil {
+            dateString = DateFormatter.localizedString(from: birthday!, dateStyle: .long, timeStyle: .none)
+            imageName = "icon_birthday"
+        } else if dueDate != nil {
+            dateString = DateFormatter.localizedString(from: dueDate!, dateStyle: .long, timeStyle: .none)
+            imageName = "icon_duedate"
+        } else {
+            return NSAttributedString(string: "")
         }
+
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: imageName)
+        attachment.bounds = CGRect(x: 0, y: -5, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
+        let imageString = NSAttributedString(attachment: attachment)
+
+        let mutableString = NSMutableAttributedString(attributedString: imageString)
+        mutableString.append(NSAttributedString(string: " \(dateString)"))
+
+        return mutableString
     }
-    
+
     var adultsStringRepresentation: String {
-        get {
-            guard let adults = adultsOrdered() else {
-                return ""
-            }
-            
-            var string = ""
-            for adult in adults {
-                string += adult.name()
-                if adult != adults.last {
-                    string += "\n"
-                }
-            }
-            return string
+        guard let adults = adultsOrdered() else {
+            return ""
         }
-    }
-    
-    var thumbnailImage: UIImage? {
-        get {
-            if imageName != nil {
-                // if image exists return it, or else return nil
-                let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                let url = urls[urls.count-1].appendingPathComponent(imageName!)
-                let imageData = try? Data(contentsOf: url)
-                if let _ = imageData {
-                    return UIImage(data: imageData!)
-                } else {
-                    return nil
-                }
 
-            } else {
-                return nil
+        var string = ""
+        for adult in adults {
+            string += adult.name()
+            if adult != adults.last {
+                string += "\n"
             }
         }
+        return string
     }
-    
+
+    var thumbnailImage: UIImage? {
+        guard let imageName = imageName else {
+            return nil
+        }
+        // if image exists return it, or else return nil
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let url = urls[urls.count-1].appendingPathComponent(imageName)
+        guard let imageData = try? Data(contentsOf: url) else {
+            return nil
+        }
+        return UIImage(data: imageData)
+    }
+
     func fullName() -> String {
         var string: String = ""
         string += self.givenName ?? ""
@@ -103,10 +92,10 @@ class Baby: NSManagedObject {
             string += " "
         }
         string += self.familyName ?? ""
-        
+
         return string
     }
-    
+
     func giftsOrdered() -> [Gift]? {
         if let giftsCount = gifts?.count {
             if giftsCount > 0 {
@@ -118,7 +107,7 @@ class Baby: NSManagedObject {
             return nil
         }
     }
-    
+
     func giftsTotalPrice() -> NSNumber {
         var totalPrice = 0.0
         if let gifts = giftsOrdered() {
@@ -130,7 +119,7 @@ class Baby: NSManagedObject {
         }
         return NSNumber(value: totalPrice)
     }
-    
+
     func adultsOrdered() -> [Adult]? {
         if let adultsCount = adults?.count {
             if adultsCount > 0 {
@@ -150,9 +139,9 @@ class Baby: NSManagedObject {
             return "n/a"
         }
     }
-    
+
     func sexString() -> String {
-        
+
         if let s = self.sex?.intValue {
             switch s {
             case 0:
@@ -168,16 +157,16 @@ class Baby: NSManagedObject {
     }
 
     func stringRepresentation() -> String {
-        
+
         // Name
         var string: String = ""
         string += self.familyName ?? "n/a"
         string += ", "
         string += self.givenName ?? "n/a"
-        
+
         // Sex
         string += " [\(self.sexString())]"
-        
+
         // Due date
         string += "\ndue date: "
         if self.dueDate != nil {
@@ -185,7 +174,7 @@ class Baby: NSManagedObject {
         } else {
             string += "n/a"
         }
-        
+
         // Birthday
         string += "\nbirthday: "
         if self.birthday != nil {
@@ -193,7 +182,7 @@ class Baby: NSManagedObject {
         } else {
             string += "n/a"
         }
-        
+
         // Adults
         string += "\n"
         string += "\nadults:\n"
@@ -204,7 +193,7 @@ class Baby: NSManagedObject {
         } else {
             string += "no adults yet"
         }
-        
+
         // Gifts
         string += "\n"
         string += "\nGifts:\n"
@@ -215,7 +204,7 @@ class Baby: NSManagedObject {
         } else {
             string += "no gifts yet"
         }
-        
+
         return string
     }
 

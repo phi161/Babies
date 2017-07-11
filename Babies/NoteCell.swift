@@ -11,14 +11,14 @@ import UIKit
 class NoteCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet var textView: UITextView!
     var baby: Baby?
-    
+
     var editable: Bool = true {
         didSet {
             textView.isEditable = editable
             textView.isScrollEnabled = editable
         }
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if baby?.notes == nil {
             textView.text = ""
@@ -28,13 +28,13 @@ class NoteCell: UITableViewCell, UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         baby?.notes = textView.text
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isBlank() {
             baby?.notes = nil
         }
     }
-    
+
     func updateInterface() {
         if let text = baby?.notes, !text.isBlank() {
             textView.text = text

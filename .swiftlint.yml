@@ -1,0 +1,11 @@
+ # rule identifiers to exclude from running
+ disabled_rules:
+  - vertical_whitespace
+  - line_length
+  - todo
+  - force_cast
+  - type_body_length
+  - file_length
+  - function_body_length
+  - cyclomatic_complexity
+  - discarded_notification_center_observer

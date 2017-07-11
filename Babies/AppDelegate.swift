@@ -15,9 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     // MARK: - App Delegate
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
         let storeURL = self.applicationDocumentsDirectory.appendingPathComponent("Babies.sqlite")
         let modelURL = Bundle.main.url(forResource: "Babies", withExtension: "momd")!
         let coreDataStack = CoreDataStack(storeURL: storeURL, modelURL: modelURL)
@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-    
+
     // MARK: - Helpers
-    
+
     lazy var applicationDocumentsDirectory: URL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
-    
+
 }

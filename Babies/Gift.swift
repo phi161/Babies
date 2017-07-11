@@ -17,9 +17,9 @@ class Gift: NSManagedObject {
         var string: String = ""
         string += self.details ?? "n/a"
         string += " ("
-        string += String(describing: self.price!) 
+        string += String(describing: self.price!)
         string += ") "
-        
+
         if self.date != nil {
             string += DateFormatter.localizedString(from: self.date! as Date, dateStyle: .medium, timeStyle: .none)
         } else {
@@ -28,7 +28,7 @@ class Gift: NSManagedObject {
 
         return string
     }
-    
+
     func detailsString() -> String {
         if let details = self.details {
             return details

@@ -10,15 +10,15 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
-    
+
     var storeURL: URL
     var modelURL: URL
-    
+
     init(storeURL: URL, modelURL: URL) {
         self.storeURL = storeURL
         self.modelURL = modelURL
     }
-    
+
     lazy var managedObjectContext: NSManagedObjectContext = {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
@@ -45,7 +45,7 @@ class CoreDataStack {
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
-        
+
         return coordinator
     }()
 
