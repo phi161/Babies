@@ -56,7 +56,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func editButtonTapped(_ sender: AnyObject) {
+    @objc func editButtonTapped(_ sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let editBabyViewController = storyboard.instantiateViewController(withIdentifier: "EditBabyViewControllerId") as? EditBabyViewController {
             let navigationController = UINavigationController(rootViewController: editBabyViewController)

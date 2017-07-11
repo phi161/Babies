@@ -66,7 +66,7 @@ class GiftViewController: UIViewController {
     
     // MARK: - Actions
     
-    func hideKeyboard() {
+    @objc func hideKeyboard() {
         view.endEditing(true)
     }
     

@@ -409,8 +409,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func canAccessCamera() -> Bool {
-        let mediaType = AVMediaTypeVideo
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: mediaType)
+        let mediaType = AVMediaType.video
+        let status = AVCaptureDevice.authorizationStatus(for: mediaType)
         
         if (status == .denied || status == .restricted) {
             return false
@@ -443,7 +443,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.endEditing(true)
     }
 
-    func thumbnailTapped(_ tap:UITapGestureRecognizer) {
+    @objc func thumbnailTapped(_ tap:UITapGestureRecognizer) {
         self.view.endEditing(true)
         
         let alertController = UIAlertController(
