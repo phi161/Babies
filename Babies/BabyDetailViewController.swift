@@ -142,7 +142,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     DispatchQueue.global(qos: .userInitiated).async {
                         let store = CNContactStore()
 
-                        switch (CNContactStore.authorizationStatus(for: .contacts)) {
+                        switch CNContactStore.authorizationStatus(for: .contacts) {
                         case .authorized:
                             let adult = self.baby?.adultsOrdered()?[indexPath.row]
                             let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
@@ -154,7 +154,7 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                             break
                         case .notDetermined:
                             store.requestAccess(for: .contacts, completionHandler: { (granted, _) in
-                                if (granted) {
+                                if granted {
                                     let adult = self.baby?.adultsOrdered()?[indexPath.row]
                                     let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
                                     let viewController = CNContactViewController(for: contact!)

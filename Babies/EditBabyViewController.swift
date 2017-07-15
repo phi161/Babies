@@ -533,10 +533,12 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         // Delete temp image if any
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let tempUrl = urls[urls.count-1].appendingPathComponent("temp.jpg")
-        do {
-            try FileManager.default.removeItem(at: tempUrl)
-        } catch {
-            print(error)
+        if FileManager.default.fileExists(atPath: tempUrl.path) {
+            do {
+                try FileManager.default.removeItem(at: tempUrl)
+            } catch {
+                print(error)
+            }
         }
     }
 
@@ -554,16 +556,26 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
 
-        if self.shouldDeleteImage { // Delete both temp & original images
+        if self.shouldDeleteImage {
+            // Delete both temp & original images
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
-            let tempUrl = urls[urls.count-1].appendingPathComponent("temp.jpg")
 
-            do {
-                try FileManager.default.removeItem(at: url)
-                try FileManager.default.removeItem(at: tempUrl)
-            } catch {
-                print(error)
+            let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
+            if FileManager.default.fileExists(atPath: url.path) {
+                do {
+                    try FileManager.default.removeItem(at: url)
+                } catch {
+                    print("could not remove \(url.path)")
+                }
+            }
+
+            let tempUrl = urls[urls.count-1].appendingPathComponent("temp.jpg")
+            if FileManager.default.fileExists(atPath: tempUrl.path) {
+                do {
+                    try FileManager.default.removeItem(at: tempUrl)
+                } catch {
+                    print("could not remove \(tempUrl.path)")
+                }
             }
         } else { // If there is a temp image, delete "baby.imageName" and rename temp to "baby.imageName"
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -571,16 +583,20 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
             if FileManager.default.fileExists(atPath: tempUrl.path) {
                 let url = urls[urls.count-1].appendingPathComponent((self.baby?.imageName)!)
-                do {
-                    try FileManager.default.removeItem(at: url)
-                } catch {
-                    print("could not remove \(url.path)")
+                // If a baby image exists already, delete it
+                if FileManager.default.fileExists(atPath: url.path) {
+                    do {
+                        try FileManager.default.removeItem(at: url)
+                    } catch {
+                        print("could not remove \(url.path)")
+                    }
                 }
 
+                // Set the temp image as the new baby's image
                 do {
                     try FileManager.default.moveItem(at: tempUrl, to: url)
                 } catch {
-                    print(error)
+                    print("could not copy temp image to baby image.\nReason: \(error)")
                 }
             }
         }
