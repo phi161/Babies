@@ -46,6 +46,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     fileprivate var visiblePickerIndexPath: IndexPath?
     fileprivate var selectedIndexPath: IndexPath?
     fileprivate var shouldDeleteImage = false // Used to delete/restore images during save/cancel
+    fileprivate var shouldDisplayUserSelectedImage = false // Used to select the right image based on sex
 
     enum Section: Int {
         case dates, adults, gifts, notes
@@ -92,7 +93,7 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     func populateWithBabyProperties() {
         temporaryMoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        temporaryMoc?.parent = self.moc
+        temporaryMoc?.parent = moc
 
         if isAddingNewEntity {
             // Create a new baby, empty interface
@@ -102,23 +103,29 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
             newBaby.sex = 0
             newBaby.imageName = UUID().uuidString
 
-            self.baby = newBaby
+            baby = newBaby
         } else {
             if let objectId = self.babyObjectId {
-                self.baby = temporaryMoc?.object(with: objectId) as? Baby
+                baby = temporaryMoc?.object(with: objectId) as? Baby
             }
         }
 
         // Populate GUI for this baby
-        self.familyNameTextField.text = self.baby?.familyName
-        self.givenNameTextField.text = self.baby?.givenName
+        familyNameTextField.text = baby?.familyName
+        givenNameTextField.text = baby?.givenName
 
-        self.thumbnailImageView.image = self.baby?.thumbnailImage
-
-        if let sex = self.baby?.sex?.intValue {
-            self.sexSegmentedControl.selectedSegmentIndex = sex
+        if baby?.thumbnailImage == nil {
+            shouldDisplayUserSelectedImage = false
+            thumbnailImageView.image = baby?.defaultThumbnailImage
         } else {
-            self.sexSegmentedControl.selectedSegmentIndex = 0
+            shouldDisplayUserSelectedImage = true
+            thumbnailImageView.image = baby?.thumbnailImage
+        }
+
+        if let sex = baby?.sex?.intValue {
+            sexSegmentedControl.selectedSegmentIndex = sex
+        } else {
+            sexSegmentedControl.selectedSegmentIndex = 0
         }
     }
 
@@ -451,8 +458,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
     // MARK: - Actions
 
-    @IBAction func sexChanged(_ sender: AnyObject) {
-        self.view.endEditing(true)
+    @IBAction func sexChanged(_ sender: UISegmentedControl) {
+        if !shouldDisplayUserSelectedImage {
+            switch sender.selectedSegmentIndex {
+            case 1:
+                thumbnailImageView.image = #imageLiteral(resourceName: "default-boy-small")
+            case 2:
+                thumbnailImageView.image = #imageLiteral(resourceName: "default-girl-small")
+            default:
+                thumbnailImageView.image = #imageLiteral(resourceName: "default-small")
+            }
+        }
+        view.endEditing(true)
     }
 
     @objc func thumbnailTapped(_ tap: UITapGestureRecognizer) {
@@ -497,9 +514,18 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
 
             let deleteAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .destructive, handler: { _ in
                 self.shouldDeleteImage = true
+                self.shouldDisplayUserSelectedImage = false
 
-                // TODO: Use default image instead
-                self.thumbnailImageView.image = nil
+                // Change the image based on the current selection of the segmented control
+                // We can't use self.baby.defaultThumbnailImage since it's value is not in sync with the GUI yet
+                switch self.sexSegmentedControl.selectedSegmentIndex {
+                case 1:
+                    self.thumbnailImageView.image = #imageLiteral(resourceName: "default-boy-small")
+                case 2:
+                    self.thumbnailImageView.image = #imageLiteral(resourceName: "default-girl-small")
+                default:
+                    self.thumbnailImageView.image = #imageLiteral(resourceName: "default-small")
+                }
             })
 
             let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: { _ in
@@ -706,7 +732,8 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
 
-            self.shouldDeleteImage = false
+            shouldDeleteImage = false
+            shouldDisplayUserSelectedImage = true
 
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let url = urls[urls.count-1].appendingPathComponent("temp.jpg")
