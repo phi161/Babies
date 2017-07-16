@@ -50,9 +50,9 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     override func viewDidLayoutSubviews() {
-        if baby != nil {
-            self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
-            self.imageView.image = self.baby!.thumbnailImage
+        if let baby = baby {
+            self.nameLabel.text = "\(baby.fullName())\n\(baby.birthdayString())"
+            self.imageView.image = baby.thumbnailImage ?? baby.defaultThumbnailImage
         }
     }
 
