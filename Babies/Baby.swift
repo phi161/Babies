@@ -72,6 +72,20 @@ class Baby: NSManagedObject {
         return string
     }
 
+    var defaultThumbnailImage: UIImage {
+        if let sex = sex?.intValue {
+            switch sex {
+            case 1:
+                return #imageLiteral(resourceName: "default-boy-small")
+            case 2:
+                return #imageLiteral(resourceName: "default-girl-small")
+            default:
+                return #imageLiteral(resourceName: "default-small")
+            }
+        }
+        return #imageLiteral(resourceName: "default-small")
+    }
+
     var thumbnailImage: UIImage? {
         guard let imageName = imageName else {
             return nil
