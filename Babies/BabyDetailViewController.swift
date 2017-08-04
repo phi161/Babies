@@ -50,9 +50,9 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     override func viewDidLayoutSubviews() {
-        if baby != nil {
-            self.nameLabel.text = "\(self.baby!.fullName())\n\(self.baby!.birthdayString())"
-            self.imageView.image = self.baby!.thumbnailImage
+        if let baby = baby {
+            self.nameLabel.text = "\(baby.fullName())\n\(baby.birthdayString())"
+            self.imageView.image = baby.thumbnailImage ?? baby.defaultThumbnailImage
         }
     }
 
@@ -138,12 +138,10 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         case Section.adults.rawValue:
             if let adultsCount = self.baby?.adults?.count, adultsCount > 0 {
                 cellData = CellData(identifier: "generic", rows: adultsCount, rowHeight: 60, selectable: true, canMove: false, shouldIndentWhileEditing: false, editingStyle: .none, action: {
-                    print("adult \(indexPath.row)")
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        let store = CNContactStore()
-
-                        switch (CNContactStore.authorizationStatus(for: .contacts)) {
-                        case .authorized:
+                    let permission = Permission()
+                    permission.requestPermission(for: .contacts, withSettings: true, completion: { (granted) in
+                        if granted {
+                            let store = CNContactStore()
                             let adult = self.baby?.adultsOrdered()?[indexPath.row]
                             let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
                             let viewController = CNContactViewController(for: contact!)
@@ -151,36 +149,12 @@ class BabyDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                             DispatchQueue.main.async {
                                 self.navigationController?.pushViewController(viewController, animated: true)
                             }
-                            break
-                        case .notDetermined:
-                            store.requestAccess(for: .contacts, completionHandler: { (granted, _) in
-                                if (granted) {
-                                    let adult = self.baby?.adultsOrdered()?[indexPath.row]
-                                    let contact = try? store.unifiedContact(withIdentifier: (adult?.contactIdentifier)!, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
-                                    let viewController = CNContactViewController(for: contact!)
-                                    viewController.contactStore = store
-                                    DispatchQueue.main.async {
-                                        self.navigationController?.pushViewController(viewController, animated: true)
-                                    }
-                                } else {
-                                    self.tableView.deselectRow(at: indexPath, animated: true)
-                                }
-                            })
-                            break
-
-                        default:
+                        } else {
                             DispatchQueue.main.async {
                                 self.tableView.deselectRow(at: indexPath, animated: true)
-                                let title = NSLocalizedString("OPEN_SETTINGS_TITLE", comment: "The title of the alert for opening settings")
-                                let message = NSLocalizedString("OPEN_SETTINGS_MESSAGE", comment: "The message of the alert for opening settings")
-                                let settingsButton = NSLocalizedString("OPEN_SETTINGS_BUTTON", comment: "The title of the alert button for opening settings")
-                                let cancelButton = NSLocalizedString("OPEN_SETTINGS_CANCEL", comment: "The title of the alert but for cancelling settings")
-                                self.promptToOpenSettings(withTitle: title, message: message, settingsButton: settingsButton, cancelButton: cancelButton)
                             }
-                            break
                         }
-
-                    }
+                    })
                     }, willDisplayConfiguration: { cell in
                         if let adult = self.baby?.adultsOrdered()![indexPath.row] {
                             cell.textLabel?.text = adult.name()

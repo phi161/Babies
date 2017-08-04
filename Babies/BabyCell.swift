@@ -21,7 +21,7 @@ class BabyCell: UITableViewCell {
 extension BabyCell {
     func configure(for baby: Baby) {
         thumbnailBackground.backgroundColor = baby.color
-        thumbnail.image = baby.thumbnailImage
+        thumbnail.image = baby.thumbnailImage ?? baby.defaultThumbnailImage
         nameLabel.text = baby.fullName()
         dateLabel.attributedText = baby.iconDateStringRepresentation
         adultsLabel.text = baby.adultsStringRepresentation
