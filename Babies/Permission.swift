@@ -94,10 +94,7 @@ class Permission {
                     completion(false)
                 })
                 alertController.addAction(cancelAction)
-
-                if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-                    rootVC.present(alertController, animated: true, completion: nil)
-                }
+                UIApplication.shared.presentViewController(alertController)
             } else {
                 completion(false)
             }
@@ -128,5 +125,21 @@ class Permission {
                 })
             }
         }
+    }
+}
+
+extension UIApplication {
+    fileprivate var topViewController: UIViewController? {
+        var vc = delegate?.window??.rootViewController
+        
+        while let presentedVC = vc?.presentedViewController {
+            vc = presentedVC
+        }
+        
+        return vc
+    }
+    
+    internal func presentViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        topViewController?.present(viewController, animated: animated, completion: completion)
     }
 }
