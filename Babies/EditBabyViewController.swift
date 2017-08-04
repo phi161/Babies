@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import ContactsUI
-import Photos
 
 protocol EditBabyViewControllerDelegate: class {
     func editBabyViewController(_ editBabyViewController: EditBabyViewController, didFinishWithBaby baby: Baby?)
@@ -427,27 +426,6 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         return cellData
     }
 
-    func canAccessCamera() -> Bool {
-        let mediaType = AVMediaType.video
-        let status = AVCaptureDevice.authorizationStatus(for: mediaType)
-
-        if status == .denied || status == .restricted {
-            return false
-        }
-
-        return true
-    }
-
-    func canAccessPhotos() -> Bool {
-        let status = PHPhotoLibrary.authorizationStatus()
-
-        if status == .denied || status == .restricted {
-            return false
-        }
-
-        return true
-    }
-
     func dismissKeyboard() {
         // Dismiss the keyboard if in note cell
         if let noteCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.notes.rawValue)) as? NoteCell {
@@ -482,27 +460,33 @@ class EditBabyViewController: UIViewController, UITableViewDelegate, UITableView
         let cancelAction = UIAlertAction(title: NSLocalizedString("PHOTO_CANCEL", comment: "The title of the cancel option when tapping the image thumbnail"), style: .cancel, handler: nil)
 
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_TAKE", comment: "The title of the camera option when tapping the image thumbnail"), style: .default) { _ in
-            if self.canAccessCamera() {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .camera
-                imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true, completion: nil)
-            } else {
-                print("no camera access")
-            }
+            let permission = Permission()
+            permission.requestPermission(for: .camera, withSettings: true, completion: { (granted) in
+                if granted {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.sourceType = .camera
+                    imagePicker.allowsEditing = true
+                    DispatchQueue.main.async {
+                        self.present(imagePicker, animated: true, completion: nil)
+                    }
+                }
+            })
         }
 
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_CHOOSE", comment: "The title of the library option when tapping the image thumbnail"), style: .default) { _ in
-            if self.canAccessPhotos() {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true, completion: nil)
-            } else {
-                print("no photos access")
-            }
+            let p = Permission()
+            p.requestPermission(for: .photos, withSettings: true, completion: { (granted) in
+                if granted {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.sourceType = .photoLibrary
+                    imagePicker.allowsEditing = true
+                    DispatchQueue.main.async {
+                        self.present(imagePicker, animated: true, completion: nil)
+                    }
+                }
+            })
         }
 
         let deletePhotoAction = UIAlertAction(title: NSLocalizedString("PHOTO_DELETE", comment: "The title of the delete option when tapping the image thumbnail"), style: .default) { _ in
