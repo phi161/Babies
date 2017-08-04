@@ -17,6 +17,7 @@
 		72915EED1CF858E10051D671 /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72915EEB1CF858E10051D671 /* GiftViewController.xib */; };
 		72915EEF1CF890EF0051D671 /* GiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72915EEE1CF890EF0051D671 /* GiftCell.swift */; };
 		AD02A0DD1EDC49670031AEC8 /* BabiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02A0DC1EDC49670031AEC8 /* BabiesTests.swift */; };
+		AD80941C1F34507500B8F664 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80941B1F34507500B8F664 /* Permission.swift */; };
 		CF0394451DB92557006D3CB6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0394441DB92557006D3CB6 /* CellData.swift */; };
 		CF083E241DEB8C9400EA0BF8 /* BabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF083E221DEB8C9400EA0BF8 /* BabyCell.swift */; };
 		CF083E251DEB8C9400EA0BF8 /* BabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */; };
@@ -72,6 +73,7 @@
 		AD02A0DA1EDC49670031AEC8 /* BabiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD02A0DC1EDC49670031AEC8 /* BabiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabiesTests.swift; sourceTree = "<group>"; };
 		AD02A0DE1EDC49670031AEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD80941B1F34507500B8F664 /* Permission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
 		CF0394441DB92557006D3CB6 /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		CF083E221DEB8C9400EA0BF8 /* BabyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyCell.swift; sourceTree = "<group>"; };
 		CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyCell.xib; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				72915EEE1CF890EF0051D671 /* GiftCell.swift */,
 				72915EEA1CF858E10051D671 /* GiftViewController.swift */,
 				CF1CD7F31DB7B396000F863D /* NoteCell.swift */,
+				AD80941B1F34507500B8F664 /* Permission.swift */,
 				CF84F6D51DB3A065007C84BE /* Scrolling.swift */,
 				7281D4681CB69A5A00713321 /* Assets.xcassets */,
 				CF083E231DEB8C9400EA0BF8 /* BabyCell.xib */,
@@ -349,6 +352,7 @@
 				CF4817F31DE46E100093B0F6 /* AdultTypeTransitioningDelegate.swift in Sources */,
 				CF0394451DB92557006D3CB6 /* CellData.swift in Sources */,
 				CF48459E1CC0272F000BED2A /* Gift+CoreDataProperties.swift in Sources */,
+				AD80941C1F34507500B8F664 /* Permission.swift in Sources */,
 				CF1CD7F41DB7B396000F863D /* NoteCell.swift in Sources */,
 				CF3C87C71CCD680E00FAA5FE /* DatePickerCell.swift in Sources */,
 				CF4817F51DE46E650093B0F6 /* AdultTypePresentationController.swift in Sources */,
