@@ -33,15 +33,16 @@ class AdultTypeTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
 
             UIView.animate(withDuration: animationDuration, animations: {
                 toViewController.view.frame.origin.y = 0
-            }) { (finished) in
+            }, completion: { (finished) in
                 transitionContext.completeTransition(finished)
-            }
+            })
+
         } else {
             UIView.animate(withDuration: animationDuration, animations: {
                 fromViewController.view.frame.origin.y = toViewController.view.frame.size.height
-            }) { _ in
+            }, completion: { _ in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
+            })
         }
     }
 
