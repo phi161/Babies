@@ -14,6 +14,7 @@
 		CF22FA3823C246C40032B5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF22FA3723C246C40032B5B5 /* Assets.xcassets */; };
 		CF22FA3B23C246C40032B5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF22FA3923C246C40032B5B5 /* LaunchScreen.storyboard */; };
 		CF58464B23CBB79E004CB84C /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF58464A23CBB79E004CB84C /* Baby.swift */; };
+		CF58464D23CCD39B004CB84C /* BabyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF58464C23CCD39B004CB84C /* BabyProvider.swift */; };
 		CFB12E3F23C3D54700EF361C /* BabyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB12E3D23C3D54700EF361C /* BabyListViewController.swift */; };
 		CFB12E4023C3D54700EF361C /* BabyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFB12E3E23C3D54700EF361C /* BabyListViewController.xib */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		CF22FA3A23C246C40032B5B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF22FA3C23C246C40032B5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF58464A23CBB79E004CB84C /* Baby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Baby.swift; sourceTree = "<group>"; };
+		CF58464C23CCD39B004CB84C /* BabyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProvider.swift; sourceTree = "<group>"; };
 		CFB12E3D23C3D54700EF361C /* BabyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyListViewController.swift; sourceTree = "<group>"; };
 		CFB12E3E23C3D54700EF361C /* BabyListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BabyListViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 			children = (
 				CF22FA3023C246C10032B5B5 /* AppDelegate.swift */,
 				CF58464A23CBB79E004CB84C /* Baby.swift */,
+				CF58464C23CCD39B004CB84C /* BabyProvider.swift */,
 				CFB12E3D23C3D54700EF361C /* BabyListViewController.swift */,
 				CFB12E3E23C3D54700EF361C /* BabyListViewController.xib */,
 				CF22FA3923C246C40032B5B5 /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 			files = (
 				CFB12E3F23C3D54700EF361C /* BabyListViewController.swift in Sources */,
 				CF22FA3323C246C10032B5B5 /* ViewController.swift in Sources */,
+				CF58464D23CCD39B004CB84C /* BabyProvider.swift in Sources */,
 				CF22FA3123C246C10032B5B5 /* AppDelegate.swift in Sources */,
 				CF58464B23CBB79E004CB84C /* Baby.swift in Sources */,
 			);
