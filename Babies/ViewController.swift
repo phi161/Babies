@@ -15,5 +15,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func buttonTapped(_ sender: Any) {
+        showBabyListViewController()
+    }
+
+    private func showBabyListViewController() {
+        let vc = BabyListViewController(nibName: nil, bundle: nil)
+        present(vc, animated: true, completion: nil)
+    }
+
 
 }

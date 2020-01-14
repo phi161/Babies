@@ -18,18 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbH-D5-HNx">
-                                <rect key="frame" x="183" y="430" width="48" height="36"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaq-ew-hB2">
+                                <rect key="frame" x="192" y="438" width="30" height="30"/>
+                                <state key="normal" title="tap"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9t-Zw-95W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="mbH-D5-HNx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="183" id="EHe-p7-4sf"/>
-                            <constraint firstItem="mbH-D5-HNx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xny-Eh-1jr"/>
-                            <constraint firstItem="mbH-D5-HNx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yjD-mh-TGD"/>
+                            <constraint firstItem="yaq-ew-hB2" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="E0J-fn-bhL"/>
+                            <constraint firstItem="yaq-ew-hB2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZQN-RZ-A2K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
